@@ -10,3 +10,7 @@ Source/Managed/Tests/obj
 Source/Native/Binaries
 Source/Native/Intermediate
 Source/Native/Managed
+*.lock
+Source/Managed/Tests/.vs
+Source/Managed/Framework/.vs
+*.sln
