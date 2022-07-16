@@ -520,7 +520,7 @@ namespace UnrealCLRFramework {
 
 	namespace Object {
 		bool IsPendingKill(UObject* Object) {
-			return ::IsValid(Object);
+			return !::IsValid(Object);
 		}
 
 		bool IsValid(UObject* Object) {
