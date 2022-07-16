@@ -424,7 +424,7 @@ namespace UnrealCLRFramework {
 	static_assert(BlendType::VTBlend_MAX == BlendType(UNREALCLR_BLEND_TYPE), "Invalid elements count of the [BlendType] enumeration");
 	static_assert(CollisionChannel::ECC_MAX == CollisionChannel(33), "Invalid elements count of the [CollisionChannel] enumeration");
 	static_assert(CollisionResponse::ECR_MAX == CollisionResponse(3), "Invalid elements count of the [CollisionResponse] enumeration");
-	static_assert(ControllerHand::ControllerHand_Count == ControllerHand(UNREALCLR_BOUNDS_SIZE), "Invalid elements count of the [ControllerHand] enumeration");
+	static_assert(ControllerHand::ControllerHand_Count == ControllerHand(UNREALCLR_CONTROLLER_HAND), "Invalid elements count of the [ControllerHand] enumeration");
 	static_assert(InputEvent::IE_MAX == InputEvent(5), "Invalid elements count of the [InputEvent] enumeration");
 	static_assert(NetMode::NM_MAX == NetMode(4), "Invalid elements count of the [NetMode] enumeration");
 	static_assert(PixelFormat::PF_MAX == PixelFormat(UNREALCLR_PIXEL_FORMAT), "Invalid elements count of the [PixelFormat] enumeration");
@@ -520,11 +520,11 @@ namespace UnrealCLRFramework {
 
 	namespace Object {
 		bool IsPendingKill(UObject* Object) {
-			return Object->IsPendingKill();
+			return ::IsValid(Object);
 		}
 
 		bool IsValid(UObject* Object) {
-			return Object->IsValidLowLevel();
+			return ::IsValid(Object);
 		}
 
 		UObject* Load(ObjectType Type, const char* Name) {
