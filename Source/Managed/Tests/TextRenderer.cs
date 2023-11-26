@@ -20,8 +20,8 @@ public class TextRenderer : ISystem
         textRenderComponent.SetTextMaterial(material);
         textRenderComponent.SetText("WELCOME TO THE WORLD");
         textRenderComponent.SetHorizontalSpacingAdjustment(2.0f);
-        textRenderComponent.SetHorizontalAlignment(HorizontalTextAligment.Center);
-        textRenderComponent.SetVerticalAlignment(VerticalTextAligment.Center);
+        textRenderComponent.SetHorizontalAlignment(HorizontalTextAlignment.Center);
+        textRenderComponent.SetVerticalAlignment(VerticalTextAlignment.Center);
         textRenderComponent.SetWorldLocation(new Vector3(200.0f, 0.0f, 0.0f));
         textRenderComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 180.0f));
     }

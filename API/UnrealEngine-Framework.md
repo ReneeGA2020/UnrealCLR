@@ -113,7 +113,7 @@
 - [ComponentMobility](./ComponentMobility.md 'UnrealEngine.Framework.ComponentMobility')
 - [ControllerHand](./ControllerHand.md 'UnrealEngine.Framework.ControllerHand')
 - [DetachmentTransformRule](./DetachmentTransformRule.md 'UnrealEngine.Framework.DetachmentTransformRule')
-- [HorizontalTextAligment](./HorizontalTextAligment.md 'UnrealEngine.Framework.HorizontalTextAligment')
+- [HorizontalTextAlignment](./HorizontalTextAlignment.md 'UnrealEngine.Framework.HorizontalTextAlignment')
 - [InputEvent](./InputEvent.md 'UnrealEngine.Framework.InputEvent')
 - [LogLevel](./LogLevel.md 'UnrealEngine.Framework.LogLevel')
 - [NetMode](./NetMode.md 'UnrealEngine.Framework.NetMode')
@@ -123,7 +123,7 @@
 - [SplinePointType](./SplinePointType.md 'UnrealEngine.Framework.SplinePointType')
 - [TeleportType](./TeleportType.md 'UnrealEngine.Framework.TeleportType')
 - [UpdateTransformFlags](./UpdateTransformFlags.md 'UnrealEngine.Framework.UpdateTransformFlags')
-- [VerticalTextAligment](./VerticalTextAligment.md 'UnrealEngine.Framework.VerticalTextAligment')
+- [VerticalTextAlignment](./VerticalTextAlignment.md 'UnrealEngine.Framework.VerticalTextAlignment')
 - [WindowMode](./WindowMode.md 'UnrealEngine.Framework.WindowMode')
 ### Delegates
 - [ActorCursorDelegate(UnrealEngine.Framework.ActorReference)](./ActorCursorDelegate(ActorReference).md 'UnrealEngine.Framework.ActorCursorDelegate(UnrealEngine.Framework.ActorReference)')

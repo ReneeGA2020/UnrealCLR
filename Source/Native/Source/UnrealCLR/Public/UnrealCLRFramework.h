@@ -42,12 +42,12 @@ namespace UnrealCLRFramework {
 	using CollisionChannel = ECollisionChannel;
 	using CollisionResponse = ECollisionResponse;
 	using ControllerHand = EControllerHand;
-	using HorizontalTextAligment = EHorizTextAligment;
+	using HorizontalTextAlignment = EHorizTextAligment;
 	using InputEvent = EInputEvent;
 	using NetMode = ENetMode;
 	using PixelFormat = EPixelFormat;
 	using TeleportType = ETeleportType;
-	using VerticalTextAligment = EVerticalTextAligment;
+	using VerticalTextAlignment = EVerticalTextAligment;
 	using PlaneConstraintAxis = EPlaneConstraintAxisSetting;
 
 	using Bounds = FBoxSphereBounds;
@@ -1067,9 +1067,9 @@ namespace UnrealCLRFramework {
 		static void SetText(UTextRenderComponent* TextRenderComponent, const char* Value);
 		static void SetTextMaterial(UTextRenderComponent* TextRenderComponent, UMaterialInterface* Material);
 		static void SetTextRenderColor(UTextRenderComponent* TextRenderComponent, Color Value);
-		static void SetHorizontalAlignment(UTextRenderComponent* TextRenderComponent, HorizontalTextAligment Value);
+		static void SetHorizontalAlignment(UTextRenderComponent* TextRenderComponent, HorizontalTextAlignment Value);
 		static void SetHorizontalSpacingAdjustment(UTextRenderComponent* TextRenderComponent, float Value);
-		static void SetVerticalAlignment(UTextRenderComponent* TextRenderComponent, VerticalTextAligment Value);
+		static void SetVerticalAlignment(UTextRenderComponent* TextRenderComponent, VerticalTextAlignment Value);
 		static void SetVerticalSpacingAdjustment(UTextRenderComponent* TextRenderComponent, float Value);
 		static void SetScale(UTextRenderComponent* TextRenderComponent, const Vector2* Value);
 		static void SetWorldSize(UTextRenderComponent* TextRenderComponent, float Value);

@@ -3437,7 +3437,7 @@ namespace UnrealCLRFramework {
 			TextRenderComponent->SetTextRenderColor(Value);
 		}
 
-		void SetHorizontalAlignment(UTextRenderComponent* TextRenderComponent, HorizontalTextAligment Value) {
+		void SetHorizontalAlignment(UTextRenderComponent* TextRenderComponent, HorizontalTextAlignment Value) {
 			TextRenderComponent->SetHorizontalAlignment(Value);
 		}
 
@@ -3445,7 +3445,7 @@ namespace UnrealCLRFramework {
 			TextRenderComponent->SetHorizSpacingAdjust(Value);
 		}
 
-		void SetVerticalAlignment(UTextRenderComponent* TextRenderComponent, VerticalTextAligment Value) {
+		void SetVerticalAlignment(UTextRenderComponent* TextRenderComponent, VerticalTextAlignment Value) {
 			TextRenderComponent->SetVerticalAlignment(Value);
 		}
 
