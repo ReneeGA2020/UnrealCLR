@@ -30,7 +30,7 @@
 
 #include "AIController.h"
 #include "Animation/AnimInstance.h"
-#include "AssetRegistryModule.h"
+#include "AssetRegistry/AssetRegistryModule.h"
 #include "Camera/CameraActor.h"
 #include "Camera/CameraComponent.h"
 #include "Components/AudioComponent.h"
@@ -69,8 +69,7 @@
 #include "GameFramework/PlayerInput.h"
 #include "GameFramework/RotatingMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
-#include "IAssetRegistry.h"
+#include "AssetRegistry/IAssetRegistry.h"
 #include "ImageUtils.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Misc/DefaultValueHelper.h"

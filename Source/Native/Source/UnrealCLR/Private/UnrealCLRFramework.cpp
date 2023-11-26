@@ -396,7 +396,7 @@ namespace UnrealCLRFramework {
 			#define UNREALCLR_PIXEL_FORMAT 72
 		#endif
 	#elif ENGINE_MAJOR_VERSION == 5
-		#define UNREALCLR_PIXEL_FORMAT 72
+		#define UNREALCLR_PIXEL_FORMAT 92
 		#define UNREALCLR_BLEND_TYPE 6
 	#endif
 
@@ -404,12 +404,12 @@ namespace UnrealCLRFramework {
 	static_assert(BlendType::VTBlend_MAX == BlendType(UNREALCLR_BLEND_TYPE), "Invalid elements count of the [BlendType] enumeration");
 	static_assert(CollisionChannel::ECC_MAX == CollisionChannel(33), "Invalid elements count of the [CollisionChannel] enumeration");
 	static_assert(CollisionResponse::ECR_MAX == CollisionResponse(3), "Invalid elements count of the [CollisionResponse] enumeration");
-	static_assert(ControllerHand::ControllerHand_Count == ControllerHand(17), "Invalid elements count of the [ControllerHand] enumeration");
+	static_assert(ControllerHand::ControllerHand_Count == ControllerHand(18), "Invalid elements count of the [ControllerHand] enumeration");
 	static_assert(InputEvent::IE_MAX == InputEvent(5), "Invalid elements count of the [InputEvent] enumeration");
 	static_assert(NetMode::NM_MAX == NetMode(4), "Invalid elements count of the [NetMode] enumeration");
 	static_assert(PixelFormat::PF_MAX == PixelFormat(UNREALCLR_PIXEL_FORMAT), "Invalid elements count of the [PixelFormat] enumeration");
 
-	static_assert(sizeof(Bounds) == 28, "Invalid size of the [Bounds] structure");
+	static_assert(sizeof(Bounds) == 56, "Invalid size of the [Bounds] structure");
 	static_assert(sizeof(CollisionShape) == 16, "Invalid size of the [CollisionShape] structure");
 
 	namespace Assert {
@@ -1056,36 +1056,6 @@ namespace UnrealCLRFramework {
 
 		void DelayGarbageCollection() {
 			GEngine->DelayGarbageCollection();
-		}
-	}
-
-	namespace HeadMountedDisplay {
-		bool IsConnected() {
-			return UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayConnected();
-		}
-
-		bool GetEnabled() {
-			return UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled();
-		}
-
-		bool GetLowPersistenceMode() {
-			return UHeadMountedDisplayFunctionLibrary::IsInLowPersistenceMode();
-		}
-
-		void GetDeviceName(char* Name) {
-			FName deviceName = UHeadMountedDisplayFunctionLibrary::GetHMDDeviceName();
-
-			const char* name = TCHAR_TO_UTF8(*deviceName.ToString());
-
-			UnrealCLR::Utility::Strcpy(Name, name, UnrealCLR::Utility::Strlen(name));
-		}
-
-		void SetEnable(bool Value) {
-			UHeadMountedDisplayFunctionLibrary::EnableHMD(Value);
-		}
-
-		void SetLowPersistenceMode(bool Value) {
-			UHeadMountedDisplayFunctionLibrary::EnableLowPersistenceMode(Value);
 		}
 	}
 

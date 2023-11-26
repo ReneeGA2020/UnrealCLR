@@ -181,18 +181,6 @@ namespace UnrealEngine.Framework {
 
 			unchecked {
 				int head = 0;
-				IntPtr* headMountedDisplayFunctions = (IntPtr*)buffer[position++];
-
-				HeadMountedDisplay.isConnected = (delegate* unmanaged[Cdecl]<Bool>)headMountedDisplayFunctions[head++];
-				HeadMountedDisplay.getEnabled = (delegate* unmanaged[Cdecl]<Bool>)headMountedDisplayFunctions[head++];
-				HeadMountedDisplay.getLowPersistenceMode = (delegate* unmanaged[Cdecl]<Bool>)headMountedDisplayFunctions[head++];
-				HeadMountedDisplay.getDeviceName = (delegate* unmanaged[Cdecl]<byte[], void>)headMountedDisplayFunctions[head++];
-				HeadMountedDisplay.setEnable = (delegate* unmanaged[Cdecl]<Bool, void>)headMountedDisplayFunctions[head++];
-				HeadMountedDisplay.setLowPersistenceMode = (delegate* unmanaged[Cdecl]<Bool, void>)headMountedDisplayFunctions[head++];
-			}
-
-			unchecked {
-				int head = 0;
 				IntPtr* worldFunctions = (IntPtr*)buffer[position++];
 
 				World.forEachActor = (delegate* unmanaged[Cdecl]<ref ObjectReference*, ref int, void>)worldFunctions[head++];
@@ -1507,15 +1495,6 @@ namespace UnrealEngine.Framework {
 		internal static delegate* unmanaged[Cdecl]<byte[], byte[], float, void> addAxisMapping;
 		internal static delegate* unmanaged[Cdecl]<Bool, void> forceGarbageCollection;
 		internal static delegate* unmanaged[Cdecl]<void> delayGarbageCollection;
-	}
-
-	static unsafe partial class HeadMountedDisplay {
-		internal static delegate* unmanaged[Cdecl]<Bool> isConnected;
-		internal static delegate* unmanaged[Cdecl]<Bool> getEnabled;
-		internal static delegate* unmanaged[Cdecl]<Bool> getLowPersistenceMode;
-		internal static delegate* unmanaged[Cdecl]<byte[], void> getDeviceName;
-		internal static delegate* unmanaged[Cdecl]<Bool, void> setEnable;
-		internal static delegate* unmanaged[Cdecl]<Bool, void> setLowPersistenceMode;
 	}
 
 	static unsafe partial class World {

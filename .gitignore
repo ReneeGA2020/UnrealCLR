@@ -1,4 +1,5 @@
 .DS_Store
+.vs/*
 Install/bin
 Install/obj
 Source/Managed/Framework/bin

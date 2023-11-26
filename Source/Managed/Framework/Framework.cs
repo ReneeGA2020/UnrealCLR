@@ -3913,45 +3913,6 @@ namespace UnrealEngine.Framework {
 	}
 
 	/// <summary>
-	/// Functionality for access to the head-mounted display
-	/// </summary>
-	public static unsafe partial class HeadMountedDisplay {
-		/// <summary>
-		/// Returns <c>true</c> if the head-mounted display is connected and ready to use
-		/// </summary>
-		public static bool IsConnected => isConnected();
-
-		/// <summary>
-		/// Gets or sets whether the head-mounted display is enabled
-		/// </summary>
-		public static bool Enabled {
-			get => getEnabled();
-			set => setEnable(value);
-		}
-
-		/// <summary>
-		/// Gets or sets whether the head-mounted display is in low or full persistence mode
-		/// </summary>
-		public static bool LowPersistenceMode {
-			get => getLowPersistenceMode();
-			set => setLowPersistenceMode(value);
-		}
-
-		/// <summary>
-		/// Returns the name of the device
-		/// </summary>
-		public static string DeviceName {
-			get {
-				byte[] stringBuffer = ArrayPool.GetStringBuffer();
-
-				getDeviceName(stringBuffer);
-
-				return stringBuffer.BytesToString();
-			}
-		}
-	}
-
-	/// <summary>
 	/// The top-level representation of a map or a sandbox in which actors and components will exist and rendered
 	/// </summary>
 	public static unsafe partial class World {

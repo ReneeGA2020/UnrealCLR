@@ -35,9 +35,6 @@ namespace UnrealEngine.Tests {
 		}
 
 		public void OnTick(float deltaTime) {
-			Debug.AddOnScreenMessage(1, 3.0f, Color.Yellow, "Head-mounted display is connected: " + HeadMountedDisplay.IsConnected);
-			Debug.AddOnScreenMessage(2, 3.0f, Color.Yellow, "Device enabled: " + HeadMountedDisplay.Enabled);
-			Debug.AddOnScreenMessage(3, 3.0f, Color.Yellow, "Device name: " + HeadMountedDisplay.DeviceName);
 			Debug.AddOnScreenMessage(4, 3.0f, Color.Orange, "Left motion controller is tracked: " + leftHand.IsTracked);
 			Debug.AddOnScreenMessage(5, 3.0f, Color.Orange, "Right motion controller is tracked: " + rightHand.IsTracked);
 		}
