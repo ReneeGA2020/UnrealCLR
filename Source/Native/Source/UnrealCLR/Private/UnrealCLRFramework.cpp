@@ -22,6 +22,7 @@
  */
 
 #include "UnrealCLRFramework.h"
+#include <UnrealCLR.h>
 
 DEFINE_LOG_CATEGORY(LogUnrealManaged);
 
@@ -400,7 +401,7 @@ namespace UnrealCLRFramework {
 		#define UNREALCLR_BLEND_TYPE 6
 	#endif
 
-	static_assert(AudioFadeCurve::Count == AudioFadeCurve(4), "Invalid elements count of the [AudioFadeCurve] enumeration");
+	static_assert(EAudioFaderCurve::Count == AudioFadeCurve(4), "Invalid elements count of the [AudioFadeCurve] enumeration");
 	static_assert(BlendType::VTBlend_MAX == BlendType(UNREALCLR_BLEND_TYPE), "Invalid elements count of the [BlendType] enumeration");
 	static_assert(CollisionChannel::ECC_MAX == CollisionChannel(33), "Invalid elements count of the [CollisionChannel] enumeration");
 	static_assert(CollisionResponse::ECR_MAX == CollisionResponse(3), "Invalid elements count of the [CollisionResponse] enumeration");
@@ -500,7 +501,7 @@ namespace UnrealCLRFramework {
 
 	namespace Object {
 		bool IsPendingKill(UObject* Object) {
-			return Object->IsPendingKill();
+			return !IsValid(Object);
 		}
 
 		bool IsValid(UObject* Object) {
@@ -808,7 +809,7 @@ namespace UnrealCLRFramework {
 		}
 
 		void GetPath(FAssetData* Asset, char* Path) {
-			FString objectPath = Asset->ObjectPath.ToString();
+			FString objectPath = Asset->GetObjectPathString();
 
 			int32 index = INDEX_NONE;
 
@@ -982,7 +983,7 @@ namespace UnrealCLRFramework {
 
 	namespace Engine {
 		bool IsSplitScreen() {
-			return GEngine->IsSplitScreen(UnrealCLR::Engine::World);
+			return GEngine->HasMultipleLocalPlayers(UnrealCLR::Engine::World);
 		}
 
 		bool IsEditor() {
@@ -3641,7 +3642,7 @@ namespace UnrealCLRFramework {
 		}
 
 		void SetSkeletalMesh(USkinnedMeshComponent* SkinnedMeshComponent, USkeletalMesh* SkeletalMesh, bool ReinitializePose) {
-			SkinnedMeshComponent->SetSkeletalMesh(SkeletalMesh, ReinitializePose);
+			SkinnedMeshComponent->SetSkinnedAssetAndUpdate(SkeletalMesh, ReinitializePose);
 		}
 	}
 
