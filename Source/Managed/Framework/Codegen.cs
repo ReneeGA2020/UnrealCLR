@@ -35,7 +35,7 @@ namespace UnrealEngine.Framework;
 
 internal static class Shared
 {
-    internal const int checksum = 0x2F0;
+    internal const int checksum = 0x2E9;
     internal static Dictionary<int, IntPtr> userFunctions = [];
     private const string dynamicTypesAssemblyName = "UnrealEngine.DynamicTypes";
     private static readonly ModuleBuilder moduleBuilder = AssemblyBuilder.DefineDynamicAssembly(new(dynamicTypesAssemblyName), AssemblyBuilderAccess.RunAndCollect).DefineDynamicModule(dynamicTypesAssemblyName);

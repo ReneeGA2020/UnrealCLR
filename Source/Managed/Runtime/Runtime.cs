@@ -347,7 +347,7 @@ internal static unsafe class Core
                                         }
                                         else
                                         {
-                                            Log(LogLevel.Fatal, "Framework loading failed, version is incompatible with the runtime, please, recompile the project with an updated version referenced in " + assembly);
+                                            Log(LogLevel.Fatal, "Framework loading failed, version is incompatible with the runtime, please, recompile the project with an updated version referenced in " + assembly + sharedChecksum);
 
                                             loadingFailed = true;
                                         }
