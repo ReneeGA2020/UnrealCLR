@@ -1,0 +1,102 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Source\\Repos\\UnrealCLR\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}|Source\\Managed\\Tests\\UnrealEngine.Tests.csproj|f:\\source\\repos\\unrealclr\\source\\managed\\tests\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}|Source\\Managed\\Tests\\UnrealEngine.Tests.csproj|solutionrelative:source\\managed\\tests\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}|Source\\Managed\\Tests\\UnrealEngine.Tests.csproj|f:\\source\\repos\\unrealclr\\source\\managed\\tests\\blueprintsextensibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}|Source\\Managed\\Tests\\UnrealEngine.Tests.csproj|solutionrelative:source\\managed\\tests\\blueprintsextensibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\karaz\\.nuget\\packages\\microsoft.codeanalysis.netanalyzers\\6.0.0\\build\\Microsoft.CodeAnalysis.NetAnalyzers.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}|Source\\Managed\\Tests\\UnrealEngine.Tests.csproj|f:\\source\\repos\\unrealclr\\source\\managed\\tests\\assertionconsistency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}|Source\\Managed\\Tests\\UnrealEngine.Tests.csproj|solutionrelative:source\\managed\\tests\\assertionconsistency.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:910748500:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Tests.cs",
+              "DocumentMoniker": "F:\\Source\\Repos\\UnrealCLR\\Source\\Managed\\Tests\\Tests.cs",
+              "RelativeDocumentMoniker": "Source\\Managed\\Tests\\Tests.cs",
+              "ToolTip": "F:\\Source\\Repos\\UnrealCLR\\Source\\Managed\\Tests\\Tests.cs",
+              "RelativeToolTip": "Source\\Managed\\Tests\\Tests.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAQAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-26T09:36:27.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BlueprintsExtensibility.cs",
+              "DocumentMoniker": "F:\\Source\\Repos\\UnrealCLR\\Source\\Managed\\Tests\\BlueprintsExtensibility.cs",
+              "RelativeDocumentMoniker": "Source\\Managed\\Tests\\BlueprintsExtensibility.cs",
+              "ToolTip": "F:\\Source\\Repos\\UnrealCLR\\Source\\Managed\\Tests\\BlueprintsExtensibility.cs",
+              "RelativeToolTip": "Source\\Managed\\Tests\\BlueprintsExtensibility.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-26T09:35:49.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Microsoft.CodeAnalysis.NetAnalyzers.targets",
+              "DocumentMoniker": "C:\\Users\\karaz\\.nuget\\packages\\microsoft.codeanalysis.netanalyzers\\6.0.0\\build\\Microsoft.CodeAnalysis.NetAnalyzers.targets",
+              "ToolTip": "C:\\Users\\karaz\\.nuget\\packages\\microsoft.codeanalysis.netanalyzers\\6.0.0\\build\\Microsoft.CodeAnalysis.NetAnalyzers.targets",
+              "ViewState": "AQIAAEICAAAAAAAAAAAIwE4CAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2023-11-26T09:35:07.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AssertionConsistency.cs",
+              "DocumentMoniker": "F:\\Source\\Repos\\UnrealCLR\\Source\\Managed\\Tests\\AssertionConsistency.cs",
+              "RelativeDocumentMoniker": "Source\\Managed\\Tests\\AssertionConsistency.cs",
+              "ToolTip": "F:\\Source\\Repos\\UnrealCLR\\Source\\Managed\\Tests\\AssertionConsistency.cs",
+              "RelativeToolTip": "Source\\Managed\\Tests\\AssertionConsistency.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-26T09:34:57.35Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <Platforms>x64</Platforms>
     <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Reference Include="UnrealEngine.Framework">
-      <HintPath>../Framework/bin/Release/UnrealEngine.Framework.dll</HintPath>
+      <HintPath>../Framework/bin/x64/Release/UnrealEngine.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
 

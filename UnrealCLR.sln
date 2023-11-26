@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34310.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Install", "Install\Install.csproj", "{EF7F227E-576C-4489-9F0B-236247B091B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnrealEngine.Framework", "Source\Managed\Framework\UnrealEngine.Framework.csproj", "{6554B03A-67E3-4231-933E-55C0EDFB74C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnrealEngine.Runtime", "Source\Managed\Runtime\UnrealEngine.Runtime.csproj", "{D1D9699D-B37B-44FC-A4FA-E6A4AAB91414}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnrealEngine.Tests", "Source\Managed\Tests\UnrealEngine.Tests.csproj", "{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF7F227E-576C-4489-9F0B-236247B091B9}.Debug|x64.ActiveCfg = Debug|x64
+		{EF7F227E-576C-4489-9F0B-236247B091B9}.Debug|x64.Build.0 = Debug|x64
+		{EF7F227E-576C-4489-9F0B-236247B091B9}.Release|x64.ActiveCfg = Release|x64
+		{EF7F227E-576C-4489-9F0B-236247B091B9}.Release|x64.Build.0 = Release|x64
+		{6554B03A-67E3-4231-933E-55C0EDFB74C2}.Debug|x64.ActiveCfg = Debug|x64
+		{6554B03A-67E3-4231-933E-55C0EDFB74C2}.Debug|x64.Build.0 = Debug|x64
+		{6554B03A-67E3-4231-933E-55C0EDFB74C2}.Release|x64.ActiveCfg = Release|x64
+		{6554B03A-67E3-4231-933E-55C0EDFB74C2}.Release|x64.Build.0 = Release|x64
+		{D1D9699D-B37B-44FC-A4FA-E6A4AAB91414}.Debug|x64.ActiveCfg = Debug|x64
+		{D1D9699D-B37B-44FC-A4FA-E6A4AAB91414}.Debug|x64.Build.0 = Debug|x64
+		{D1D9699D-B37B-44FC-A4FA-E6A4AAB91414}.Release|x64.ActiveCfg = Release|x64
+		{D1D9699D-B37B-44FC-A4FA-E6A4AAB91414}.Release|x64.Build.0 = Release|x64
+		{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}.Debug|x64.ActiveCfg = Debug|x64
+		{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}.Debug|x64.Build.0 = Debug|x64
+		{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}.Release|x64.ActiveCfg = Release|x64
+		{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99AB9807-9121-4E63-9749-F1C752E271E9}
+	EndGlobalSection
+EndGlobal

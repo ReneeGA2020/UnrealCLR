@@ -56,13 +56,13 @@ Make sure that the Unreal Engine is not running. Re-run the installation process
 #### Compilation
 
 ##### Plugin
-Create a new or use an existing Unreal Engine C++ or blueprints project. Clone the repository or download a desirable version from the [releases](https://github.com/nxrighthere/UnrealCLR/releases) section. Copy the content of the `Source/Native` folder to `%Project%/Plugins/UnrealCLR` directory. Compile the managed runtime from `Source/Managed/Runtime` folder by running the following command: `dotnet publish --configuration Release --framework net6.0 --output "%Project%/Plugins/UnrealCLR/Managed"`. Restart Unreal Engine, open the project, and build the plugin.
+Create a new or use an existing Unreal Engine C++ or blueprints project. Clone the repository or download a desirable version from the [releases](https://github.com/nxrighthere/UnrealCLR/releases) section. Copy the content of the `Source/Native` folder to `%Project%/Plugins/UnrealCLR` directory. Compile the managed runtime from `Source/Managed/Runtime` folder by running the following command: `dotnet publish --configuration Release --framework net8.0 --output "%Project%/Plugins/UnrealCLR/Managed"`. Restart Unreal Engine, open the project, and build the plugin.
 
 ##### Tests
 To quickly start testing, open a project with the plugin in Unreal Engine, copy all folders from the `Content` of the repository to `%Project%/Content` directory, and wait until they loaded in the Content Browser. Compile the managed assemblies from `Source/Managed/Tests` folder by running the following commands:
 ```
-dotnet publish "../Framework" --configuration Release --framework net6.0
-dotnet publish --configuration Release --framework net6.0 --output "%Project%/Managed/Tests"
+dotnet publish "../Framework" --configuration Release --framework net8.0
+dotnet publish --configuration Release --framework net8.0 --output "%Project%/Managed/Tests"
 ```
 
 #### Upgrading
