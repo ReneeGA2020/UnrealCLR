@@ -8,7 +8,7 @@ global using UnrealEngine.Framework;
 namespace UnrealEngine.Tests;
 public class Main
 {
-    private static ISystem runningSystem;
+    private static ISystem? runningSystem;
 
     public static void OnWorldPostBegin()
     {
@@ -18,7 +18,7 @@ public class Main
         {
             TestSystems testSystem = default;
 
-            if (World.GetActor<LevelScript>().GetEnum("Test Systems", ref testSystem))
+            if (World.GetActor<LevelScript>()!.GetEnum("Test Systems", ref testSystem))
             {
                 Debug.AddOnScreenMessage(-1, 3.0f, Color.LightGreen, testSystem + " system started!");
             }

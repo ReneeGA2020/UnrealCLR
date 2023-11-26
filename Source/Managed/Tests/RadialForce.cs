@@ -3,7 +3,7 @@ public class RadialForce : ISystem
 {
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         const int maxActors = 100;
 
@@ -15,8 +15,8 @@ public class RadialForce : ISystem
             actors[i] = new();
             staticMeshComponents[i] = new(actors[i], setAsRoot: true);
             _ = staticMeshComponents[i].SetStaticMesh(StaticMesh.Cube);
-            staticMeshComponents[i].SetMaterial(0, Material.Load("/Game/Tests/BasicMaterial"));
-            staticMeshComponents[i].CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", LinearColor.Red);
+            staticMeshComponents[i].SetMaterial(0, Material.Load("/Game/Tests/BasicMaterial")!);
+            staticMeshComponents[i].CreateAndSetMaterialInstanceDynamic(0)!.SetVectorParameterValue("Color", LinearColor.Red);
             staticMeshComponents[i].SetRelativeLocation(new Vector3(10000.0f, 0.0f, 0.0f));
             staticMeshComponents[i].UpdateToWorld(TeleportType.ResetPhysics);
             staticMeshComponents[i].SetSimulatePhysics(true);

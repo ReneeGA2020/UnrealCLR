@@ -9,13 +9,13 @@ public class ObjectOrientedDesign : ISystem
     public ObjectOrientedDesign()
     {
         entities = new Entity[maxEntities];
-        material = Material.Load("/Game/Tests/BasicMaterial");
+        material = Material.Load("/Game/Tests/BasicMaterial")!;
         random = new();
     }
 
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         for (int i = 0; i < maxEntities; i++)
         {
@@ -23,13 +23,13 @@ public class ObjectOrientedDesign : ISystem
 
             entities[i] = new(entityName);
             entities[i].CreateMesh(material, 1.0f, "StateComponent", true);
-            entities[i].StateComponent.SetRelativeRotation(Maths.CreateFromYawPitchRoll(5.0f * i, 0.0f, 0.0f));
-            entities[i].StateComponent.CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", new((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble()));
-            entities[i].StateComponent.SetRelativeLocation(new(0.0f, 0.0f, 120.0f * i));
-            entities[i].StateComponent.AddLocalOffset(new(0.0f, 0.0f, -420.0f));
+            entities[i]?.StateComponent?.SetRelativeRotation(Maths.CreateFromYawPitchRoll(5.0f * i, 0.0f, 0.0f));
+            entities[i]?.StateComponent?.CreateAndSetMaterialInstanceDynamic(0)!.SetVectorParameterValue("Color", new((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble()));
+            entities[i]?.StateComponent?.SetRelativeLocation(new(0.0f, 0.0f, 120.0f * i));
+            entities[i]?.StateComponent?.AddLocalOffset(new(0.0f, 0.0f, -420.0f));
 
-            Entity entity = World.GetActor<Entity>(entityName);
-            StateComponent component = entity.GetComponent<StateComponent>();
+            Entity entity = World.GetActor<Entity>(entityName)!;
+            StateComponent component = entity.GetComponent<StateComponent>()!;
 
             Assert.IsTrue(entity.Equals(entities[i]));
             Assert.IsTrue(component.Equals(entities[i].StateComponent));
@@ -42,7 +42,7 @@ public class ObjectOrientedDesign : ISystem
     {
         for (int i = 0; i < maxEntities; i++)
         {
-            entities[i].StateComponent.AddLocalRotation(new(Vector3.UnitZ * entities[i].StateComponent.RotationSpeed * deltaTime, -1.0f));
+            entities[i]?.StateComponent?.AddLocalRotation(new(Vector3.UnitZ * entities[i]!.StateComponent!.RotationSpeed * deltaTime, -1.0f));
         }
     }
 
@@ -53,11 +53,11 @@ public class ObjectOrientedDesign : ISystem
 
     private class Entity : Actor
     {
-        public StateComponent StateComponent { get; private set; }
+        public StateComponent? StateComponent { get; private set; }
 
-        public Entity(string name = null) : base(name) { }
+        public Entity(string? name = null) : base(name) { }
 
-        public void CreateMesh(Material material, float rotationSpeed, string name = null, bool setAsRoot = false)
+        public void CreateMesh(Material material, float rotationSpeed, string? name = null, bool setAsRoot = false)
         {
             StateComponent = new(this, rotationSpeed, name, setAsRoot);
             _ = StateComponent.SetStaticMesh(StaticMesh.Cube);
@@ -69,7 +69,7 @@ public class ObjectOrientedDesign : ISystem
     {
         public float RotationSpeed { get; set; }
 
-        public StateComponent(Entity entity, float rotationSpeed, string name = null, bool setAsRoot = false) : base(entity, name, setAsRoot)
+        public StateComponent(Entity entity, float rotationSpeed, string? name = null, bool setAsRoot = false) : base(entity, name, setAsRoot)
         {
             RotationSpeed = rotationSpeed;
         }

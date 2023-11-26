@@ -17,12 +17,12 @@ public class ExternalConsistency : ISystem
         MaxFramesPerSecondTest();
         TagsTest();
 
-        Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod().DeclaringType + " results in output log!");
+        Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod()?.DeclaringType + " results in output log!");
     }
 
     private void AssetRegistryTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         AssetRegistry assetRegistry = new();
 
@@ -57,7 +57,7 @@ public class ExternalConsistency : ISystem
 
     private void CommandLineArgumentsTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         string append = " -test 1";
 
@@ -89,7 +89,7 @@ public class ExternalConsistency : ISystem
 
         try
         {
-            CommandLine.Append(null);
+            CommandLine.Append(null!);
         }
 
         catch
@@ -99,7 +99,7 @@ public class ExternalConsistency : ISystem
 
         try
         {
-            CommandLine.Set(null);
+            CommandLine.Set(null!);
         }
 
         catch
@@ -119,7 +119,7 @@ public class ExternalConsistency : ISystem
 
     private void ReferencesEqualityTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         TriggerBox actorLeft = new();
         TriggerSphere actorRight = new();
@@ -188,7 +188,7 @@ public class ExternalConsistency : ISystem
 
     private void NamingTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         const string actorName = "TestActorName";
         const string actorShortName = "TestActor";
@@ -206,7 +206,7 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        Actor namedActor = World.GetActor<Actor>(actorName);
+        Actor namedActor = World.GetActor<Actor>(actorName)!;
 
         if (!actor.Equals(namedActor))
         {
@@ -240,7 +240,7 @@ public class ExternalConsistency : ISystem
 
     private void HashCodesTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actorLeft = new();
         Actor actorRight = new();
@@ -284,12 +284,12 @@ public class ExternalConsistency : ISystem
 
     private void ActorsHierarchyTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         const string actorName = "TestPlayerController";
 
         PlayerController playerController = new(actorName);
-        Actor actor = World.GetActor<Actor>(actorName);
+        Actor actor = World.GetActor<Actor>(actorName)!;
 
         if (playerController == null || actor == null)
         {
@@ -298,8 +298,8 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        AmbientSound ambientSound = World.GetActor<AmbientSound>(actorName);
-        Brush brush = World.GetActor<Brush>(actorName);
+        AmbientSound ambientSound = World.GetActor<AmbientSound>(actorName)!;
+        Brush brush = World.GetActor<Brush>(actorName)!;
 
         if (ambientSound != null || brush != null)
         {
@@ -313,11 +313,11 @@ public class ExternalConsistency : ISystem
 
     private void ChildActorsTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actor = new();
         ChildActorComponent childActorComponent = new(actor, setAsRoot: true);
-        TriggerBox childActor = childActorComponent.SetChildActor<TriggerBox>();
+        TriggerBox childActor = childActorComponent.SetChildActor<TriggerBox>()!;
 
         if (childActor == null)
         {
@@ -326,7 +326,7 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        childActor = childActorComponent.GetChildActor<TriggerBox>();
+        childActor = childActorComponent.GetChildActor<TriggerBox>()!;
 
         if (childActor == null)
         {
@@ -335,7 +335,7 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        BoxComponent boxComponent = childActor.GetComponent<BoxComponent>();
+        BoxComponent boxComponent = childActor.GetComponent<BoxComponent>()!;
         Vector3 initialExtent = new(100.0f, 100.0f, 100.0f);
 
         boxComponent.InitBoxExtent(initialExtent);
@@ -384,7 +384,7 @@ public class ExternalConsistency : ISystem
 
     private void ComponentsAttachmentTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actor = new();
         StaticMeshComponent staticMeshComponent = new(actor, setAsRoot: true);
@@ -446,12 +446,12 @@ public class ExternalConsistency : ISystem
 
     private void ComponentsMatchingTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actor = new();
         _ = new StaticMeshComponent(actor, setAsRoot: true);
-        SceneComponent sceneComponent = actor.GetRootComponent<SceneComponent>();
-        InstancedStaticMeshComponent instancedStaticMeshComponent = actor.GetRootComponent<InstancedStaticMeshComponent>();
+        SceneComponent sceneComponent = actor.GetRootComponent<SceneComponent>()!;
+        InstancedStaticMeshComponent instancedStaticMeshComponent = actor.GetRootComponent<InstancedStaticMeshComponent>()!;
 
         if (sceneComponent == null)
         {
@@ -486,7 +486,7 @@ public class ExternalConsistency : ISystem
 
     private void NonSceneComponentTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actor = new();
         RotatingMovementComponent rotatingMovementComponent = new(actor, "TestName");
@@ -503,12 +503,12 @@ public class ExternalConsistency : ISystem
 
     private void ObjectIDsTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actor = new();
         _ = new SceneComponent(actor, setAsRoot: true);
 
-        Actor actorByID = World.GetActorByID<Actor>(actor.ID);
+        Actor actorByID = World.GetActorByID<Actor>(actor.ID)!;
 
         if (actorByID == null)
         {
@@ -517,7 +517,7 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        SceneComponent sceneComponentByID = actorByID.GetComponent<SceneComponent>();
+        SceneComponent sceneComponentByID = actorByID.GetComponent<SceneComponent>()!;
 
         if (sceneComponentByID == null)
         {
@@ -531,7 +531,7 @@ public class ExternalConsistency : ISystem
 
     private void MaxFramesPerSecondTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         float currentMaxFPS = Engine.MaxFPS;
         float newMaxFPS = 60.0f;
@@ -554,7 +554,7 @@ public class ExternalConsistency : ISystem
 
     private void TagsTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
         Actor actor = new();
         SceneComponent sceneComponent = new(actor);
@@ -570,7 +570,7 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        Actor taggedActor = World.GetActorByTag<Actor>(tag);
+        Actor taggedActor = World.GetActorByTag<Actor>(tag)!;
 
         if (!actor.Equals(taggedActor))
         {
@@ -597,7 +597,7 @@ public class ExternalConsistency : ISystem
             return;
         }
 
-        SceneComponent taggedSceneComponent = taggedActor.GetComponentByTag<SceneComponent>(tag);
+        SceneComponent taggedSceneComponent = taggedActor.GetComponentByTag<SceneComponent>(tag)!;
 
         if (!sceneComponent.Equals(taggedSceneComponent))
         {

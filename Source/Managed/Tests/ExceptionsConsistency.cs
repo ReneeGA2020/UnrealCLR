@@ -6,13 +6,13 @@ public class ExceptionsConsistency : ISystem
 
     public void OnBeginPlay()
     {
-        ConsoleVariable variable = ConsoleManager.RegisterVariable(consoleVariable, "A test variable", 0);
+        ConsoleVariable variable = ConsoleManager.RegisterVariable(consoleVariable, "A test variable", 0)!;
 
         ConsoleManager.RegisterCommand(consoleCommand, "A test command", ConsoleCommand);
 
         variable.SetOnChangedCallback(VariableEvent);
 
-        PlayerController playerController = World.GetFirstPlayerController();
+        PlayerController playerController = World.GetFirstPlayerController()!;
 
         playerController.ConsoleCommand(consoleVariable + " 1");
         playerController.ConsoleCommand(consoleCommand + " 1.5");

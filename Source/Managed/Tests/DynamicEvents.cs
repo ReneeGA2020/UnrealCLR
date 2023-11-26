@@ -14,14 +14,14 @@ public class DynamicEvents : ISystem
 
     public DynamicEvents()
     {
-        playerController = World.GetFirstPlayerController();
+        playerController = World.GetFirstPlayerController()!;
         triggerBox = new();
-        triggerCollisionComponent = triggerBox.GetComponent<BoxComponent>();
+        triggerCollisionComponent = triggerBox.GetComponent<BoxComponent>()!;
         leftActor = new("LeftActor");
         rightActor = new("RightActor");
         leftStaticMeshComponent = new(leftActor, "LeftActorComponent", true);
         rightStaticMeshComponent = new(rightActor, "RightActorComponent", true);
-        material = Material.Load("/Game/Tests/BasicMaterial");
+        material = Material.Load("/Game/Tests/BasicMaterial")!;
         stopTranslation = false;
     }
 
@@ -30,7 +30,7 @@ public class DynamicEvents : ISystem
         playerController.ShowMouseCursor = true;
         playerController.EnableClickEvents = true;
         playerController.EnableMouseOverEvents = true;
-        playerController.SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        playerController.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         World.SetOnActorBeginOverlapCallback(OnActorBeginOverlap);
         World.SetOnActorEndOverlapCallback(OnActorEndOverlap);
@@ -75,13 +75,13 @@ public class DynamicEvents : ISystem
 
         _ = leftStaticMeshComponent.SetStaticMesh(StaticMesh.Cube);
         leftStaticMeshComponent.SetMaterial(0, material);
-        leftStaticMeshComponent.CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", LinearColor.Green);
+        leftStaticMeshComponent.CreateAndSetMaterialInstanceDynamic(0)?.SetVectorParameterValue("Color", LinearColor.Green);
         leftStaticMeshComponent.SetWorldLocation(new(0.0f, -startY, 0.0f));
         leftStaticMeshComponent.UpdateToWorld(TeleportType.ResetPhysics);
         leftStaticMeshComponent.SetEnableGravity(false);
         leftStaticMeshComponent.SetSimulatePhysics(true);
 
-        Assert.IsNotNull(leftStaticMeshComponent.GetMaterial(0));
+        Assert.IsNotNull(leftStaticMeshComponent.GetMaterial(0)!);
 
         rightActor.RegisterEvent(ActorEventType.OnActorBeginOverlap);
         rightActor.RegisterEvent(ActorEventType.OnActorEndOverlap);
@@ -103,13 +103,13 @@ public class DynamicEvents : ISystem
 
         _ = rightStaticMeshComponent.SetStaticMesh(StaticMesh.Cube);
         rightStaticMeshComponent.SetMaterial(0, material);
-        rightStaticMeshComponent.CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", LinearColor.Yellow);
+        rightStaticMeshComponent.CreateAndSetMaterialInstanceDynamic(0)?.SetVectorParameterValue("Color", LinearColor.Yellow);
         rightStaticMeshComponent.SetWorldLocation(new(0.0f, startY, 0.0f));
         rightStaticMeshComponent.UpdateToWorld(TeleportType.ResetPhysics);
         rightStaticMeshComponent.SetEnableGravity(false);
         rightStaticMeshComponent.SetSimulatePhysics(true);
 
-        Assert.IsNotNull(rightStaticMeshComponent.GetMaterial(0));
+        Assert.IsNotNull(rightStaticMeshComponent.GetMaterial(0)!);
     }
 
     public void OnTick(float deltaTime)
@@ -121,7 +121,7 @@ public class DynamicEvents : ISystem
 
         if (playerController.GetHitResultUnderCursor(CollisionChannel.WorldDynamic, ref hit))
         {
-            Debug.AddOnScreenMessage(13, 3.0f, Color.CornflowerBlue, "Cursor hit " + hit.GetActor().Name);
+            Debug.AddOnScreenMessage(13, 3.0f, Color.CornflowerBlue, "Cursor hit " + hit.GetActor()?.Name);
         }
 
         triggerBox.ForEachOverlappingActor(OnTriggerOverlapActor);
@@ -155,16 +155,16 @@ public class DynamicEvents : ISystem
     {
         Debug.AddOnScreenMessage(-1, 3.0f, overlapActor.ID == leftActor.ID ? Color.Lime : Color.Yellow, overlapActor.Name + " start overlapping " + otherActor.Name);
 
-        Assert.IsNotNull(overlapActor.ToActor<Actor>());
-        Assert.IsNotNull(otherActor.ToActor<Actor>());
+        Assert.IsNotNull(overlapActor.ToActor<Actor>()!);
+        Assert.IsNotNull(otherActor.ToActor<Actor>()!);
     }
 
     private void OnActorEndOverlap(ActorReference overlapActor, ActorReference otherActor)
     {
         Debug.AddOnScreenMessage(-1, 3.0f, overlapActor.ID == leftActor.ID ? Color.Lime : Color.Yellow, overlapActor.Name + " stop overlapping " + otherActor.Name);
 
-        Assert.IsNotNull(overlapActor.ToActor<Actor>());
-        Assert.IsNotNull(otherActor.ToActor<Actor>());
+        Assert.IsNotNull(overlapActor.ToActor<Actor>()!);
+        Assert.IsNotNull(otherActor.ToActor<Actor>()!);
     }
 
     private void OnActorHit(ActorReference hitActor, ActorReference otherActor, in Vector3 normalImpulse, in Hit hit)
@@ -180,23 +180,23 @@ public class DynamicEvents : ISystem
             stopTranslation = true;
         }
 
-        Assert.IsNotNull(hitActor.ToActor<Actor>());
-        Assert.IsNotNull(otherActor.ToActor<Actor>());
-        Assert.IsNotNull(hit.GetActor());
+        Assert.IsNotNull(hitActor.ToActor<Actor>()!);
+        Assert.IsNotNull(otherActor.ToActor<Actor>()!);
+        Assert.IsNotNull(hit.GetActor()!);
     }
 
     private void OnActorBeginCursorOver(ActorReference actor)
     {
         Debug.AddOnScreenMessage(2, 3.0f, Color.Plum, "Cursor moved over " + actor.Name);
 
-        Assert.IsNotNull(actor.ToActor<Actor>());
+        Assert.IsNotNull(actor.ToActor<Actor>()!);
     }
 
     private void OnActorEndCursorOver(ActorReference actor)
     {
         Debug.AddOnScreenMessage(3, 3.0f, Color.Plum, "Cursor moved off " + actor.Name);
 
-        Assert.IsNotNull(actor.ToActor<Actor>());
+        Assert.IsNotNull(actor.ToActor<Actor>()!);
     }
 
     private void OnActorClicked(ActorReference actor, string key)
@@ -208,7 +208,7 @@ public class DynamicEvents : ISystem
             Debug.AddOnScreenMessage(5, 3.0f, Color.MistyRose, key + " validated on actor!");
         }
 
-        Assert.IsNotNull(actor.ToActor<Actor>());
+        Assert.IsNotNull(actor.ToActor<Actor>()!);
     }
 
     private void OnActorReleased(ActorReference actor, string key)
@@ -220,46 +220,46 @@ public class DynamicEvents : ISystem
             Debug.AddOnScreenMessage(5, 3.0f, Color.MistyRose, key + " validated on actor!");
         }
 
-        Assert.IsNotNull(actor.ToActor<Actor>());
+        Assert.IsNotNull(actor.ToActor<Actor>()!);
     }
 
     private void OnComponentBeginOverlap(ComponentReference overlapComponent, ComponentReference otherComponent)
     {
         Debug.AddOnScreenMessage(-1, 3.0f, overlapComponent.ID == leftStaticMeshComponent.ID ? Color.Lime : Color.Yellow, overlapComponent.Name + " start overlapping " + otherComponent.Name);
 
-        Assert.IsNotNull(overlapComponent.ToComponent<StaticMeshComponent>());
-        Assert.IsNotNull(otherComponent.ToComponent<BoxComponent>());
+        Assert.IsNotNull(overlapComponent.ToComponent<StaticMeshComponent>()!);
+        Assert.IsNotNull(otherComponent.ToComponent<BoxComponent>()!);
     }
 
     private void OnComponentEndOverlap(ComponentReference overlapComponent, ComponentReference otherComponent)
     {
         Debug.AddOnScreenMessage(-1, 3.0f, overlapComponent.ID == leftStaticMeshComponent.ID ? Color.Lime : Color.Yellow, overlapComponent.Name + " end overlapping " + otherComponent.Name);
 
-        Assert.IsNotNull(overlapComponent.ToComponent<StaticMeshComponent>());
-        Assert.IsNotNull(otherComponent.ToComponent<BoxComponent>());
+        Assert.IsNotNull(overlapComponent.ToComponent<StaticMeshComponent>()!);
+        Assert.IsNotNull(otherComponent.ToComponent<BoxComponent>()!);
     }
 
     private void OnComponentHit(ComponentReference hitComponent, ComponentReference otherComponent, in Vector3 normalImpulse, in Hit hit)
     {
         Debug.AddOnScreenMessage(7, 3.0f, hitComponent.ID == leftStaticMeshComponent.ID ? Color.Lime : Color.Yellow, hitComponent.Name + " hit " + otherComponent.Name);
 
-        Assert.IsNotNull(hitComponent.ToComponent<StaticMeshComponent>());
-        Assert.IsNotNull(otherComponent.ToComponent<StaticMeshComponent>());
-        Assert.IsNotNull(hit.GetActor());
+        Assert.IsNotNull(hitComponent.ToComponent<StaticMeshComponent>()!);
+        Assert.IsNotNull(otherComponent.ToComponent<StaticMeshComponent>()!);
+        Assert.IsNotNull(hit.GetActor()!);
     }
 
     private void OnComponentBeginCursorOver(ComponentReference component)
     {
         Debug.AddOnScreenMessage(8, 3.0f, Color.Plum, "Cursor moved over " + component.Name);
 
-        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>());
+        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>()!);
     }
 
     private void OnComponentEndCursorOver(ComponentReference component)
     {
         Debug.AddOnScreenMessage(9, 3.0f, Color.Plum, "Cursor moved off " + component.Name);
 
-        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>());
+        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>()!);
     }
 
     private void OnComponentClicked(ComponentReference component, string key)
@@ -271,7 +271,7 @@ public class DynamicEvents : ISystem
             Debug.AddOnScreenMessage(11, 3.0f, Color.MistyRose, key + " validated on component!");
         }
 
-        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>());
+        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>()!);
     }
 
     private void OnComponentReleased(ComponentReference component, string key)
@@ -283,6 +283,6 @@ public class DynamicEvents : ISystem
             Debug.AddOnScreenMessage(11, 3.0f, Color.MistyRose, key + " validated on component!");
         }
 
-        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>());
+        Assert.IsNotNull(component.ToComponent<StaticMeshComponent>()!);
     }
 }

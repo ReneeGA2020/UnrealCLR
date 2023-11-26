@@ -3,7 +3,7 @@ public class SpatialQueries : ISystem
 {
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         const float linesThickness = 3.0f;
         const string collisionProfile = "TestCollisionProfile";
@@ -16,8 +16,8 @@ public class SpatialQueries : ISystem
         staticMeshComponent.SetWorldLocation(boxLocation);
         staticMeshComponent.SetWorldScale(boxScale);
         _ = staticMeshComponent.SetStaticMesh(StaticMesh.Cube);
-        staticMeshComponent.SetMaterial(0, Material.Load("/Game/Tests/BasicMaterial"));
-        staticMeshComponent.CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", new(0.18f, 0.0f, 0.9f));
+        staticMeshComponent.SetMaterial(0, Material.Load("/Game/Tests/BasicMaterial")!);
+        staticMeshComponent.CreateAndSetMaterialInstanceDynamic(0)!.SetVectorParameterValue("Color", new(0.18f, 0.0f, 0.9f));
         staticMeshComponent.SetCollisionChannel(CollisionChannel.WorldStatic);
         staticMeshComponent.SetCollisionProfileName(collisionProfile);
 

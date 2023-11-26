@@ -16,16 +16,16 @@ public class VirtualReality : ISystem
 
     public void OnBeginPlay()
     {
-        Camera mainCamera = World.GetActor<Camera>("MainCamera");
+        Camera mainCamera = World.GetActor<Camera>("MainCamera")!;
 
-        mainCamera.GetComponent<CameraComponent>().LockToHeadMountedDisplay = true;
+        mainCamera.GetComponent<CameraComponent>()!.LockToHeadMountedDisplay = true;
 
-        PlayerController playerController = World.GetFirstPlayerController();
+        PlayerController playerController = World.GetFirstPlayerController()!;
 
         playerController.SetViewTarget(mainCamera);
         playerController.Possess(pawnVR);
 
-        Pawn playerPawn = playerController.GetPawn();
+        Pawn playerPawn = playerController.GetPawn()!;
 
         Assert.IsTrue(playerPawn.IsControlled);
         Assert.IsTrue(playerPawn.IsPlayerControlled);

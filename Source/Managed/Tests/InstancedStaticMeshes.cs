@@ -15,17 +15,17 @@ public class InstancedStaticMeshes : ISystem
         sceneComponent = new(actor);
         transforms = new Transform[maxCubes];
         instancedStaticMeshComponent = new(actor, setAsRoot: true);
-        material = Material.Load("/Game/Tests/BasicMaterial");
+        material = Material.Load("/Game/Tests/BasicMaterial")!;
         rotationSpeed = 2.5f;
     }
 
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         _ = instancedStaticMeshComponent.SetStaticMesh(StaticMesh.Cube);
         instancedStaticMeshComponent.SetMaterial(0, material);
-        instancedStaticMeshComponent.CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", LinearColor.White);
+        instancedStaticMeshComponent.CreateAndSetMaterialInstanceDynamic(0)!.SetVectorParameterValue("Color", LinearColor.White);
 
         for (int i = 0; i < maxCubes; i++)
         {

@@ -3,9 +3,9 @@ public class SkeletalMeshes : ISystem
 {
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
-        SkeletalMesh prototypeMesh = SkeletalMesh.Load("/Game/Tests/Characters/Prototype");
+        SkeletalMesh prototypeMesh = SkeletalMesh.Load("/Game/Tests/Characters/Prototype")!;
 
         Actor leftPrototype = new("leftPrototype");
         SkeletalMeshComponent leftSkeletalMeshComponent = new(leftPrototype);
@@ -14,7 +14,7 @@ public class SkeletalMeshes : ISystem
         leftSkeletalMeshComponent.SetWorldLocation(new(-700.0f, -70.0f, -100.0f));
         leftSkeletalMeshComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 90.0f));
         leftSkeletalMeshComponent.SetAnimationMode(AnimationMode.Asset);
-        leftSkeletalMeshComponent.PlayAnimation(AnimationSequence.Load("/Game/Tests/Characters/Animations/IdleAnimationSequence"), true);
+        leftSkeletalMeshComponent.PlayAnimation(AnimationSequence.Load("/Game/Tests/Characters/Animations/IdleAnimationSequence")!, true);
 
         Assert.IsTrue(leftSkeletalMeshComponent.IsPlaying);
         Assert.IsTrue(leftSkeletalMeshComponent.GetBoneName(0) == "root");
@@ -33,17 +33,17 @@ public class SkeletalMeshes : ISystem
         rightSkeletalMeshComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 90.0f));
         rightSkeletalMeshComponent.SetAnimationMode(AnimationMode.Asset);
 
-        MaterialInstanceDynamic prototypeMaterial = rightSkeletalMeshComponent.CreateAndSetMaterialInstanceDynamic(0);
+        MaterialInstanceDynamic prototypeMaterial = rightSkeletalMeshComponent.CreateAndSetMaterialInstanceDynamic(0)!;
 
         prototypeMaterial.SetVectorParameterValue("AccentColor", new(0.0f, 0.5f, 1.0f));
 
-        Assert.IsNotNull(prototypeMaterial.GetParent());
+        Assert.IsNotNull(prototypeMaterial.GetParent()!);
 
-        AnimationMontage rightPrototypeAnimationMontage = AnimationMontage.Load("/Game/Tests/Characters/Animations/RunAnimationMontage");
+        AnimationMontage rightPrototypeAnimationMontage = AnimationMontage.Load("/Game/Tests/Characters/Animations/RunAnimationMontage")!;
 
         rightSkeletalMeshComponent.PlayAnimation(rightPrototypeAnimationMontage, true);
 
-        AnimationInstance rightPrototypeAnimationInstance = rightSkeletalMeshComponent.GetAnimationInstance();
+        AnimationInstance rightPrototypeAnimationInstance = rightSkeletalMeshComponent.GetAnimationInstance()!;
 
         Assert.IsTrue(rightPrototypeAnimationInstance.IsPlaying(rightPrototypeAnimationMontage));
         Assert.IsTrue(rightSkeletalMeshComponent.GetBoneName(0) == "root");

@@ -1,13 +1,13 @@
 namespace UnrealEngine.Tests;
 public class BlueprintsExtensibility : ISystem
 {
-    private readonly Blueprint blueprintActor;
-    private readonly Blueprint blueprintSceneComponent;
+    private readonly Blueprint? blueprintActor;
+    private readonly Blueprint? blueprintSceneComponent;
     private readonly Actor actor;
     private readonly SceneComponent sceneComponent;
-    private readonly LevelScript levelScript;
-    private readonly SkeletalMeshComponent skeletalMeshComponent;
-    private readonly AnimationInstance animationInstance;
+    private readonly LevelScript? levelScript;
+    private readonly SkeletalMeshComponent? skeletalMeshComponent;
+    private readonly AnimationInstance? animationInstance;
     private const string boolProperty = "Test Bool";
     private const string byteProperty = "Test Byte";
     private const string intProperty = "Test Int";
@@ -23,7 +23,7 @@ public class BlueprintsExtensibility : ISystem
         sceneComponent = new(actor, blueprint: blueprintSceneComponent);
         levelScript = World.GetActor<LevelScript>();
         skeletalMeshComponent = actor.GetComponent<SkeletalMeshComponent>();
-        animationInstance = skeletalMeshComponent.GetAnimationInstance();
+        animationInstance = skeletalMeshComponent?.GetAnimationInstance();
     }
 
     public void OnBeginPlay()
@@ -31,7 +31,7 @@ public class BlueprintsExtensibility : ISystem
         const string eventMessage = "Blueprint event dispatched";
         const float eventValue = 100.0f;
 
-        Assert.IsTrue(levelScript.Invoke($"TestEvent \"{eventMessage}: \" {eventValue}"));
+        Assert.IsTrue(levelScript?.Invoke($"TestEvent \"{eventMessage}: \" {eventValue}") == true);
         Assert.IsTrue(actor.IsSpawned);
         Assert.IsTrue(sceneComponent.IsCreated);
 
@@ -262,9 +262,9 @@ public class BlueprintsExtensibility : ISystem
     {
         bool value = false;
 
-        Assert.IsTrue(levelScript.SetBool(boolProperty, true));
+        Assert.IsTrue(levelScript?.SetBool(boolProperty, true) == true);
 
-        if (levelScript.GetBool(boolProperty, ref value))
+        if (levelScript?.GetBool(boolProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -278,9 +278,9 @@ public class BlueprintsExtensibility : ISystem
     {
         byte value = 0;
 
-        Assert.IsTrue(levelScript.SetByte(byteProperty, 128));
+        Assert.IsTrue(levelScript?.SetByte(byteProperty, 128) == true);
 
-        if (levelScript.GetByte(byteProperty, ref value))
+        if (levelScript?.GetByte(byteProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -294,9 +294,9 @@ public class BlueprintsExtensibility : ISystem
     {
         int value = 0;
 
-        Assert.IsTrue(levelScript.SetInt(intProperty, 500));
+        Assert.IsTrue(levelScript?.SetInt(intProperty, 500) == true);
 
-        if (levelScript.GetInt(intProperty, ref value))
+        if (levelScript?.GetInt(intProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -310,9 +310,9 @@ public class BlueprintsExtensibility : ISystem
     {
         float value = 0;
 
-        Assert.IsTrue(levelScript.SetFloat(floatProperty, 250.5f));
+        Assert.IsTrue(levelScript?.SetFloat(floatProperty, 250.5f) == true);
 
-        if (levelScript.GetFloat(floatProperty, ref value))
+        if (levelScript?.GetFloat(floatProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -326,9 +326,9 @@ public class BlueprintsExtensibility : ISystem
     {
         string value = string.Empty;
 
-        Assert.IsTrue(levelScript.SetString(stringProperty, "Test string message from managed code"));
+        Assert.IsTrue(levelScript?.SetString(stringProperty, "Test string message from managed code") == true);
 
-        if (levelScript.GetString(stringProperty, ref value))
+        if (levelScript?.GetString(stringProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -342,9 +342,9 @@ public class BlueprintsExtensibility : ISystem
     {
         string value = string.Empty;
 
-        Assert.IsTrue(levelScript.SetText(textProperty, "Test text message from managed code"));
+        Assert.IsTrue(levelScript?.SetText(textProperty, "Test text message from managed code") == true);
 
-        if (levelScript.GetText(textProperty, ref value))
+        if (levelScript?.GetText(textProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -358,9 +358,9 @@ public class BlueprintsExtensibility : ISystem
     {
         bool value = false;
 
-        Assert.IsTrue(animationInstance.SetBool(boolProperty, true));
+        Assert.IsTrue(animationInstance?.SetBool(boolProperty, true) == true);
 
-        if (animationInstance.GetBool(boolProperty, ref value))
+        if (animationInstance?.GetBool(boolProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
@@ -374,9 +374,9 @@ public class BlueprintsExtensibility : ISystem
     {
         byte value = 0;
 
-        Assert.IsTrue(animationInstance.SetByte(byteProperty, 128));
+        Assert.IsTrue(animationInstance?.SetByte(byteProperty, 128) == true);
 
-        if (animationInstance.GetByte(byteProperty, ref value))
+        if (animationInstance?.GetByte(byteProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
@@ -390,9 +390,9 @@ public class BlueprintsExtensibility : ISystem
     {
         int value = 0;
 
-        Assert.IsTrue(animationInstance.SetInt(intProperty, 500));
+        Assert.IsTrue(animationInstance?.SetInt(intProperty, 500) == true);
 
-        if (animationInstance.GetInt(intProperty, ref value))
+        if (animationInstance?.GetInt(intProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
@@ -406,9 +406,9 @@ public class BlueprintsExtensibility : ISystem
     {
         float value = 0;
 
-        Assert.IsTrue(animationInstance.SetFloat(floatProperty, 250.5f));
+        Assert.IsTrue(animationInstance?.SetFloat(floatProperty, 250.5f) == true);
 
-        if (animationInstance.GetFloat(floatProperty, ref value))
+        if (animationInstance?.GetFloat(floatProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
@@ -422,9 +422,9 @@ public class BlueprintsExtensibility : ISystem
     {
         string value = string.Empty;
 
-        Assert.IsTrue(animationInstance.SetString(stringProperty, "Test string message from managed code"));
+        Assert.IsTrue(animationInstance?.SetString(stringProperty, "Test string message from managed code") == true);
 
-        if (animationInstance.GetString(stringProperty, ref value))
+        if (animationInstance?.GetString(stringProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
@@ -438,9 +438,9 @@ public class BlueprintsExtensibility : ISystem
     {
         string value = string.Empty;
 
-        Assert.IsTrue(animationInstance.SetText(textProperty, "Test text message from managed code"));
+        Assert.IsTrue(animationInstance?.SetText(textProperty, "Test text message from managed code") == true);
 
-        if (animationInstance.GetText(textProperty, ref value))
+        if (animationInstance?.GetText(textProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
@@ -452,15 +452,15 @@ public class BlueprintsExtensibility : ISystem
 
     public static void TestBlueprintActorFunction(ObjectReference self)
     {
-        Actor blueprintActor = self.ToActor<Actor>();
+        Actor? blueprintActor = self.ToActor<Actor>();
 
-        Debug.AddOnScreenMessage(-1, 30.0f, Color.Orange, "Cheers from managed function of the " + blueprintActor.Name);
+        Debug.AddOnScreenMessage(-1, 30.0f, Color.Orange, "Cheers from managed function of the " + blueprintActor?.Name);
     }
 
     public static void TestBlueprintComponentFunction(ObjectReference self)
     {
-        SceneComponent blueprintSceneComponent = self.ToComponent<SceneComponent>();
+        SceneComponent? blueprintSceneComponent = self.ToComponent<SceneComponent>();
 
-        Debug.AddOnScreenMessage(-1, 30.0f, Color.Orange, "Cheers from managed function of the " + blueprintSceneComponent.Name);
+        Debug.AddOnScreenMessage(-1, 30.0f, Color.Orange, "Cheers from managed function of the " + blueprintSceneComponent?.Name);
     }
 }

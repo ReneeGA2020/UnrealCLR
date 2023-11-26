@@ -12,14 +12,14 @@ public class StaticMeshes : ISystem
     {
         actors = new Actor[maxActors];
         staticMeshComponents = new StaticMeshComponent[maxActors];
-        material = Material.Load("/Game/Tests/BasicMaterial");
+        material = Material.Load("/Game/Tests/BasicMaterial")!;
         rotationSpeed = 2.5f;
         random = new();
     }
 
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         for (int i = 0; i < maxActors; i++)
         {
@@ -28,7 +28,7 @@ public class StaticMeshes : ISystem
             staticMeshComponents[i].AddLocalOffset(new(15.0f * i, 20.0f * i, 25.0f * i));
             _ = staticMeshComponents[i].SetStaticMesh(StaticMesh.Cube);
             staticMeshComponents[i].SetMaterial(0, material);
-            staticMeshComponents[i].CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", new((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble()));
+            staticMeshComponents[i].CreateAndSetMaterialInstanceDynamic(0)!.SetVectorParameterValue("Color", new((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble()));
             staticMeshComponents[i].SetRelativeLocation(new(150.0f * i, 50.0f * i, 100.0f * i));
             staticMeshComponents[i].SetRelativeRotation(Maths.CreateFromYawPitchRoll(5.0f * i, 0.0f, 0.0f));
         }

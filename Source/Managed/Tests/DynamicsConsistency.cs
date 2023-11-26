@@ -20,9 +20,9 @@ public class DynamicsConsistency : ISystem
 
     public DynamicsConsistency()
     {
-        playerController = World.GetFirstPlayerController();
-        playerInput = playerController.GetPlayerInput();
-        variable = ConsoleManager.RegisterVariable(consoleVariable, "A test variable", variableValue);
+        playerController = World.GetFirstPlayerController()!;
+        playerInput = playerController.GetPlayerInput()!;
+        variable = ConsoleManager.RegisterVariable(consoleVariable, "A test variable", variableValue)!;
         commandsCount = 0;
     }
 
@@ -46,7 +46,7 @@ public class DynamicsConsistency : ISystem
 
         playerInput.AddActionMapping(playerCommandAction, playerCommandKey);
 
-        InputComponent inputComponent = playerController.InputComponent;
+        InputComponent inputComponent = playerController.InputComponent!;
 
         Assert.IsFalse(inputComponent.HasBindings);
 
@@ -144,7 +144,7 @@ public class DynamicsConsistency : ISystem
 
     private void ActionBindingsTest()
     {
-        Debug.AddOnScreenMessage(13, 3.0f, Color.Orange, "Action bindings: " + playerController.InputComponent.ActionBindingsNumber);
+        Debug.AddOnScreenMessage(13, 3.0f, Color.Orange, "Action bindings: " + playerController.InputComponent?.ActionBindingsNumber);
         Debug.AddOnScreenMessage(14, 3.0f, Color.Orange, "Press [" + pauseResumeKey + "] key to pause/resume");
         Debug.AddOnScreenMessage(15, 3.0f, Color.Orange, "Press [" + playerCommandKey + "] key to execute a player command");
     }

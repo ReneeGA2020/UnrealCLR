@@ -10,8 +10,8 @@ public class TextRenderer : ISystem
     {
         actor = new("TextActor");
         textRenderComponent = new(actor);
-        font = Font.Load("/Game/Tests/PlayFont");
-        material = Material.Load("/Game/Tests/PlayFontMaterial");
+        font = Font.Load("/Game/Tests/PlayFont")!;
+        material = Material.Load("/Game/Tests/PlayFontMaterial")!;
     }
 
     public void OnBeginPlay()

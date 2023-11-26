@@ -11,12 +11,12 @@ public class RuntimeConsistency : ISystem
         DuplicateComponentMemoryManagementTest();
         ConsoleVariablesMemoryManagementTest();
 
-        Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod().DeclaringType + " results in output log!");
+        Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod()!.DeclaringType + " results in output log!");
     }
 
     private void ActorMemoryManagementTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         try
         {
@@ -37,12 +37,12 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
     private void ComponentMemoryManagementTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         try
         {
@@ -63,16 +63,16 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
     private void ActorBlueprintClassesMatchingTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         try
         {
-            Blueprint blueprintActor = Blueprint.Load("/Game/Tests/BlueprintCameraActor");
+            Blueprint blueprintActor = Blueprint.Load("/Game/Tests/BlueprintCameraActor")!;
 
             Debug.Log(LogLevel.Display, "Triggering invalid action after the blueprint loading");
 
@@ -86,16 +86,16 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
     private void ComponentBlueprintClassesMatchingTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         try
         {
-            Blueprint blueprintComponent = Blueprint.Load("/Game/Tests/BlueprintActor");
+            Blueprint blueprintComponent = Blueprint.Load("/Game/Tests/BlueprintActor")!;
             Actor actor = new();
 
             Debug.Log(LogLevel.Display, "Triggering invalid action after the blueprint loading");
@@ -110,12 +110,12 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
     private void DuplicateActorMemoryManagementTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         const string actorName = "Player";
 
@@ -123,7 +123,7 @@ public class RuntimeConsistency : ISystem
         {
             Pawn pawn = new();
             Pawn namedPawn = new(actorName);
-            Pawn duplicateActor = World.GetActor<Pawn>(actorName);
+            Pawn duplicateActor = World.GetActor<Pawn>(actorName)!;
 
             if (!namedPawn.Equals(duplicateActor))
             {
@@ -147,18 +147,18 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
     private void DuplicateComponentMemoryManagementTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         try
         {
             Actor actor = new();
             SceneComponent sceneComponent = new(actor, setAsRoot: true);
-            SceneComponent duplicateReference = actor.GetRootComponent<SceneComponent>();
+            SceneComponent duplicateReference = actor.GetRootComponent<SceneComponent>()!;
 
             if (!sceneComponent.Equals(duplicateReference))
             {
@@ -182,18 +182,18 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
     private void ConsoleVariablesMemoryManagementTest()
     {
-        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
         const string variableName = "TestVariable";
 
         try
         {
-            ConsoleVariable variable = ConsoleManager.RegisterVariable(variableName, "A test variable", 64);
+            ConsoleVariable variable = ConsoleManager.RegisterVariable(variableName, "A test variable", 64)!;
 
             if (!ConsoleManager.IsRegisteredVariable(variableName))
             {
@@ -206,7 +206,7 @@ public class RuntimeConsistency : ISystem
 
             Debug.Log(LogLevel.Display, "Triggering invalid actions after the destruction");
 
-            _ = variable.GetInt();
+            _ = variable?.GetInt();
         }
 
         catch (Exception exception)
@@ -216,6 +216,6 @@ public class RuntimeConsistency : ISystem
             return;
         }
 
-        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod().Name + " test failed!");
+        Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 }

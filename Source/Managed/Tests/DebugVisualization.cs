@@ -3,7 +3,11 @@ public class DebugVisualization : ISystem
 {
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        Camera? newViewTarget = World.GetActor<Camera>("MainCamera");
+        if (newViewTarget is not null)
+        {
+            World.GetFirstPlayerController()?.SetViewTarget(newViewTarget);
+        }
 
         const float linesThickness = 3.0f;
 

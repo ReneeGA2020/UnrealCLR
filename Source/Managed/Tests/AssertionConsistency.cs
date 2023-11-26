@@ -1,13 +1,13 @@
 namespace UnrealEngine.Tests;
 public class AssertionConsistency : ISystem
 {
-    private Actor actor;
+    private Actor? actor;
 
     public void OnBeginPlay()
     {
         Assert.IsFalse(true, "Is true");
         Assert.IsTrue(false, "Is false");
-        Assert.IsNotNull(actor, "Is null");
+        Assert.IsNotNull(actor!, "Is null");
 
         actor = new();
 

@@ -119,14 +119,14 @@ internal unsafe struct Command
 
 internal sealed class Plugin
 {
-    internal PluginLoader loader;
-    internal Assembly assembly;
-    internal Dictionary<int, IntPtr> userFunctions;
+    internal PluginLoader? loader;
+    internal Assembly? assembly;
+    internal Dictionary<int, IntPtr>? userFunctions;
 }
 
 internal sealed class AssembliesContextManager
 {
-    internal AssemblyLoadContext assembliesContext;
+    internal AssemblyLoadContext? assembliesContext;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     internal WeakReference CreateAssembliesContext()
@@ -145,9 +145,9 @@ internal sealed class AssembliesContextManager
 
 internal static unsafe class Core
 {
-    private static AssembliesContextManager assembliesContextManager;
-    private static WeakReference assembliesContextWeakReference;
-    private static Plugin plugin;
+    private static AssembliesContextManager? assembliesContextManager;
+    private static WeakReference? assembliesContextWeakReference;
+    private static Plugin? plugin;
     private static IntPtr sharedEvents;
     private static IntPtr sharedFunctions;
     private static int sharedChecksum;
@@ -237,9 +237,9 @@ internal static unsafe class Core
 
             try
             {
-                string method = Marshal.PtrToStringAnsi(command.method);
+                string? method = Marshal.PtrToStringAnsi(command.method);
 
-                if (!plugin.userFunctions.TryGetValue(method.GetHashCode(StringComparison.Ordinal), out function) && command.optional != 1)
+                if ((method is null || plugin?.userFunctions?.TryGetValue(method.GetHashCode(StringComparison.Ordinal), out function) != true) && command.optional != 1)
                 {
                     Log(LogLevel.Error, "Managed function was not found \"" + method + "\"");
                 }
@@ -304,7 +304,7 @@ internal static unsafe class Core
 
                     foreach (string assembly in assemblies)
                     {
-                        AssemblyName name = null;
+                        AssemblyName name;
                         bool loadingFailed = false;
 
                         try
@@ -321,7 +321,7 @@ internal static unsafe class Core
                         {
                             plugin = new()
                             {
-                                loader = PluginLoader.CreateFromAssemblyFile(assembly, config => { config.DefaultContext = assembliesContextManager.assembliesContext; config.IsUnloadable = true; config.LoadInMemory = true; })
+                                loader = PluginLoader.CreateFromAssemblyFile(assembly, config => { config.DefaultContext = assembliesContextManager?.assembliesContext; config.IsUnloadable = true; config.LoadInMemory = true; })
                             };
                             plugin.assembly = plugin.loader.LoadAssemblyFromPath(assembly);
 
@@ -333,13 +333,13 @@ internal static unsafe class Core
                                 {
                                     Assembly framework = plugin.loader.LoadAssembly(referencedAssembly);
 
-                                    using (assembliesContextManager.assembliesContext.EnterContextualReflection())
+                                    using (assembliesContextManager?.assembliesContext?.EnterContextualReflection())
                                     {
-                                        Type sharedClass = framework.GetType(frameworkAssemblyName + ".Shared");
+                                        Type? sharedClass = framework.GetType(frameworkAssemblyName + ".Shared");
 
-                                        if ((int)sharedClass.GetField("checksum", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null) == sharedChecksum)
+                                        if (sharedClass != null && (sharedClass.GetField("checksum", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null) as int?) == sharedChecksum)
                                         {
-                                            plugin.userFunctions = (Dictionary<int, IntPtr>)sharedClass.GetMethod("Load", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, [sharedEvents, sharedFunctions, plugin.assembly]);
+                                            plugin.userFunctions = sharedClass.GetMethod("Load", BindingFlags.NonPublic | BindingFlags.Static)?.Invoke(null, [sharedEvents, sharedFunctions, plugin.assembly]) as Dictionary<int, IntPtr>;
 
                                             Log(LogLevel.Display, "Framework loaded successful for " + assembly);
 
@@ -388,13 +388,13 @@ internal static unsafe class Core
     {
         try
         {
-            plugin?.loader.Dispose();
+            plugin?.loader?.Dispose();
             plugin = null;
 
-            assembliesContextManager.UnloadAssembliesContext();
+            assembliesContextManager?.UnloadAssembliesContext();
             assembliesContextManager = null;
 
-            if (assembliesContextWeakReference.IsAlive)
+            if (assembliesContextWeakReference?.IsAlive == true)
             {
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
                 GC.WaitForPendingFinalizers();

@@ -3,15 +3,15 @@ public class TextureAssets : ISystem
 {
     public void OnBeginPlay()
     {
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         Actor actor = new();
         StaticMeshComponent staticMeshComponent = new(actor, setAsRoot: true);
-        Texture2D texture = Texture2D.Load("/Game/Tests/BasicTexture");
+        Texture2D texture = Texture2D.Load("/Game/Tests/BasicTexture")!;
 
         _ = staticMeshComponent.SetStaticMesh(StaticMesh.Plane);
-        staticMeshComponent.SetMaterial(0, Material.Load("/Game/Tests/TextureMaterial"));
-        staticMeshComponent.CreateAndSetMaterialInstanceDynamic(0).SetTextureParameterValue("Texture", texture);
+        staticMeshComponent.SetMaterial(0, Material.Load("/Game/Tests/TextureMaterial")!);
+        staticMeshComponent.CreateAndSetMaterialInstanceDynamic(0)!.SetTextureParameterValue("Texture", texture);
         staticMeshComponent.SetWorldLocation(new(-800.0f, 0.0f, 0.0f));
         staticMeshComponent.SetWorldRotation(Maths.Euler(90.0f, 0.0f, 90.0f));
 

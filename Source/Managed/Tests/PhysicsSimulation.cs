@@ -12,16 +12,16 @@ public class PhysicsSimulation : ISystem
     {
         actors = new Actor[maxActors];
         staticMeshComponents = new StaticMeshComponent[maxActors];
-        material = Material.Load("/Game/Tests/BasicMaterial");
+        material = Material.Load("/Game/Tests/BasicMaterial")!;
         rotationSpeed = 2.5f;
         random = new();
     }
 
     public void OnBeginPlay()
     {
-        Debug.AddOnScreenMessage(-1, 3.0f, Color.LightGreen, MethodBase.GetCurrentMethod().DeclaringType + " system started!");
+        Debug.AddOnScreenMessage(-1, 3.0f, Color.LightGreen, MethodBase.GetCurrentMethod()!.DeclaringType + " system started!");
 
-        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+        World.GetFirstPlayerController()!.SetViewTarget(World.GetActor<Camera>("MainCamera")!);
 
         const int halfActors = maxActors / 2;
 
@@ -31,7 +31,7 @@ public class PhysicsSimulation : ISystem
             staticMeshComponents[i] = new(actors[i], setAsRoot: true);
             _ = staticMeshComponents[i].SetStaticMesh(StaticMesh.Cube);
             staticMeshComponents[i].SetMaterial(0, material);
-            staticMeshComponents[i].CreateAndSetMaterialInstanceDynamic(0).SetVectorParameterValue("Color", LinearColor.Yellow);
+            staticMeshComponents[i].CreateAndSetMaterialInstanceDynamic(0)!.SetVectorParameterValue("Color", LinearColor.Yellow);
 
             if (i < halfActors)
             {
