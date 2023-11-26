@@ -14,7 +14,7 @@ public class RuntimeConsistency : ISystem
         Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod()!.DeclaringType + " results in output log!");
     }
 
-    private void ActorMemoryManagementTest()
+    private static void ActorMemoryManagementTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
@@ -40,7 +40,7 @@ public class RuntimeConsistency : ISystem
         Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
-    private void ComponentMemoryManagementTest()
+    private static void ComponentMemoryManagementTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
@@ -66,7 +66,7 @@ public class RuntimeConsistency : ISystem
         Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
-    private void ActorBlueprintClassesMatchingTest()
+    private static void ActorBlueprintClassesMatchingTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
@@ -89,7 +89,7 @@ public class RuntimeConsistency : ISystem
         Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
-    private void ComponentBlueprintClassesMatchingTest()
+    private static void ComponentBlueprintClassesMatchingTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
@@ -113,7 +113,7 @@ public class RuntimeConsistency : ISystem
         Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
-    private void DuplicateActorMemoryManagementTest()
+    private static void DuplicateActorMemoryManagementTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
@@ -150,7 +150,7 @@ public class RuntimeConsistency : ISystem
         Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
-    private void DuplicateComponentMemoryManagementTest()
+    private static void DuplicateComponentMemoryManagementTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 
@@ -185,7 +185,7 @@ public class RuntimeConsistency : ISystem
         Debug.Log(LogLevel.Error, MethodBase.GetCurrentMethod()!.Name + " test failed!");
     }
 
-    private void ConsoleVariablesMemoryManagementTest()
+    private static void ConsoleVariablesMemoryManagementTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()!.Name + "...");
 

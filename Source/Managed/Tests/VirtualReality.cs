@@ -2,14 +2,12 @@ namespace UnrealEngine.Tests;
 public class VirtualReality : ISystem
 {
     private readonly Pawn pawnVR;
-    private readonly SceneComponent body;
     private readonly MotionControllerComponent leftHand;
     private readonly MotionControllerComponent rightHand;
 
     public VirtualReality()
     {
         pawnVR = new("PawnVR");
-        body = new(pawnVR, "Root");
         leftHand = new(pawnVR, "LeftHand");
         rightHand = new(pawnVR, "RightHand");
     }

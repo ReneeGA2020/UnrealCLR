@@ -5,7 +5,6 @@ public class PhysicsSimulation : ISystem
     private readonly StaticMeshComponent[] staticMeshComponents;
     private readonly Material material;
     private readonly float rotationSpeed;
-    private readonly Random random;
     private const int maxActors = 200;
 
     public PhysicsSimulation()
@@ -14,7 +13,6 @@ public class PhysicsSimulation : ISystem
         staticMeshComponents = new StaticMeshComponent[maxActors];
         material = Material.Load("/Game/Tests/BasicMaterial")!;
         rotationSpeed = 2.5f;
-        random = new();
     }
 
     public void OnBeginPlay()

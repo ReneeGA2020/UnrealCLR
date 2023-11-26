@@ -51,11 +51,9 @@ public class ObjectOrientedDesign : ISystem
         Debug.ClearOnScreenMessages();
     }
 
-    private class Entity : Actor
+    private class Entity(string? name = null) : Actor(name)
     {
         public StateComponent? StateComponent { get; private set; }
-
-        public Entity(string? name = null) : base(name) { }
 
         public void CreateMesh(Material material, float rotationSpeed, string? name = null, bool setAsRoot = false)
         {
@@ -65,13 +63,8 @@ public class ObjectOrientedDesign : ISystem
         }
     }
 
-    private class StateComponent : StaticMeshComponent
+    private class StateComponent(Entity entity, float rotationSpeed, string? name = null, bool setAsRoot = false) : StaticMeshComponent(entity, name, setAsRoot)
     {
-        public float RotationSpeed { get; set; }
-
-        public StateComponent(Entity entity, float rotationSpeed, string? name = null, bool setAsRoot = false) : base(entity, name, setAsRoot)
-        {
-            RotationSpeed = rotationSpeed;
-        }
+        public float RotationSpeed { get; set; } = rotationSpeed;
     }
 }

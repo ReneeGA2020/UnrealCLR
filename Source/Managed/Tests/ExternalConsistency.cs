@@ -55,7 +55,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void CommandLineArgumentsTest()
+    private static void CommandLineArgumentsTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -65,7 +65,7 @@ public class ExternalConsistency : ISystem
 
         string arguments = CommandLine.Get();
 
-        if (arguments.IndexOf(append) == -1)
+        if (!arguments.Contains(append, StringComparison.CurrentCulture))
         {
             Debug.Log(LogLevel.Error, "Command-line append operation failed!");
 
@@ -78,7 +78,7 @@ public class ExternalConsistency : ISystem
 
         arguments = CommandLine.Get();
 
-        if (arguments.IndexOf(append) == -1)
+        if (!arguments.Contains(append, StringComparison.CurrentCulture))
         {
             Debug.Log(LogLevel.Error, "Command-line set operation failed!");
 
@@ -117,7 +117,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void ReferencesEqualityTest()
+    private static void ReferencesEqualityTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -186,7 +186,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void NamingTest()
+    private static void NamingTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -238,7 +238,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void HashCodesTest()
+    private static void HashCodesTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -282,7 +282,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void ActorsHierarchyTest()
+    private static void ActorsHierarchyTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -444,7 +444,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void ComponentsMatchingTest()
+    private static void ComponentsMatchingTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -484,7 +484,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void NonSceneComponentTest()
+    private static void NonSceneComponentTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -501,7 +501,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void ObjectIDsTest()
+    private static void ObjectIDsTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -529,7 +529,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void MaxFramesPerSecondTest()
+    private static void MaxFramesPerSecondTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 
@@ -552,7 +552,7 @@ public class ExternalConsistency : ISystem
         Debug.Log(LogLevel.Display, "Test passed successfully");
     }
 
-    private void TagsTest()
+    private static void TagsTest()
     {
         Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod()?.Name + "...");
 

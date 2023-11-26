@@ -112,7 +112,7 @@ public class DynamicsConsistency : ISystem
         Debug.AddOnScreenMessage(2, 3.0f, Color.PaleGoldenrod, "Mouse Y axis value: " + axisValue);
     }
 
-    private void TimeTest()
+    private static void TimeTest()
     {
         Debug.AddOnScreenMessage(3, 3.0f, Color.LightCyan, "Time: " + World.Time);
         Debug.AddOnScreenMessage(4, 3.0f, Color.LightCyan, "Delta time: " + World.DeltaTime);
@@ -130,7 +130,7 @@ public class DynamicsConsistency : ISystem
         Debug.AddOnScreenMessage(8, 3.0f, Color.MediumAquamarine, "Mouse position Y: " + mousePositionY);
     }
 
-    private void WindowTest()
+    private static void WindowTest()
     {
         Vector2 viewportSize = default;
 
@@ -159,7 +159,7 @@ public class DynamicsConsistency : ISystem
         }
     }
 
-    private void ConsoleTest()
+    private static void ConsoleTest()
     {
         Debug.AddOnScreenMessage(17, 3.0f, Color.YellowGreen, "Enter " + consoleVariable + " (value) to the console to change a variable");
         Debug.AddOnScreenMessage(18, 3.0f, Color.YellowGreen, "Enter " + consoleCommand + " (value) to the console to execute a command");
