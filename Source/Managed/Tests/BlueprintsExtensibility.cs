@@ -116,11 +116,11 @@ public class BlueprintsExtensibility : ISystem
 
     private void TestActorFloatProperty()
     {
-        float value = 0;
+        double value = 0;
 
-        Assert.IsTrue(actor.SetFloat(floatProperty, 250.5f));
+        Assert.IsTrue(actor.SetDouble(floatProperty, 250.5f));
 
-        if (actor.GetFloat(floatProperty, ref value))
+        if (actor.GetDouble(floatProperty, ref value))
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " actor property value retrieved: " + value);
         }
@@ -212,11 +212,11 @@ public class BlueprintsExtensibility : ISystem
 
     private void TestSceneComponentFloatProperty()
     {
-        float value = 0;
+        double value = 0;
 
-        Assert.IsTrue(sceneComponent.SetFloat(floatProperty, 250.5f));
+        Assert.IsTrue(sceneComponent.SetDouble(floatProperty, 250.5d));
 
-        if (sceneComponent.GetFloat(floatProperty, ref value))
+        if (sceneComponent.GetDouble(floatProperty, ref value))
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " scene component property value retrieved: " + value);
         }
@@ -308,11 +308,11 @@ public class BlueprintsExtensibility : ISystem
 
     private void TestLevelScriptFloatProperty()
     {
-        float value = 0;
+        double value = 0;
 
-        Assert.IsTrue(levelScript?.SetFloat(floatProperty, 250.5f) == true);
+        Assert.IsTrue(levelScript?.SetDouble(floatProperty, 250.5f) == true);
 
-        if (levelScript?.GetFloat(floatProperty, ref value) == true)
+        if (levelScript?.GetDouble(floatProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " level script property value retrieved: " + value);
         }
@@ -404,11 +404,11 @@ public class BlueprintsExtensibility : ISystem
 
     private void TestAnimationFloatProperty()
     {
-        float value = 0;
+        double value = 0;
 
-        Assert.IsTrue(animationInstance?.SetFloat(floatProperty, 250.5f) == true);
+        Assert.IsTrue(animationInstance?.SetDouble(floatProperty, 250.5f) == true);
 
-        if (animationInstance?.GetFloat(floatProperty, ref value) == true)
+        if (animationInstance?.GetDouble(floatProperty, ref value) == true)
         {
             Debug.AddOnScreenMessage(-1, 30.0f, Color.LimeGreen, value.GetType() + " animation property value retrieved: " + value);
         }
