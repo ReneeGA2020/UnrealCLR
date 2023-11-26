@@ -1,58 +1,62 @@
-namespace UnrealEngine.Tests {
-	public class SkeletalMeshes : ISystem {
-		public void OnBeginPlay() {
-			World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
+namespace UnrealEngine.Tests;
+public class SkeletalMeshes : ISystem
+{
+    public void OnBeginPlay()
+    {
+        World.GetFirstPlayerController().SetViewTarget(World.GetActor<Camera>("MainCamera"));
 
-			SkeletalMesh prototypeMesh = SkeletalMesh.Load("/Game/Tests/Characters/Prototype");
+        SkeletalMesh prototypeMesh = SkeletalMesh.Load("/Game/Tests/Characters/Prototype");
 
-			Actor leftPrototype = new("leftPrototype");
-			SkeletalMeshComponent leftSkeletalMeshComponent = new(leftPrototype);
+        Actor leftPrototype = new("leftPrototype");
+        SkeletalMeshComponent leftSkeletalMeshComponent = new(leftPrototype);
 
-			leftSkeletalMeshComponent.SetSkeletalMesh(prototypeMesh);
-			leftSkeletalMeshComponent.SetWorldLocation(new(-700.0f, -70.0f, -100.0f));
-			leftSkeletalMeshComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 90.0f));
-			leftSkeletalMeshComponent.SetAnimationMode(AnimationMode.Asset);
-			leftSkeletalMeshComponent.PlayAnimation(AnimationSequence.Load("/Game/Tests/Characters/Animations/IdleAnimationSequence"), true);
+        leftSkeletalMeshComponent.SetSkeletalMesh(prototypeMesh);
+        leftSkeletalMeshComponent.SetWorldLocation(new(-700.0f, -70.0f, -100.0f));
+        leftSkeletalMeshComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 90.0f));
+        leftSkeletalMeshComponent.SetAnimationMode(AnimationMode.Asset);
+        leftSkeletalMeshComponent.PlayAnimation(AnimationSequence.Load("/Game/Tests/Characters/Animations/IdleAnimationSequence"), true);
 
-			Assert.IsTrue(leftSkeletalMeshComponent.IsPlaying);
-			Assert.IsTrue(leftSkeletalMeshComponent.GetBoneName(0) == "root");
+        Assert.IsTrue(leftSkeletalMeshComponent.IsPlaying);
+        Assert.IsTrue(leftSkeletalMeshComponent.GetBoneName(0) == "root");
 
-			Bounds leftSkeletalMeshComponentBounds = default;
+        Bounds leftSkeletalMeshComponentBounds = default;
 
-			leftSkeletalMeshComponent.GetBounds(leftSkeletalMeshComponent.GetTransform(), ref leftSkeletalMeshComponentBounds);
+        leftSkeletalMeshComponent.GetBounds(leftSkeletalMeshComponent.GetTransform(), ref leftSkeletalMeshComponentBounds);
 
-			Assert.IsFalse(leftSkeletalMeshComponentBounds == default(Bounds));
+        Assert.IsFalse(leftSkeletalMeshComponentBounds == default);
 
-			Actor rightPrototype = new("rightPrototype");
-			SkeletalMeshComponent rightSkeletalMeshComponent = new(rightPrototype);
+        Actor rightPrototype = new("rightPrototype");
+        SkeletalMeshComponent rightSkeletalMeshComponent = new(rightPrototype);
 
-			rightSkeletalMeshComponent.SetSkeletalMesh(prototypeMesh);
-			rightSkeletalMeshComponent.SetWorldLocation(new(-700.0f, 70.0f, -100.0f));
-			rightSkeletalMeshComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 90.0f));
-			rightSkeletalMeshComponent.SetAnimationMode(AnimationMode.Asset);
+        rightSkeletalMeshComponent.SetSkeletalMesh(prototypeMesh);
+        rightSkeletalMeshComponent.SetWorldLocation(new(-700.0f, 70.0f, -100.0f));
+        rightSkeletalMeshComponent.SetWorldRotation(Maths.Euler(0.0f, 0.0f, 90.0f));
+        rightSkeletalMeshComponent.SetAnimationMode(AnimationMode.Asset);
 
-			MaterialInstanceDynamic prototypeMaterial = rightSkeletalMeshComponent.CreateAndSetMaterialInstanceDynamic(0);
+        MaterialInstanceDynamic prototypeMaterial = rightSkeletalMeshComponent.CreateAndSetMaterialInstanceDynamic(0);
 
-			prototypeMaterial.SetVectorParameterValue("AccentColor", new(0.0f, 0.5f, 1.0f));
+        prototypeMaterial.SetVectorParameterValue("AccentColor", new(0.0f, 0.5f, 1.0f));
 
-			Assert.IsNotNull(prototypeMaterial.GetParent());
+        Assert.IsNotNull(prototypeMaterial.GetParent());
 
-			AnimationMontage rightPrototypeAnimationMontage = AnimationMontage.Load("/Game/Tests/Characters/Animations/RunAnimationMontage");
+        AnimationMontage rightPrototypeAnimationMontage = AnimationMontage.Load("/Game/Tests/Characters/Animations/RunAnimationMontage");
 
-			rightSkeletalMeshComponent.PlayAnimation(rightPrototypeAnimationMontage, true);
+        rightSkeletalMeshComponent.PlayAnimation(rightPrototypeAnimationMontage, true);
 
-			AnimationInstance rightPrototypeAnimationInstance = rightSkeletalMeshComponent.GetAnimationInstance();
+        AnimationInstance rightPrototypeAnimationInstance = rightSkeletalMeshComponent.GetAnimationInstance();
 
-			Assert.IsTrue(rightPrototypeAnimationInstance.IsPlaying(rightPrototypeAnimationMontage));
-			Assert.IsTrue(rightSkeletalMeshComponent.GetBoneName(0) == "root");
+        Assert.IsTrue(rightPrototypeAnimationInstance.IsPlaying(rightPrototypeAnimationMontage));
+        Assert.IsTrue(rightSkeletalMeshComponent.GetBoneName(0) == "root");
 
-			Bounds rightSkeletalMeshComponentBounds = default;
+        Bounds rightSkeletalMeshComponentBounds = default;
 
-			rightSkeletalMeshComponent.GetBounds(rightSkeletalMeshComponent.GetTransform(), ref rightSkeletalMeshComponentBounds);
+        rightSkeletalMeshComponent.GetBounds(rightSkeletalMeshComponent.GetTransform(), ref rightSkeletalMeshComponentBounds);
 
-			Assert.IsFalse(rightSkeletalMeshComponentBounds == default(Bounds));
-		}
+        Assert.IsFalse(rightSkeletalMeshComponentBounds == default);
+    }
 
-		public void OnEndPlay() => Debug.ClearOnScreenMessages();
-	}
+    public void OnEndPlay()
+    {
+        Debug.ClearOnScreenMessages();
+    }
 }

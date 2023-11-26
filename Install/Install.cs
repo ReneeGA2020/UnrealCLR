@@ -1,163 +1,199 @@
-using System;
 using System.Diagnostics;
-using System.IO;
 
-public static class Install {
-	private static void Main(string[] arguments) {
-		Console.Title = "UnrealCLR Installation Tool";
+Console.Title = "UnrealCLR Installation Tool";
 
-		using StreamReader consoleReader = new(Console.OpenStandardInput(8192), Console.InputEncoding, false, bufferSize: 1024);
+using StreamReader consoleReader = new(Console.OpenStandardInput(8192), Console.InputEncoding, false, bufferSize: 1024);
 
-		Console.SetIn(consoleReader);
+Console.SetIn(consoleReader);
 
-		string projectPath = null;
-		bool? compileTestsOption = null;
-		bool? overwriteFilesOption = null;
+string? projectPath = null;
+bool? compileTestsOption = null;
+bool? overwriteFilesOption = null;
 
-		for (int i = 0; i < arguments.Length; i++) {
-			if (arguments[i].Contains("--project-path", StringComparison.Ordinal))
-				projectPath = arguments[i + 1];
+for (int i = 0; i < args.Length; i++)
+{
+    if (args[i].Contains("--project-path", StringComparison.Ordinal))
+    {
+        projectPath = args[i + 1];
+    }
 
-			if (arguments[i].Contains("--compile-tests", StringComparison.Ordinal))
-				compileTestsOption = bool.Parse(arguments[i + 1]);
+    if (args[i].Contains("--compile-tests", StringComparison.Ordinal))
+    {
+        compileTestsOption = bool.Parse(args[i + 1]);
+    }
 
-			if (arguments[i].Contains("--overwrite-files", StringComparison.Ordinal))
-				overwriteFilesOption = true;
-		}
+    if (args[i].Contains("--overwrite-files", StringComparison.Ordinal))
+    {
+        overwriteFilesOption = true;
+    }
+}
 
-		Console.WriteLine("Welcome to the UnrealCLR installation tool!");
+Console.WriteLine("Welcome to the UnrealCLR installation tool!");
 
-		if (String.IsNullOrEmpty(projectPath)) {
-			Console.Write(Environment.NewLine + "Please, set a path to an Unreal Engine project: ");
+if (string.IsNullOrEmpty(projectPath))
+{
+    Console.Write(Environment.NewLine + "Please, set a path to an Unreal Engine project: ");
 
-			projectPath = @"" + Console.ReadLine();
-		}
+    projectPath = @"" + Console.ReadLine();
+}
 
-		projectPath = projectPath.Replace("\"", String.Empty, StringComparison.Ordinal).Replace("\'", String.Empty, StringComparison.Ordinal).TrimEnd(Path.DirectorySeparatorChar);
+projectPath = projectPath.Replace("\"", string.Empty, StringComparison.Ordinal).Replace("\'", string.Empty, StringComparison.Ordinal).TrimEnd(Path.DirectorySeparatorChar);
 
-		string sourcePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
+string sourcePath = Path.Combine(Directory.GetCurrentDirectory(), "..");
 
-		if (Directory.GetFiles(projectPath, "*.uproject", SearchOption.TopDirectoryOnly).Length != 0) {
-			Console.WriteLine($"Project file found in \"{ projectPath }\" folder!");
+if (Directory.GetFiles(projectPath, "*.uproject", SearchOption.TopDirectoryOnly).Length != 0)
+{
+    Console.WriteLine($"Project file found in \"{projectPath}\" folder!");
 
-			bool compileTests = false;
+    bool compileTests = false;
 
-			if (compileTestsOption != null) {
-				compileTests = compileTestsOption.GetValueOrDefault();
-			} else {
-				Console.Write(Environment.NewLine + "Do you want to compile and install tests? [y/n] ");
+    if (compileTestsOption != null)
+    {
+        compileTests = compileTestsOption.GetValueOrDefault();
+    }
+    else
+    {
+        Console.Write(Environment.NewLine + "Do you want to compile and install tests? [y/n] ");
 
-				if (Console.ReadKey(false).Key == ConsoleKey.Y)
-					compileTests = true;
-			}
+        if (Console.ReadKey(false).Key == ConsoleKey.Y)
+        {
+            compileTests = true;
+        }
+    }
 
-			bool overwriteFiles = false;
+    bool overwriteFiles = false;
 
-			if (overwriteFilesOption != null) {
-				overwriteFiles = overwriteFilesOption.GetValueOrDefault();
-			} else {
-				Console.Write(Environment.NewLine + "Installation will delete all previous files of the plugin" + (compileTests ? " and content of tests" : String.Empty) + ". Do you want to continue? [y/n] ");
+    if (overwriteFilesOption != null)
+    {
+        overwriteFiles = overwriteFilesOption.GetValueOrDefault();
+    }
+    else
+    {
+        Console.Write(Environment.NewLine + "Installation will delete all previous files of the plugin" + (compileTests ? " and content of tests" : string.Empty) + ". Do you want to continue? [y/n] ");
 
-				if (Console.ReadKey(false).Key == ConsoleKey.Y)
-					overwriteFiles = true;
-			}
+        if (Console.ReadKey(false).Key == ConsoleKey.Y)
+        {
+            overwriteFiles = true;
+        }
+    }
 
-			if (overwriteFiles) {
-				string nativeSource = Path.Combine(sourcePath, "Source/Native");
+    if (overwriteFiles)
+    {
+        string nativeSource = Path.Combine(sourcePath, "Source/Native");
 
-				Console.WriteLine(Environment.NewLine + "Removing the previous plugin installation...");
+        Console.WriteLine(Environment.NewLine + "Removing the previous plugin installation...");
 
-				if (Directory.Exists(Path.Combine(projectPath, "Plugins/UnrealCLR")))
-					Directory.Delete(Path.Combine(projectPath, "Plugins/UnrealCLR"), true);
+        if (Directory.Exists(Path.Combine(projectPath, "Plugins/UnrealCLR")))
+        {
+            Directory.Delete(Path.Combine(projectPath, "Plugins/UnrealCLR"), true);
+        }
 
-				Console.WriteLine("Copying native source code and the runtime host of the plugin...");
+        Console.WriteLine("Copying native source code and the runtime host of the plugin...");
 
-				foreach (string directoriesPath in Directory.GetDirectories(nativeSource, "*", SearchOption.AllDirectories)) {
-					Directory.CreateDirectory(directoriesPath.Replace(nativeSource, Path.Combine(projectPath, "Plugins/UnrealCLR"), StringComparison.Ordinal));
-				}
+        foreach (string directoriesPath in Directory.GetDirectories(nativeSource, "*", SearchOption.AllDirectories))
+        {
+            _ = Directory.CreateDirectory(directoriesPath.Replace(nativeSource, Path.Combine(projectPath, "Plugins/UnrealCLR"), StringComparison.Ordinal));
+        }
 
-				foreach (string filesPath in Directory.GetFiles(nativeSource, "*.*", SearchOption.AllDirectories)) {
-					File.Copy(filesPath, filesPath.Replace(nativeSource, Path.Combine(projectPath, "Plugins/UnrealCLR"), StringComparison.Ordinal), true);
-				}
+        foreach (string filesPath in Directory.GetFiles(nativeSource, "*.*", SearchOption.AllDirectories))
+        {
+            File.Copy(filesPath, filesPath.Replace(nativeSource, Path.Combine(projectPath, "Plugins/UnrealCLR"), StringComparison.Ordinal), true);
+        }
 
-				Console.WriteLine("Launching compilation of the managed runtime...");
+        Console.WriteLine("Launching compilation of the managed runtime...");
 
-				var runtimeCompilation = Process.Start(new ProcessStartInfo {
-					FileName = "dotnet",
-					Arguments =  $"publish \"{ sourcePath }/Source/Managed/Runtime\" --configuration Release --framework net8.0 --output \"{ projectPath }/Plugins/UnrealCLR/Managed\"",
-					CreateNoWindow = false,
-					UseShellExecute = false
-				});
+        Process? runtimeCompilation = Process.Start(new ProcessStartInfo
+        {
+            FileName = "dotnet",
+            Arguments = $"publish \"{sourcePath}/Source/Managed/Runtime\" --configuration Release --framework net8.0 --output \"{projectPath}/Plugins/UnrealCLR/Managed\"",
+            CreateNoWindow = false,
+            UseShellExecute = false
+        });
 
-				runtimeCompilation.WaitForExit();
+        runtimeCompilation?.WaitForExit();
 
-				if (runtimeCompilation.ExitCode != 0)
-					Error("Compilation of the runtime was finished with an error (Exit code: " + runtimeCompilation.ExitCode + ")!");
+        if (runtimeCompilation?.ExitCode != 0)
+        {
+            Error("Compilation of the runtime was finished with an error (Exit code: " + runtimeCompilation?.ExitCode + ")!");
+        }
 
-				Console.WriteLine("Launching compilation of the framework...");
+        Console.WriteLine("Launching compilation of the framework...");
 
-				var frameworkCompilation = Process.Start(new ProcessStartInfo {
-					FileName = "dotnet",
-					Arguments =  $"publish \"{ sourcePath }/Source/Managed/Framework\" --configuration Release --framework net8.0 --output \"{ sourcePath }/Source/Managed/Framework/bin/Release\"",
-					CreateNoWindow = false,
-					UseShellExecute = false
-				});
+        Process? frameworkCompilation = Process.Start(new ProcessStartInfo
+        {
+            FileName = "dotnet",
+            Arguments = $"publish \"{sourcePath}/Source/Managed/Framework\" --configuration Release --framework net8.0 --output \"{sourcePath}/Source/Managed/Framework/bin/Release\"",
+            CreateNoWindow = false,
+            UseShellExecute = false
+        });
 
-				frameworkCompilation.WaitForExit();
+        frameworkCompilation?.WaitForExit();
 
-				if (frameworkCompilation.ExitCode != 0)
-					Error("Compilation of the framework was finished with an error (Exit code: " + frameworkCompilation.ExitCode + ")!");
+        if (frameworkCompilation?.ExitCode != 0)
+        {
+            Error("Compilation of the framework was finished with an error (Exit code: " + frameworkCompilation?.ExitCode + ")!");
+        }
 
-				if (compileTests) {
-					string contentPath = Path.Combine(sourcePath, "Content");
+        if (compileTests)
+        {
+            string contentPath = Path.Combine(sourcePath, "Content");
 
-					Console.WriteLine("Removing the previous content of the tests...");
+            Console.WriteLine("Removing the previous content of the tests...");
 
-					if (Directory.Exists(Path.Combine(projectPath, "Content/Tests")))
-						Directory.Delete(Path.Combine(projectPath, "Content/Tests"), true);
+            if (Directory.Exists(Path.Combine(projectPath, "Content/Tests")))
+            {
+                Directory.Delete(Path.Combine(projectPath, "Content/Tests"), true);
+            }
 
-					Console.WriteLine("Copying the content of the tests...");
+            Console.WriteLine("Copying the content of the tests...");
 
-					foreach (string directoriesPath in Directory.GetDirectories(contentPath, "*", SearchOption.AllDirectories)) {
-						Directory.CreateDirectory(directoriesPath.Replace(contentPath, Path.Combine(projectPath, "Content"), StringComparison.Ordinal));
-					}
+            foreach (string directoriesPath in Directory.GetDirectories(contentPath, "*", SearchOption.AllDirectories))
+            {
+                _ = Directory.CreateDirectory(directoriesPath.Replace(contentPath, Path.Combine(projectPath, "Content"), StringComparison.Ordinal));
+            }
 
-					foreach (string filesPath in Directory.GetFiles(contentPath, "*.*", SearchOption.AllDirectories)) {
-						File.Copy(filesPath, filesPath.Replace(contentPath, Path.Combine(projectPath, "Content"), StringComparison.Ordinal), true);
-					}
+            foreach (string filesPath in Directory.GetFiles(contentPath, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(filesPath, filesPath.Replace(contentPath, Path.Combine(projectPath, "Content"), StringComparison.Ordinal), true);
+            }
 
-					Console.WriteLine("Launching compilation of the tests...");
+            Console.WriteLine("Launching compilation of the tests...");
 
-					var testsCompilation = Process.Start(new ProcessStartInfo {
-						FileName = "dotnet",
-						Arguments =  $"publish \"{ sourcePath }/Source/Managed/Tests\" --configuration Release --framework net8.0 --output \"{ projectPath }/Managed/Tests\"",
-						CreateNoWindow = false,
-						UseShellExecute = false
-					});
+            Process? testsCompilation = Process.Start(new ProcessStartInfo
+            {
+                FileName = "dotnet",
+                Arguments = $"publish \"{sourcePath}/Source/Managed/Tests\" --configuration Release --framework net8.0 --output \"{projectPath}/Managed/Tests\"",
+                CreateNoWindow = false,
+                UseShellExecute = false
+            });
 
-					testsCompilation.WaitForExit();
+            testsCompilation?.WaitForExit();
 
-					if (testsCompilation.ExitCode != 0)
-						Error("Compilation of the tests was finished with an error (Exit code: " + testsCompilation.ExitCode + ")!");
-				}
+            if (testsCompilation?.ExitCode != 0)
+            {
+                Error("Compilation of the tests was finished with an error (Exit code: " + testsCompilation?.ExitCode + ")!");
+            }
+        }
 
-				Console.Write("Done!");
-				Console.ForegroundColor = ConsoleColor.Yellow;
-				Console.Write(" Please, don't forget to recompile custom code with an updated framework!");
-				Console.ResetColor();
-				Environment.Exit(0);
-			} else {
-				Console.WriteLine(Environment.NewLine + "Installation canceled");
-			}
-		} else {
-			Error($"Project file not found in \"{ projectPath }\" folder!");
-		}
-	}
-
-	private static void Error(string message) {
-		Console.ForegroundColor = ConsoleColor.Red;
-		Console.WriteLine(message);
-		Console.ResetColor();
-		Environment.Exit(-1);
-	}
+        Console.Write("Done!");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write(" Please, don't forget to recompile custom code with an updated framework!");
+        Console.ResetColor();
+        Environment.Exit(0);
+    }
+    else
+    {
+        Console.WriteLine(Environment.NewLine + "Installation canceled");
+    }
+}
+else
+{
+    Error($"Project file not found in \"{projectPath}\" folder!");
+}
+static void Error(string message)
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(message);
+    Console.ResetColor();
+    Environment.Exit(-1);
 }

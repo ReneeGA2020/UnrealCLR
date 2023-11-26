@@ -1,542 +1,620 @@
-namespace UnrealEngine.Tests {
-	public class ExternalConsistency : ISystem {
-		public void OnBeginPlay() {
-			AssetRegistryTest();
-			CommandLineArgumentsTest();
-			ReferencesEqualityTest();
-			NamingTest();
-			HashCodesTest();
-			ActorsHierarchyTest();
-			ChildActorsTest();
-			ComponentsAttachmentTest();
-			ComponentsMatchingTest();
-			NonSceneComponentTest();
-			ObjectIDsTest();
-			MaxFramesPerSecondTest();
-			TagsTest();
+namespace UnrealEngine.Tests;
+public class ExternalConsistency : ISystem
+{
+    public void OnBeginPlay()
+    {
+        AssetRegistryTest();
+        CommandLineArgumentsTest();
+        ReferencesEqualityTest();
+        NamingTest();
+        HashCodesTest();
+        ActorsHierarchyTest();
+        ChildActorsTest();
+        ComponentsAttachmentTest();
+        ComponentsMatchingTest();
+        NonSceneComponentTest();
+        ObjectIDsTest();
+        MaxFramesPerSecondTest();
+        TagsTest();
 
-			Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod().DeclaringType + " results in output log!");
-		}
+        Debug.AddOnScreenMessage(-1, 10.0f, Color.MediumTurquoise, "Verify " + MethodBase.GetCurrentMethod().DeclaringType + " results in output log!");
+    }
 
-		private void AssetRegistryTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void AssetRegistryTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			AssetRegistry assetRegistry = new();
+        AssetRegistry assetRegistry = new();
 
-			if (!assetRegistry.HasAssets("/Game/Tests", true)) {
-				Debug.Log(LogLevel.Error, "Asset registry assets path test failed!");
+        if (!assetRegistry.HasAssets("/Game/Tests", true))
+        {
+            Debug.Log(LogLevel.Error, "Asset registry assets path test failed!");
 
-				return;
-			}
+            return;
+        }
 
-			bool assetFound = false;
+        bool assetFound = false;
 
-			Action<Asset> OnAsset = (asset) => {
-				if (asset.Path == "/Game/Tests/Tests")
-					assetFound = true;
-			};
+        void OnAsset(Asset asset)
+        {
+            if (asset.Path == "/Game/Tests/Tests")
+            {
+                assetFound = true;
+            }
+        }
 
-			assetRegistry.ForEachAsset(OnAsset, "/Game/Tests", true);
+        assetRegistry.ForEachAsset(OnAsset, "/Game/Tests", true);
 
-			if (!assetFound) {
-				Debug.Log(LogLevel.Error, "Asset registry path to asset test failed!");
+        if (!assetFound)
+        {
+            Debug.Log(LogLevel.Error, "Asset registry path to asset test failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void CommandLineArgumentsTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void CommandLineArgumentsTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			string append = " -test 1";
+        string append = " -test 1";
 
-			CommandLine.Append(append);
+        CommandLine.Append(append);
 
-			string arguments = CommandLine.Get();
+        string arguments = CommandLine.Get();
 
-			if (arguments.IndexOf(append) == -1) {
-				Debug.Log(LogLevel.Error, "Command-line append operation failed!");
+        if (arguments.IndexOf(append) == -1)
+        {
+            Debug.Log(LogLevel.Error, "Command-line append operation failed!");
 
-				return;
-			}
+            return;
+        }
 
-			append = "-test 2";
+        append = "-test 2";
 
-			CommandLine.Set(append);
+        CommandLine.Set(append);
 
-			arguments = CommandLine.Get();
+        arguments = CommandLine.Get();
 
-			if (arguments.IndexOf(append) == -1) {
-				Debug.Log(LogLevel.Error, "Command-line set operation failed!");
+        if (arguments.IndexOf(append) == -1)
+        {
+            Debug.Log(LogLevel.Error, "Command-line set operation failed!");
 
-				return;
-			}
+            return;
+        }
 
-			ushort exceptions = 0;
+        ushort exceptions = 0;
 
-			try {
-				CommandLine.Append(null);
-			}
+        try
+        {
+            CommandLine.Append(null);
+        }
 
-			catch {
-				exceptions++;
-			}
+        catch
+        {
+            exceptions++;
+        }
 
-			try {
-				CommandLine.Set(null);
-			}
+        try
+        {
+            CommandLine.Set(null);
+        }
 
-			catch {
-				exceptions++;
-			}
+        catch
+        {
+            exceptions++;
+        }
 
-			if (exceptions != 2) {
-				Debug.Log(LogLevel.Error, "Command-line null checks failed!");
+        if (exceptions != 2)
+        {
+            Debug.Log(LogLevel.Error, "Command-line null checks failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void ReferencesEqualityTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void ReferencesEqualityTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			TriggerBox actorLeft = new();
-			TriggerSphere actorRight = new();
-			SceneComponent sceneComponentLeft = new(actorLeft);
-			SceneComponent sceneComponentRight = new(actorRight);
+        TriggerBox actorLeft = new();
+        TriggerSphere actorRight = new();
+        SceneComponent sceneComponentLeft = new(actorLeft);
+        SceneComponent sceneComponentRight = new(actorRight);
 
-			if (sceneComponentLeft.Equals(sceneComponentRight) || !sceneComponentLeft.Equals(sceneComponentLeft)) {
-				Debug.Log(LogLevel.Error, "Scene components equality check failed!");
+        if (sceneComponentLeft.Equals(sceneComponentRight) || !sceneComponentLeft.Equals(sceneComponentLeft))
+        {
+            Debug.Log(LogLevel.Error, "Scene components equality check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (actorLeft.Equals(sceneComponentRight.GetActor<TriggerSphere>()) || !actorLeft.Equals(sceneComponentLeft.GetActor<TriggerBox>())) {
-				Debug.Log(LogLevel.Error, "Scene components owners equality check failed!");
+        if (actorLeft.Equals(sceneComponentRight.GetActor<TriggerSphere>()) || !actorLeft.Equals(sceneComponentLeft.GetActor<TriggerBox>()))
+        {
+            Debug.Log(LogLevel.Error, "Scene components owners equality check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			sceneComponentLeft.Destroy();
+        sceneComponentLeft.Destroy();
 
-			if (sceneComponentRight.Equals(sceneComponentLeft)) {
-				Debug.Log(LogLevel.Error, "Scene components equality check after destruction failed!");
+        if (sceneComponentRight.Equals(sceneComponentLeft))
+        {
+            Debug.Log(LogLevel.Error, "Scene components equality check after destruction failed!");
 
-				return;
-			}
+            return;
+        }
 
-			sceneComponentRight.Destroy();
+        sceneComponentRight.Destroy();
 
-			if (sceneComponentRight.Equals(sceneComponentRight)) {
-				Debug.Log(LogLevel.Error, "Scene components equality check with null failed!");
+        if (sceneComponentRight.Equals(sceneComponentRight))
+        {
+            Debug.Log(LogLevel.Error, "Scene components equality check with null failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (actorLeft.Equals(actorRight) || !actorLeft.Equals(actorLeft)) {
-				Debug.Log(LogLevel.Error, "Actors equality check failed!");
+        if (actorLeft.Equals(actorRight) || !actorLeft.Equals(actorLeft))
+        {
+            Debug.Log(LogLevel.Error, "Actors equality check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			actorLeft.Destroy();
+        _ = actorLeft.Destroy();
 
-			if (actorRight.Equals(actorLeft)) {
-				Debug.Log(LogLevel.Error, "Actors equality check after destruction failed!");
+        if (actorRight.Equals(actorLeft))
+        {
+            Debug.Log(LogLevel.Error, "Actors equality check after destruction failed!");
 
-				return;
-			}
+            return;
+        }
 
-			actorRight.Destroy();
+        _ = actorRight.Destroy();
 
-			if (actorRight.Equals(actorRight)) {
-				Debug.Log(LogLevel.Error, "Actors equality check with null failed!");
+        if (actorRight.Equals(actorRight))
+        {
+            Debug.Log(LogLevel.Error, "Actors equality check with null failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void NamingTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void NamingTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			const string actorName = "TestActorName";
-			const string actorShortName = "TestActor";
-			const string componentName = "TestComponentName";
-			const string componentShortName = "TestComponent";
-			const string renamedSuffix = "Renamed";
+        const string actorName = "TestActorName";
+        const string actorShortName = "TestActor";
+        const string componentName = "TestComponentName";
+        const string componentShortName = "TestComponent";
+        const string renamedSuffix = "Renamed";
 
-			Actor actor = new(actorName);
-			SceneComponent sceneComponent = new(actor, componentName);
+        Actor actor = new(actorName);
+        SceneComponent sceneComponent = new(actor, componentName);
 
-			if (actor.Name != actorName || sceneComponent.Name != componentName) {
-				Debug.Log(LogLevel.Error, "Names check failed!");
+        if (actor.Name != actorName || sceneComponent.Name != componentName)
+        {
+            Debug.Log(LogLevel.Error, "Names check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Actor namedActor = World.GetActor<Actor>(actorName);
+        Actor namedActor = World.GetActor<Actor>(actorName);
 
-			if (!actor.Equals(namedActor)) {
-				Debug.Log(LogLevel.Error, "Actor from world with a name check after removing failed!");
+        if (!actor.Equals(namedActor))
+        {
+            Debug.Log(LogLevel.Error, "Actor from world with a name check after removing failed!");
 
-				return;
-			}
+            return;
+        }
 
-			actor.Rename(actorName + renamedSuffix);
-			sceneComponent.Rename(componentName + renamedSuffix);
+        actor.Rename(actorName + renamedSuffix);
+        sceneComponent.Rename(componentName + renamedSuffix);
 
-			if (actor.Name != actorName + renamedSuffix || sceneComponent.Name != componentName + renamedSuffix) {
-				Debug.Log(LogLevel.Error, "Renaming to more characters check failed!");
+        if (actor.Name != actorName + renamedSuffix || sceneComponent.Name != componentName + renamedSuffix)
+        {
+            Debug.Log(LogLevel.Error, "Renaming to more characters check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			actor.Rename(actorShortName);
-			sceneComponent.Rename(componentShortName);
+        actor.Rename(actorShortName);
+        sceneComponent.Rename(componentShortName);
 
-			if (actor.Name != actorShortName || sceneComponent.Name != componentShortName) {
-				Debug.Log(LogLevel.Error, "Renaming to less characters check failed!");
+        if (actor.Name != actorShortName || sceneComponent.Name != componentShortName)
+        {
+            Debug.Log(LogLevel.Error, "Renaming to less characters check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void HashCodesTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void HashCodesTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actorLeft = new();
-			Actor actorRight = new();
-			SceneComponent sceneComponentLeft = new(actorLeft);
-			SceneComponent sceneComponentRight = new(actorRight);
+        Actor actorLeft = new();
+        Actor actorRight = new();
+        SceneComponent sceneComponentLeft = new(actorLeft);
+        SceneComponent sceneComponentRight = new(actorRight);
 
-			if (sceneComponentLeft.GetHashCode() == sceneComponentRight.GetHashCode() || sceneComponentLeft.GetHashCode() != sceneComponentLeft.GetHashCode()) {
-				Debug.Log(LogLevel.Error, "Scene components hash codes check failed!");
+        if (sceneComponentLeft.GetHashCode() == sceneComponentRight.GetHashCode() || sceneComponentLeft.GetHashCode() != sceneComponentLeft.GetHashCode())
+        {
+            Debug.Log(LogLevel.Error, "Scene components hash codes check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			sceneComponentLeft.Destroy();
+        sceneComponentLeft.Destroy();
 
-			if (sceneComponentRight.GetHashCode() == sceneComponentLeft.GetHashCode()) {
-				Debug.Log(LogLevel.Error, "Scene components hash codes check after destruction failed!");
+        if (sceneComponentRight.GetHashCode() == sceneComponentLeft.GetHashCode())
+        {
+            Debug.Log(LogLevel.Error, "Scene components hash codes check after destruction failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (actorLeft.GetHashCode() == actorRight.GetHashCode() || actorLeft.GetHashCode() != actorLeft.GetHashCode()) {
-				Debug.Log(LogLevel.Error, "Actors hash codes check failed!");
+        if (actorLeft.GetHashCode() == actorRight.GetHashCode() || actorLeft.GetHashCode() != actorLeft.GetHashCode())
+        {
+            Debug.Log(LogLevel.Error, "Actors hash codes check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			actorLeft.Destroy();
+        _ = actorLeft.Destroy();
 
-			if (actorRight.GetHashCode() == actorLeft.GetHashCode()) {
-				Debug.Log(LogLevel.Error, "Actors hash codes check after destruction failed!");
+        if (actorRight.GetHashCode() == actorLeft.GetHashCode())
+        {
+            Debug.Log(LogLevel.Error, "Actors hash codes check after destruction failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void ActorsHierarchyTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void ActorsHierarchyTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			const string actorName = "TestPlayerController";
+        const string actorName = "TestPlayerController";
 
-			PlayerController playerController = new(actorName);
-			Actor actor = World.GetActor<Actor>(actorName);
+        PlayerController playerController = new(actorName);
+        Actor actor = World.GetActor<Actor>(actorName);
 
-			if (playerController == null || actor == null) {
-				Debug.Log(LogLevel.Error, "Actor valid references check failed!");
+        if (playerController == null || actor == null)
+        {
+            Debug.Log(LogLevel.Error, "Actor valid references check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			AmbientSound ambientSound = World.GetActor<AmbientSound>(actorName);
-			Brush brush = World.GetActor<Brush>(actorName);
+        AmbientSound ambientSound = World.GetActor<AmbientSound>(actorName);
+        Brush brush = World.GetActor<Brush>(actorName);
 
-			if (ambientSound != null || brush != null) {
-				Debug.Log(LogLevel.Error, "Actor invalid references check failed!");
+        if (ambientSound != null || brush != null)
+        {
+            Debug.Log(LogLevel.Error, "Actor invalid references check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void ChildActorsTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void ChildActorsTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actor = new();
-			ChildActorComponent childActorComponent = new(actor, setAsRoot: true);
-			TriggerBox childActor = childActorComponent.SetChildActor<TriggerBox>();
+        Actor actor = new();
+        ChildActorComponent childActorComponent = new(actor, setAsRoot: true);
+        TriggerBox childActor = childActorComponent.SetChildActor<TriggerBox>();
 
-			if (childActor == null) {
-				Debug.Log(LogLevel.Error, "Child actor creation check failed!");
+        if (childActor == null)
+        {
+            Debug.Log(LogLevel.Error, "Child actor creation check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			childActor = childActorComponent.GetChildActor<TriggerBox>();
+        childActor = childActorComponent.GetChildActor<TriggerBox>();
 
-			if (childActor == null) {
-				Debug.Log(LogLevel.Error, "Child actor obtainment check failed!");
+        if (childActor == null)
+        {
+            Debug.Log(LogLevel.Error, "Child actor obtainment check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			BoxComponent boxComponent = childActor.GetComponent<BoxComponent>();
-			Vector3 initialExtent = new(100.0f, 100.0f, 100.0f);
+        BoxComponent boxComponent = childActor.GetComponent<BoxComponent>();
+        Vector3 initialExtent = new(100.0f, 100.0f, 100.0f);
 
-			boxComponent.InitBoxExtent(initialExtent);
+        boxComponent.InitBoxExtent(initialExtent);
 
-			if (initialExtent != boxComponent.GetUnscaledBoxExtent()) {
-				Debug.Log(LogLevel.Error, "Child actor box extent check failed!");
+        if (initialExtent != boxComponent.GetUnscaledBoxExtent())
+        {
+            Debug.Log(LogLevel.Error, "Child actor box extent check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			int attachedActorCount = 0;
+        int attachedActorCount = 0;
 
-			Action<Actor> OnAttachedActor = (actor) => attachedActorCount++;
+        void OnAttachedActor(Actor actor)
+        {
+            attachedActorCount++;
+        }
 
-			actor.ForEachAttachedActor(OnAttachedActor);
+        actor.ForEachAttachedActor((Action<Actor>)OnAttachedActor);
 
-			if (attachedActorCount != 1) {
-				Debug.Log(LogLevel.Error, "Batched attached actor check failed!");
+        if (attachedActorCount != 1)
+        {
+            Debug.Log(LogLevel.Error, "Batched attached actor check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			int childActorCount = 0;
+        int childActorCount = 0;
 
-			Action<Actor> OnChildActor = (actor) => childActorCount++;
+        void OnChildActor(Actor actor)
+        {
+            childActorCount++;
+        }
 
-			actor.ForEachChildActor(OnChildActor);
+        actor.ForEachChildActor((Action<Actor>)OnChildActor);
 
-			if (childActorCount != 1) {
-				Debug.Log(LogLevel.Error, "Batched child actor check failed!");
+        if (childActorCount != 1)
+        {
+            Debug.Log(LogLevel.Error, "Batched child actor check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void ComponentsAttachmentTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void ComponentsAttachmentTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actor = new();
-			StaticMeshComponent staticMeshComponent = new(actor, setAsRoot: true);
-			InstancedStaticMeshComponent instancedStaticMeshComponent = new(actor);
-			SceneComponent sceneComponent = new(actor);
-			BoxComponent boxComponent = new(actor);
-			SphereComponent sphereComponent = new(actor);
+        Actor actor = new();
+        StaticMeshComponent staticMeshComponent = new(actor, setAsRoot: true);
+        InstancedStaticMeshComponent instancedStaticMeshComponent = new(actor);
+        SceneComponent sceneComponent = new(actor);
+        BoxComponent boxComponent = new(actor);
+        SphereComponent sphereComponent = new(actor);
 
-			sceneComponent.AttachToComponent(instancedStaticMeshComponent, AttachmentTransformRule.KeepRelativeTransform);
+        _ = sceneComponent.AttachToComponent(instancedStaticMeshComponent, AttachmentTransformRule.KeepRelativeTransform);
 
-			if (!sceneComponent.IsAttachedToComponent(instancedStaticMeshComponent)) {
-				Debug.Log(LogLevel.Error, "Component attachment check failed!");
+        if (!sceneComponent.IsAttachedToComponent(instancedStaticMeshComponent))
+        {
+            Debug.Log(LogLevel.Error, "Component attachment check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (!sceneComponent.IsAttachedToActor(actor)) {
-				Debug.Log(LogLevel.Error, "Component attachment to actor check failed!");
+        if (!sceneComponent.IsAttachedToActor(actor))
+        {
+            Debug.Log(LogLevel.Error, "Component attachment to actor check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			int componentCount = 0;
+        int componentCount = 0;
 
-			Action<SceneComponent> OnComponent = (component) => componentCount++;
+        void OnComponent(SceneComponent component)
+        {
+            componentCount++;
+        }
 
-			actor.ForEachComponent(OnComponent);
+        actor.ForEachComponent((Action<SceneComponent>)OnComponent);
 
-			if (componentCount != 5) {
-				Debug.Log(LogLevel.Error, "Batched component check failed!");
+        if (componentCount != 5)
+        {
+            Debug.Log(LogLevel.Error, "Batched component check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			int attachedChildCount = 0;
+        int attachedChildCount = 0;
 
-			Action<SceneComponent> OnAttachedChild = (component) => attachedChildCount++;
+        void OnAttachedChild(SceneComponent component)
+        {
+            attachedChildCount++;
+        }
 
-			staticMeshComponent.ForEachAttachedChild(OnAttachedChild);
+        staticMeshComponent.ForEachAttachedChild((Action<SceneComponent>)OnAttachedChild);
 
-			if (attachedChildCount != 3) {
-				Debug.Log(LogLevel.Error, "Batched component child attachment check failed!");
+        if (attachedChildCount != 3)
+        {
+            Debug.Log(LogLevel.Error, "Batched component child attachment check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void ComponentsMatchingTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void ComponentsMatchingTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actor = new();
-			StaticMeshComponent staticMeshComponent = new(actor, setAsRoot: true);
-			SceneComponent sceneComponent = actor.GetRootComponent<SceneComponent>();
-			InstancedStaticMeshComponent instancedStaticMeshComponent = actor.GetRootComponent<InstancedStaticMeshComponent>();
+        Actor actor = new();
+        _ = new StaticMeshComponent(actor, setAsRoot: true);
+        SceneComponent sceneComponent = actor.GetRootComponent<SceneComponent>();
+        InstancedStaticMeshComponent instancedStaticMeshComponent = actor.GetRootComponent<InstancedStaticMeshComponent>();
 
-			if (sceneComponent == null) {
-				Debug.Log(LogLevel.Error, "Component obtainment with inherited type matching to the root component failed!");
+        if (sceneComponent == null)
+        {
+            Debug.Log(LogLevel.Error, "Component obtainment with inherited type matching to the root component failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (instancedStaticMeshComponent != null) {
-				Debug.Log(LogLevel.Error, "Component obtainment with type matching to the root component failed!");
+        if (instancedStaticMeshComponent != null)
+        {
+            Debug.Log(LogLevel.Error, "Component obtainment with type matching to the root component failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (actor.GetComponent<StaticMeshComponent>() == null) {
-				Debug.Log(LogLevel.Error, "Component type matching failed!");
+        if (actor.GetComponent<StaticMeshComponent>() == null)
+        {
+            Debug.Log(LogLevel.Error, "Component type matching failed!");
 
-				return;
-			}
+            return;
+        }
 
-			if (actor.GetRootComponent<StaticMeshComponent>() == null) {
-				Debug.Log(LogLevel.Error, "Component type matching to the root component failed!");
+        if (actor.GetRootComponent<StaticMeshComponent>() == null)
+        {
+            Debug.Log(LogLevel.Error, "Component type matching to the root component failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void NonSceneComponentTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void NonSceneComponentTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actor = new();
-			RotatingMovementComponent rotatingMovementComponent = new(actor, "TestName");
+        Actor actor = new();
+        RotatingMovementComponent rotatingMovementComponent = new(actor, "TestName");
 
-			if (rotatingMovementComponent == null) {
-				Debug.Log(LogLevel.Error, "Component was not instantiated!");
+        if (rotatingMovementComponent == null)
+        {
+            Debug.Log(LogLevel.Error, "Component was not instantiated!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void ObjectIDsTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void ObjectIDsTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actor = new();
-			SceneComponent sceneComponent = new(actor, setAsRoot: true);
+        Actor actor = new();
+        _ = new SceneComponent(actor, setAsRoot: true);
 
-			Actor actorByID = World.GetActorByID<Actor>(actor.ID);
+        Actor actorByID = World.GetActorByID<Actor>(actor.ID);
 
-			if (actorByID == null) {
-				Debug.Log(LogLevel.Error, "Actor with a valid ID was not found!");
+        if (actorByID == null)
+        {
+            Debug.Log(LogLevel.Error, "Actor with a valid ID was not found!");
 
-				return;
-			}
+            return;
+        }
 
-			SceneComponent sceneComponentByID = actorByID.GetComponent<SceneComponent>();
+        SceneComponent sceneComponentByID = actorByID.GetComponent<SceneComponent>();
 
-			if (sceneComponentByID == null) {
-				Debug.Log(LogLevel.Error, "Component with a valid ID was not found!");
+        if (sceneComponentByID == null)
+        {
+            Debug.Log(LogLevel.Error, "Component with a valid ID was not found!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void MaxFramesPerSecondTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void MaxFramesPerSecondTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			float currentMaxFPS = Engine.MaxFPS;
-			float newMaxFPS = 60.0f;
+        float currentMaxFPS = Engine.MaxFPS;
+        float newMaxFPS = 60.0f;
 
-			Engine.MaxFPS = newMaxFPS;
+        Engine.MaxFPS = newMaxFPS;
 
-			float maxFPS = Engine.MaxFPS;
+        float maxFPS = Engine.MaxFPS;
 
-			if (!maxFPS.Equals(newMaxFPS)) {
-				Debug.Log(LogLevel.Error, "Max FPS check failed!");
+        if (!maxFPS.Equals(newMaxFPS))
+        {
+            Debug.Log(LogLevel.Error, "Max FPS check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Engine.MaxFPS = currentMaxFPS;
+        Engine.MaxFPS = currentMaxFPS;
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 
-		private void TagsTest() {
-			Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
+    private void TagsTest()
+    {
+        Debug.Log(LogLevel.Display, "Starting " + MethodBase.GetCurrentMethod().Name + "...");
 
-			Actor actor = new();
-			SceneComponent sceneComponent = new(actor);
+        Actor actor = new();
+        SceneComponent sceneComponent = new(actor);
 
-			const string tag = "TestTag";
+        const string tag = "TestTag";
 
-			actor.AddTag(tag);
+        actor.AddTag(tag);
 
-			if (!actor.HasTag(tag)) {
-				Debug.Log(LogLevel.Error, "Actor tag check failed!");
+        if (!actor.HasTag(tag))
+        {
+            Debug.Log(LogLevel.Error, "Actor tag check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Actor taggedActor = World.GetActorByTag<Actor>(tag);
+        Actor taggedActor = World.GetActorByTag<Actor>(tag);
 
-			if (!actor.Equals(taggedActor)) {
-				Debug.Log(LogLevel.Error, "Actor from world with a tag check failed!");
+        if (!actor.Equals(taggedActor))
+        {
+            Debug.Log(LogLevel.Error, "Actor from world with a tag check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			actor.RemoveTag(tag);
+        actor.RemoveTag(tag);
 
-			if (actor.HasTag(tag)) {
-				Debug.Log(LogLevel.Error, "Actor tag check after removing failed!");
+        if (actor.HasTag(tag))
+        {
+            Debug.Log(LogLevel.Error, "Actor tag check after removing failed!");
 
-				return;
-			}
+            return;
+        }
 
-			sceneComponent.AddTag(tag);
+        sceneComponent.AddTag(tag);
 
-			if (!sceneComponent.HasTag(tag)) {
-				Debug.Log(LogLevel.Error, "Component tag check failed!");
+        if (!sceneComponent.HasTag(tag))
+        {
+            Debug.Log(LogLevel.Error, "Component tag check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			SceneComponent taggedSceneComponent = taggedActor.GetComponentByTag<SceneComponent>(tag);
+        SceneComponent taggedSceneComponent = taggedActor.GetComponentByTag<SceneComponent>(tag);
 
-			if (!sceneComponent.Equals(taggedSceneComponent)) {
-				Debug.Log(LogLevel.Error, "Component from actor with a tag check failed!");
+        if (!sceneComponent.Equals(taggedSceneComponent))
+        {
+            Debug.Log(LogLevel.Error, "Component from actor with a tag check failed!");
 
-				return;
-			}
+            return;
+        }
 
-			sceneComponent.RemoveTag(tag);
+        sceneComponent.RemoveTag(tag);
 
-			if (sceneComponent.HasTag(tag)) {
-				Debug.Log(LogLevel.Error, "Component tag check after removing failed!");
+        if (sceneComponent.HasTag(tag))
+        {
+            Debug.Log(LogLevel.Error, "Component tag check after removing failed!");
 
-				return;
-			}
+            return;
+        }
 
-			Debug.Log(LogLevel.Display, "Test passed successfully");
-		}
-	}
+        Debug.Log(LogLevel.Display, "Test passed successfully");
+    }
 }

@@ -5,6 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Platforms>x64</Platforms>
     <NoWarn>CA1028, CA1030, CA1031, CA1034, CA1067, CA1303, CA1305, CA1720</NoWarn>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
