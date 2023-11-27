@@ -22,9 +22,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="UnrealEngine.Framework">
-      <HintPath>../Framework/bin/x64/Release/UnrealEngine.Framework.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Framework\UnrealEngine.Framework.csproj" />
   </ItemGroup>
 
 </Project>
