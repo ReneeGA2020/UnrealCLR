@@ -4,6 +4,8 @@ Install/bin
 Install/obj
 Source/Managed/Framework/bin
 Source/Managed/Framework/obj
+Source/Managed/PluginLoader/bin
+Source/Managed/PluginLoader/obj
 Source/Managed/Runtime/bin
 Source/Managed/Runtime/obj
 Source/Managed/Tests/bin
