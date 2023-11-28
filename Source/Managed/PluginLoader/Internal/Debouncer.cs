@@ -1,17 +1,12 @@
 namespace UnrealEngine.Plugins.Internal;
 
-internal class Debouncer : IDisposable
+internal class Debouncer(TimeSpan waitTime) : IDisposable
 {
     private readonly CancellationTokenSource _cts = new();
 
-    private readonly TimeSpan _waitTime;
+    private readonly TimeSpan _waitTime = waitTime;
 
     private int _counter;
-
-    public Debouncer(TimeSpan waitTime)
-    {
-        _waitTime = waitTime;
-    }
 
     public void Execute(Action action)
     {

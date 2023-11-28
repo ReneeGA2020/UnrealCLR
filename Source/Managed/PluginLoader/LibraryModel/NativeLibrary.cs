@@ -13,9 +13,9 @@ public class NativeLibrary
 
     private NativeLibrary(string name, string appLocalPath, string additionalProbingPath)
     {
-        Name = name ?? throw new ArgumentNullException("name");
-        AppLocalPath = appLocalPath ?? throw new ArgumentNullException("appLocalPath");
-        AdditionalProbingPath = additionalProbingPath ?? throw new ArgumentNullException("additionalProbingPath");
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        AppLocalPath = appLocalPath ?? throw new ArgumentNullException(nameof(appLocalPath));
+        AdditionalProbingPath = additionalProbingPath ?? throw new ArgumentNullException(nameof(additionalProbingPath));
     }
 
     public static NativeLibrary CreateFromPackage(string packageId, string packageVersion, string assetPath)

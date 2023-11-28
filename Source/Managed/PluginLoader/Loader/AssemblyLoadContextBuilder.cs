@@ -54,11 +54,11 @@ public class AssemblyLoadContextBuilder
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentException("Argument must not be null or empty.", "path");
+            throw new ArgumentException("Argument must not be null or empty.", nameof(path));
         }
         if (!Path.IsPathRooted(path))
         {
-            throw new ArgumentException("Argument must be a full path.", "path");
+            throw new ArgumentException("Argument must be a full path.", nameof(path));
         }
         _mainAssemblyPath = path;
         return this;
@@ -148,11 +148,11 @@ public class AssemblyLoadContextBuilder
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentException("Value must not be null or empty.", "path");
+            throw new ArgumentException("Value must not be null or empty.", nameof(path));
         }
         if (!Path.IsPathRooted(path))
         {
-            throw new ArgumentException("Argument must be a full path.", "path");
+            throw new ArgumentException("Argument must be a full path.", nameof(path));
         }
         _additionalProbingPaths.Add(path);
         return this;
@@ -162,11 +162,11 @@ public class AssemblyLoadContextBuilder
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentException("Value must not be null or empty.", "path");
+            throw new ArgumentException("Value must not be null or empty.", nameof(path));
         }
         if (!Path.IsPathRooted(path))
         {
-            throw new ArgumentException("Argument must be a full path.", "path");
+            throw new ArgumentException("Argument must be a full path.", nameof(path));
         }
         _resourceProbingPaths.Add(path);
         return this;
@@ -194,11 +194,11 @@ public class AssemblyLoadContextBuilder
     {
         if (string.IsNullOrEmpty(path))
         {
-            throw new ArgumentException("Value must not be null or empty.", "path");
+            throw new ArgumentException("Value must not be null or empty.", nameof(path));
         }
         if (Path.IsPathRooted(path))
         {
-            throw new ArgumentException("Argument must be not a full path.", "path");
+            throw new ArgumentException("Argument must be not a full path.", nameof(path));
         }
         _resourceProbingSubpaths.Add(path);
         return this;
@@ -208,11 +208,11 @@ public class AssemblyLoadContextBuilder
     {
         if (string.IsNullOrEmpty(probingPath))
         {
-            throw new ArgumentException("Value must not be null or empty.", "probingPath");
+            throw new ArgumentException("Value must not be null or empty.", nameof(probingPath));
         }
         if (Path.IsPathRooted(probingPath))
         {
-            throw new ArgumentException("Argument must be a relative path.", "probingPath");
+            throw new ArgumentException("Argument must be a relative path.", nameof(probingPath));
         }
     }
 }

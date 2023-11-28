@@ -14,9 +14,9 @@ public class ManagedLibrary
 
     private ManagedLibrary(AssemblyName name, string additionalProbingPath, string appLocalPath)
     {
-        Name = name ?? throw new ArgumentNullException("name");
-        AdditionalProbingPath = additionalProbingPath ?? throw new ArgumentNullException("additionalProbingPath");
-        AppLocalPath = appLocalPath ?? throw new ArgumentNullException("appLocalPath");
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        AdditionalProbingPath = additionalProbingPath ?? throw new ArgumentNullException(nameof(additionalProbingPath));
+        AppLocalPath = appLocalPath ?? throw new ArgumentNullException(nameof(appLocalPath));
     }
 
     public static ManagedLibrary CreateFromPackage(string packageId, string packageVersion, string assetPath)

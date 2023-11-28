@@ -1,13 +1,6 @@
-using System;
-
 namespace UnrealEngine.Plugins;
 
-public class PluginReloadedEventArgs : EventArgs
+public class PluginReloadedEventArgs(PluginLoader loader) : EventArgs
 {
-	public PluginLoader Loader { get; }
-
-	public PluginReloadedEventArgs(PluginLoader loader)
-	{
-		Loader = loader;
-	}
+    public PluginLoader Loader { get; } = loader;
 }
