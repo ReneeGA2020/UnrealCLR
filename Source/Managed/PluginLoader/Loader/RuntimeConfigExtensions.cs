@@ -20,17 +20,17 @@ public static class RuntimeConfigExtensions
 		error = null;
 		try
 		{
-			RuntimeConfig config = TryReadConfig(runtimeConfigPath);
+			RuntimeConfig? config = TryReadConfig(runtimeConfigPath);
 			if (config == null)
 			{
 				return builder;
 			}
-			RuntimeConfig devConfig = null;
+			RuntimeConfig? devConfig = null;
 			if (includeDevConfig)
 			{
-				devConfig = TryReadConfig(runtimeConfigPath.Substring(0, runtimeConfigPath.Length - ".json".Length) + ".dev.json");
+				devConfig = TryReadConfig(string.Concat(runtimeConfigPath.AsSpan(0, runtimeConfigPath.Length - ".json".Length), ".dev.json"));
 			}
-			string tfm = config.runtimeOptions?.Tfm ?? devConfig?.runtimeOptions?.Tfm;
+			string? tfm = config.runtimeOptions?.Tfm ?? devConfig?.runtimeOptions?.Tfm;
 			if (config.runtimeOptions != null)
 			{
 				AddProbingPaths(builder, config.runtimeOptions, tfm);
@@ -41,13 +41,13 @@ public static class RuntimeConfigExtensions
 			}
 			if (tfm != null)
 			{
-				string dotnet = Process.GetCurrentProcess().MainModule.FileName;
-				if (string.Equals(Path.GetFileNameWithoutExtension(dotnet), "dotnet", StringComparison.OrdinalIgnoreCase))
+				string? dotnet = Process.GetCurrentProcess().MainModule?.FileName;
+				if (dotnet is not null && string.Equals(Path.GetFileNameWithoutExtension(dotnet), "dotnet", StringComparison.OrdinalIgnoreCase))
 				{
-					string dotnetHome = Path.GetDirectoryName(dotnet);
+					string? dotnetHome = Path.GetDirectoryName(dotnet);
 					if (dotnetHome != null)
 					{
-						builder.AddProbingPath(Path.Combine(dotnetHome, "store", RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), tfm));
+                        _ = builder.AddProbingPath(Path.Combine(dotnetHome, "store", RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), tfm));
 					}
 				}
 			}

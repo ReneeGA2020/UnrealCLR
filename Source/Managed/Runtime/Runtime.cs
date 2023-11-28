@@ -318,7 +318,14 @@ internal static unsafe class Core
                         {
                             plugin = new()
                             {
-                                loader = PluginLoader.CreateFromAssemblyFile(assembly, config => { config.DefaultContext = assembliesContextManager?.assembliesContext; config.IsUnloadable = true; config.LoadInMemory = true; })
+                                loader = PluginLoader.CreateFromAssemblyFile(assembly, config => {
+                                    if (assembliesContextManager?.assembliesContext is AssemblyLoadContext context)
+                                    {
+                                        config.DefaultContext = context;
+                                    }
+                                    config.IsUnloadable = true;
+                                    config.LoadInMemory = true; 
+                                })
                             };
                             plugin.assembly = plugin.loader.LoadAssemblyFromPath(assembly);
 

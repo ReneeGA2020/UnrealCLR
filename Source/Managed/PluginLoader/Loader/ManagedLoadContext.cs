@@ -108,7 +108,7 @@ internal class ManagedLoadContext : AssemblyLoadContext
 			{
 			}
 		}
-		string resolvedPath = _dependencyResolver.ResolveAssemblyToPath(assemblyName);
+		string? resolvedPath = _dependencyResolver.ResolveAssemblyToPath(assemblyName);
 		if (!string.IsNullOrEmpty(resolvedPath) && File.Exists(resolvedPath))
 		{
 			return LoadAssemblyFromFilePath(resolvedPath);
@@ -128,7 +128,7 @@ internal class ManagedLoadContext : AssemblyLoadContext
 		}
 		if (_managedAssemblies.TryGetValue(assemblyName.Name, out var library) && library != null)
 		{
-			if (SearchForLibrary(library, out string path) && path != null)
+			if (SearchForLibrary(library, out string? path) && path != null)
 			{
 				return LoadAssemblyFromFilePath(path);
 			}
@@ -168,7 +168,7 @@ internal class ManagedLoadContext : AssemblyLoadContext
 
 	protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
 	{
-		string resolvedPath = _dependencyResolver.ResolveUnmanagedDllToPath(unmanagedDllName);
+		string? resolvedPath = _dependencyResolver.ResolveUnmanagedDllToPath(unmanagedDllName);
 		if (!string.IsNullOrEmpty(resolvedPath) && File.Exists(resolvedPath))
 		{
 			return LoadUnmanagedDllFromResolvedPath(resolvedPath, normalizePath: false);
@@ -178,7 +178,7 @@ internal class ManagedLoadContext : AssemblyLoadContext
 		{
 			if (_nativeLibraries.TryGetValue(prefix + unmanagedDllName, out var library))
 			{
-				if (SearchForLibrary(library, prefix, out string path) && path != null)
+				if (SearchForLibrary(library, prefix, out string? path) && path != null)
 				{
 					return LoadUnmanagedDllFromResolvedPath(path);
 				}
@@ -194,7 +194,7 @@ internal class ManagedLoadContext : AssemblyLoadContext
 				string trimmedName = unmanagedDllName.Substring(0, unmanagedDllName.Length - suffix.Length);
 				if (_nativeLibraries.TryGetValue(prefix + trimmedName, out library))
 				{
-					if (SearchForLibrary(library, prefix, out string path2) && path2 != null)
+					if (SearchForLibrary(library, prefix, out string? path2) && path2 != null)
 					{
 						return LoadUnmanagedDllFromResolvedPath(path2);
 					}
@@ -288,14 +288,10 @@ internal class ManagedLoadContext : AssemblyLoadContext
 		{
 			unmanagedDllPath = Path.GetFullPath(unmanagedDllPath);
 		}
-		if (!_shadowCopyNativeLibraries)
-		{
-			return LoadUnmanagedDllFromPath(unmanagedDllPath);
-		}
-		return LoadUnmanagedDllFromShadowCopy(unmanagedDllPath);
-	}
+        return !_shadowCopyNativeLibraries ? LoadUnmanagedDllFromPath(unmanagedDllPath) : LoadUnmanagedDllFromShadowCopy(unmanagedDllPath);
+    }
 
-	private IntPtr LoadUnmanagedDllFromShadowCopy(string unmanagedDllPath)
+    private IntPtr LoadUnmanagedDllFromShadowCopy(string unmanagedDllPath)
 	{
 		string shadowCopyDllPath = CreateShadowCopy(unmanagedDllPath);
 		return LoadUnmanagedDllFromPath(shadowCopyDllPath);
