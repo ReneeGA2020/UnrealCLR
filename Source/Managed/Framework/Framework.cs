@@ -665,6 +665,8 @@ public enum ControllerHand : byte
     /// <summary/>
     Gun,
     /// <summary/>
+    HMD,
+    /// <summary/>
     Special1,
     /// <summary/>
     Special2,
@@ -939,7 +941,47 @@ public enum PixelFormat : int
     /// <summary/>
     ETC2RG11EAC = 70,
     /// <summary/>
-    R8 = 71
+    R8 = 71,
+    /// <summary/>
+    B5G5R5A1UNorm = 72,
+    /// <summary/>
+    ASTC4x4HDR = 73,
+    /// <summary/>
+    ASTC6x6HDR = 74,
+    /// <summary/>
+    ASTC8x8HDR = 75,
+    /// <summary/>
+    ASTC10x10HDR = 76,
+    /// <summary/>
+    ASTC12x12HDR = 77,
+    /// <summary/>
+    G16R16SNorm = 78,
+    /// <summary/>
+    R8G8UInt = 79, 
+    /// <summary/>
+    R32G32B32UInt = 80, 
+    /// <summary/>
+    R32G32B32SInt = 81, 
+    /// <summary/>
+    R32G32B32F = 82,
+    /// <summary/>
+    R8SInt = 83, 
+    /// <summary/>
+    R64UInt = 84,
+    /// <summary/>
+    R9G9B9EXP5 = 85,
+    /// <summary/>
+    P010 = 86,
+    /// <summary/>
+    ASTC_4x4_NORM_RG = 87,
+    /// <summary/>
+    ASTC_6x6_NORM_RG = 88,
+    /// <summary/>
+    ASTC_8x8_NORM_RG = 89,
+    /// <summary/>
+    ASTC_10x10_NORM_RG = 90,
+    /// <summary/>
+    ASTC_12x12_NORM_RG = 91
 }
 
 /// <summary>
@@ -1880,7 +1922,7 @@ public partial struct Bounds : IEquatable<Bounds>
     /// <summary>
     /// Returns the radius of the bounding sphere
     /// </summary>
-    public readonly float SphereRadius => sphereRadius;
+    public readonly double SphereRadius => sphereRadius;
 
     /// <summary>
     /// Tests for equality between two objects

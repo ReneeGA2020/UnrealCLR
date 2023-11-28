@@ -501,11 +501,11 @@ namespace UnrealCLRFramework {
 
 	namespace Object {
 		bool IsPendingKill(UObject* Object) {
-			return !IsValid(Object);
+			return !::IsValid(Object);
 		}
 
 		bool IsValid(UObject* Object) {
-			return Object->IsValidLowLevel();
+			return ::IsValid(Object);
 		}
 
 		UObject* Load(ObjectType Type, const char* Name) {
