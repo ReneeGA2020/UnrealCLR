@@ -39,8 +39,4 @@
     <PackageReference Include="DefaultDocumentation" Version="0.6.15" PrivateAssets="all" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
-  </ItemGroup>
-
 </Project>

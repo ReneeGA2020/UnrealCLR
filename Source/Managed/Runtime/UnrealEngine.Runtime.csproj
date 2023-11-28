@@ -4,11 +4,6 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Platforms>x64</Platforms>
     <EnableDynamicLoading>True</EnableDynamicLoading>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <TieredCompilation>False</TieredCompilation>
-    <ServerGarbageCollection>False</ServerGarbageCollection>
-    <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <NoWarn>CA1008, CA1014, CA1024, CA1028, CA1030, CA1031, CA1034, CA1067, CA1303, CA1305, CA1508, CA1708, CA1711, CA1720, CA1725, CA1845, CA2201</NoWarn>
   </PropertyGroup>
@@ -28,11 +23,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PluginLoader\UnrealEngine.Plugins.csproj" />
