@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnrealEngine.Tests", "Sourc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnrealEngine.Plugins", "Source\Managed\PluginLoader\UnrealEngine.Plugins.csproj", "{ACB25F06-58B5-4C15-878D-EFA60E6B1AC7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{B723485E-7E4B-4863-A57B-67D3E4A78520}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{24CDBA0E-CB05-4533-8ED4-BFFDFBE03DD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +68,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6554B03A-67E3-4231-933E-55C0EDFB74C2} = {B723485E-7E4B-4863-A57B-67D3E4A78520}
+		{D1D9699D-B37B-44FC-A4FA-E6A4AAB91414} = {24CDBA0E-CB05-4533-8ED4-BFFDFBE03DD6}
+		{6D7CA23D-A058-4DE4-BF37-B06000CCE6F7} = {B723485E-7E4B-4863-A57B-67D3E4A78520}
+		{ACB25F06-58B5-4C15-878D-EFA60E6B1AC7} = {24CDBA0E-CB05-4533-8ED4-BFFDFBE03DD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99AB9807-9121-4E63-9749-F1C752E271E9}
