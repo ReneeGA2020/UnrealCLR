@@ -1,0 +1,13 @@
+E:\UnrealCLR\Source\Managed\PluginLoader\bin\Debug\net8.0\UnrealEngine.Plugins.deps.json
+E:\UnrealCLR\Source\Managed\PluginLoader\bin\Debug\net8.0\UnrealEngine.Plugins.dll
+E:\UnrealCLR\Source\Managed\PluginLoader\bin\Debug\net8.0\UnrealEngine.Plugins.pdb
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.GeneratedMSBuildEditorConfig.editorconfig
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.AssemblyInfoInputs.cache
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.AssemblyInfo.cs
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.csproj.CoreCompileInputs.cache
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.sourcelink.json
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.dll
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\refint\UnrealEngine.Plugins.dll
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.pdb
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\ref\UnrealEngine.Plugins.dll
+E:\UnrealCLR\Source\Managed\PluginLoader\obj\Debug\net8.0\UnrealEngine.Plugins.csproj.AssemblyReference.cache

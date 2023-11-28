@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "mirLGOyecM3WAf6dKJYslASTdFVMQrn8gZWiMwfmOaDPkBH8QRwFmMur7DPyPgjxc/1hAbRL/594RV5hVA5pxw==",
+  "success": true,
+  "projectFilePath": "E:\\UnrealCLR\\Source\\Managed\\PluginLoader\\UnrealEngine.Plugins.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\XD\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\5.0.0-preview.5.20278.1\\microsoft.dotnet.platformabstractions.5.0.0-preview.5.20278.1.nupkg.sha512",
+    "C:\\Users\\XD\\.nuget\\packages\\microsoft.extensions.dependencymodel\\8.0.0\\microsoft.extensions.dependencymodel.8.0.0.nupkg.sha512",
+    "C:\\Users\\XD\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
+    "C:\\Users\\XD\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

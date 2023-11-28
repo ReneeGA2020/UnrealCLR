@@ -31,13 +31,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="UnrealEngine.Plugins">
-      <HintPath>libs/plugins/UnrealEngine.Plugins.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
+    <ProjectReference Include="..\PluginLoader\UnrealEngine.Plugins.csproj" />
   </ItemGroup>
 
 </Project>
