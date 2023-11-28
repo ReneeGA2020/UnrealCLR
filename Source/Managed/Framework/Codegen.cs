@@ -1,5 +1,5 @@
 /*
- *  Unreal Engine .NET 6 integration 
+ *  Unreal Engine .NET 8 integration 
  *  Copyright (c) 2021 Stanislav Denisov
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1332,11 +1332,14 @@ internal static class Shared
     }
 }
 
+#pragma warning disable IDE0032 // Use auto property
 [StructLayout(LayoutKind.Sequential)]
 public partial struct LinearColor
 {
-    private readonly float g;
-    private readonly float a;
+    private float r;
+    private float g;
+    private float b;
+    private float a;
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1357,10 +1360,13 @@ public partial struct Hit
     private Vector3 traceStart;
     private Vector3 traceEnd;
     private readonly IntPtr actor;
+    private readonly float time;
     private readonly float distance;
+    private readonly float penetrationDepth;
     private readonly Bool blockingHit;
     private readonly Bool startPenetrating;
 }
+#pragma warning restore IDE0032 // Use auto property
 
 [StructLayout(LayoutKind.Explicit, Size = 28)]
 public partial struct Bounds

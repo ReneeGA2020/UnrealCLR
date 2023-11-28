@@ -1,5 +1,5 @@
 /*
- *  Unreal Engine .NET 6 integration
+ *  Unreal Engine .NET 8 integration
  *  Copyright (c) 2021 Stanislav Denisov
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -1394,22 +1394,22 @@ public partial struct LinearColor : IEquatable<LinearColor>
     /// <summary>
     /// Gets or sets the red component of the linear color
     /// </summary>
-    public float R { get; set; }
+    public float R { readonly get => r; set => r = value; }
 
     /// <summary>
     /// Gets or sets the green component of the linear color
     /// </summary>
-    public float G { get; set; }
+    public float G { readonly get => g; set => g = value; }
 
     /// <summary>
     /// Gets or sets the blue component of the linear color
     /// </summary>
-    public float B { get; set; }
+    public float B { readonly get => b; set => b = value; }
 
     /// <summary>
     /// Gets or sets the alpha component of the linear color
     /// </summary>
-    public float A { get; set; }
+    public float A { readonly get => a; set => a = value; }
 
     /// <summary>
     /// The black color
@@ -1767,17 +1767,17 @@ public partial struct Hit : IEquatable<Hit>
     /// <summary>
     /// Returns the impact along trace direction between 0.0f and 1.0f if there was a hit, indicating time between <see cref="TraceStart"/> and <see cref="TraceEnd"/>
     /// </summary>
-    public float Time { get; }
+    public readonly float Time => time;
 
     /// <summary>
     /// Returns the distance from <see cref="TraceStart"/> to <see cref="Location"/> in world space
     /// </summary>
-    public float Distance { get; }
+    public readonly float Distance => distance;
 
     /// <summary>
     /// Returns the distance along with <see cref="Normal"/> that will result in moving out of penetration if <see cref="StartPenetrating"/> is <c>true</c> and a penetration vector can be computed
     /// </summary>
-    public float PenetrationDepth { get; }
+    public readonly float PenetrationDepth => penetrationDepth;
 
     /// <summary>
     /// Returns <c>true</c> if the hit was a result of blocking collision
