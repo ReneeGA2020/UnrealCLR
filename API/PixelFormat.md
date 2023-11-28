@@ -348,17 +348,17 @@ public enum PixelFormat
 <a name='PixelFormat-P010'></a>
 `P010` 86
 
-<a name='PixelFormat-ASTC_4x4_NORM_RG'></a>
-`ASTC_4x4_NORM_RG` 87
+<a name='PixelFormat-ASTC4x4NORMRG'></a>
+`ASTC4x4NORMRG` 87
 
-<a name='PixelFormat-ASTC_6x6_NORM_RG'></a>
-`ASTC_6x6_NORM_RG` 88
+<a name='PixelFormat-ASTC6x6NORMRG'></a>
+`ASTC6x6NORMRG` 88
 
-<a name='PixelFormat-PF_ASTC_8x8_NORM_RG'></a>
-`PF_ASTC_8x8_NORM_RG` 89
+<a name='PixelFormat-PFASTC8x8NORMRG'></a>
+`PFASTC8x8NORMRG` 89
 
-<a name='PixelFormat-PF_ASTC_10x10_NORM_RG'></a>
-`PF_ASTC_10x10_NORM_RG` 90
+<a name='PixelFormat-PFASTC10x10NORMRG'></a>
+`PFASTC10x10NORMRG` 90
 
-<a name='PixelFormat-PF_ASTC_12x12_NORM_RG'></a>
-`PF_ASTC_12x12_NORM_RG` 91
+<a name='PixelFormat-PFASTC12x12NORMRG'></a>
+`PFASTC12x12NORMRG` 91

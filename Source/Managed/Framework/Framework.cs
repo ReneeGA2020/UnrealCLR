@@ -957,15 +957,15 @@ public enum PixelFormat : int
     /// <summary/>
     G16R16SNorm = 78,
     /// <summary/>
-    R8G8UInt = 79, 
+    R8G8UInt = 79,
     /// <summary/>
-    R32G32B32UInt = 80, 
+    R32G32B32UInt = 80,
     /// <summary/>
-    R32G32B32SInt = 81, 
+    R32G32B32SInt = 81,
     /// <summary/>
     R32G32B32F = 82,
     /// <summary/>
-    R8SInt = 83, 
+    R8SInt = 83,
     /// <summary/>
     R64UInt = 84,
     /// <summary/>
@@ -973,15 +973,15 @@ public enum PixelFormat : int
     /// <summary/>
     P010 = 86,
     /// <summary/>
-    ASTC_4x4_NORM_RG = 87,
+    ASTC4x4NORMRG = 87,
     /// <summary/>
-    ASTC_6x6_NORM_RG = 88,
+    ASTC6x6NORMRG = 88,
     /// <summary/>
-    ASTC_8x8_NORM_RG = 89,
+    ASTC8x8NORMRG = 89,
     /// <summary/>
-    ASTC_10x10_NORM_RG = 90,
+    ASTC10x10NORMRG = 90,
     /// <summary/>
-    ASTC_12x12_NORM_RG = 91
+    ASTC12x12NORMRG = 91
 }
 
 /// <summary>
@@ -1339,6 +1339,7 @@ public unsafe struct ComponentReference : IEquatable<ComponentReference>
     }
 }
 
+#pragma warning disable IDE0032 // Use auto property
 /// <summary>
 /// A linear 32-bit floating-point RGBA color
 /// </summary>
@@ -1903,7 +1904,7 @@ public partial struct Hit : IEquatable<Hit>
         return HashCode.Combine(location, impactLocation, normal, impactNormal, traceStart, traceEnd, actor) ^ HashCode.Combine(Time, Distance, PenetrationDepth, blockingHit, startPenetrating);
     }
 }
-
+#pragma warning restore IDE0032 // Use auto property
 /// <summary>
 /// A combined axis-aligned bounding box and bounding sphere with the same origin
 /// </summary>
