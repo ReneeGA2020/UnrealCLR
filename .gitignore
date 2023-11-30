@@ -2,6 +2,7 @@
 .vs
 Install/bin
 Install/obj
+Managed
 Source/Managed/Framework/bin
 Source/Managed/Framework/obj
 Source/Managed/PluginLoader/bin

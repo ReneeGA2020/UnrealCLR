@@ -9,6 +9,7 @@
     <DefineConstants>$(DefineConstants);ASSERTIONS</DefineConstants>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <OutDir>$(SolutionDir)/Managed/Tests</OutDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

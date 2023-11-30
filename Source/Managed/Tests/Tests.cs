@@ -15,9 +15,7 @@ public class Main
 
         if (World.CurrentLevelName == "Tests")
         {
-            TestSystems testSystem = default;
-
-            if (World.GetActor<LevelScript>()!.GetEnum("Test Systems", ref testSystem))
+            if (World.GetActor<LevelScript>()!.GetEnum("Test Systems", out TestSystems testSystem))
             {
                 Debug.AddOnScreenMessage(-1, 3.0f, Color.LightGreen, testSystem + " system started!");
             }

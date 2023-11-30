@@ -4237,9 +4237,9 @@ public static unsafe partial class Engine
     /// <summary>
     /// Retrieves the current size of the viewport
     /// </summary>
-    public static void GetViewportSize(ref Vector2 value)
+    public static void GetViewportSize(out Vector2 value)
     {
-        getViewportSize(ref value);
+        getViewportSize(out value);
     }
 
     /// <summary>
@@ -4247,9 +4247,8 @@ public static unsafe partial class Engine
     /// </summary>
     public static Vector2 GetViewportSize()
     {
-        Vector2 value = default;
 
-        getViewportSize(ref value);
+        getViewportSize(out Vector2 value);
 
         return value;
     }
@@ -4259,7 +4258,7 @@ public static unsafe partial class Engine
     /// </summary>
     public static void GetScreenResolution(ref Vector2 value)
     {
-        getScreenResolution(ref value);
+        getScreenResolution(out value);
     }
 
     /// <summary>
@@ -4267,9 +4266,8 @@ public static unsafe partial class Engine
     /// </summary>
     public static Vector2 GetScreenResolution()
     {
-        Vector2 value = default;
 
-        getScreenResolution(ref value);
+        getScreenResolution(out Vector2 value);
 
         return value;
     }
@@ -4531,9 +4529,9 @@ public static unsafe partial class World
     /// <summary>
     /// Retrieves the current location of the <a href="https://docs.unrealengine.com/en-US/Engine/LevelStreaming/WorldBrowser/index.html">world origin</a> to a reference
     /// </summary>
-    public static void GetWorldOrigin(ref Vector3 value)
+    public static void GetWorldOrigin(out Vector3 value)
     {
-        getWorldOrigin(ref value);
+        getWorldOrigin(out value);
     }
 
     /// <summary>
@@ -4541,9 +4539,8 @@ public static unsafe partial class World
     /// </summary>
     public static Vector3 GetWorldOrigin()
     {
-        Vector3 value = default;
 
-        getWorldOrigin(ref value);
+        getWorldOrigin(out Vector3 value);
 
         return value;
     }
@@ -4735,20 +4732,20 @@ public static unsafe partial class World
     /// Traces a ray against the world using a specific channel and retrieves the first blocking hit
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool LineTraceSingleByChannel(in Vector3 start, in Vector3 end, CollisionChannel channel, ref Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool LineTraceSingleByChannel(in Vector3 start, in Vector3 end, CollisionChannel channel, out Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
-        return lineTraceSingleByChannel(start, end, channel, ref hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        return lineTraceSingleByChannel(start, end, channel, out hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
     }
 
     /// <summary>
     /// Traces a ray against the world using a specific channel and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool LineTraceSingleByChannel(in Vector3 start, in Vector3 end, CollisionChannel channel, ref Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool LineTraceSingleByChannel(in Vector3 start, in Vector3 end, CollisionChannel channel, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
-        bool result = lineTraceSingleByChannel(start, end, channel, ref hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        bool result = lineTraceSingleByChannel(start, end, channel, out hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
 
         boneName = stringBuffer.BytesToString();
 
@@ -4759,20 +4756,20 @@ public static unsafe partial class World
     /// Traces a ray against the world using a specific profile and retrieves the first blocking hit
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool LineTraceSingleByProfile(in Vector3 start, in Vector3 end, string profileName, ref Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool LineTraceSingleByProfile(in Vector3 start, in Vector3 end, string profileName, out Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
-        return lineTraceSingleByProfile(start, end, profileName.StringToBytes(), ref hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        return lineTraceSingleByProfile(start, end, profileName.StringToBytes(), out hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
     }
 
     /// <summary>
     /// Traces a ray against the world using a specific profile and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool LineTraceSingleByProfile(in Vector3 start, in Vector3 end, string profileName, ref Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool LineTraceSingleByProfile(in Vector3 start, in Vector3 end, string profileName, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
-        bool result = lineTraceSingleByProfile(start, end, profileName.StringToBytes(), ref hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        bool result = lineTraceSingleByProfile(start, end, profileName.StringToBytes(), out hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
 
         boneName = stringBuffer.BytesToString();
 
@@ -4801,20 +4798,20 @@ public static unsafe partial class World
     /// Sweeps a shape against the world using a specific profile and retrieves the first blocking hit
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool SweepSingleByChannel(in Vector3 start, in Vector3 end, in Quaternion rotation, CollisionChannel channel, in CollisionShape shape, ref Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool SweepSingleByChannel(in Vector3 start, in Vector3 end, in Quaternion rotation, CollisionChannel channel, in CollisionShape shape, out Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
-        return sweepSingleByChannel(start, end, rotation, channel, shape, ref hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        return sweepSingleByChannel(start, end, rotation, channel, shape, out hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
     }
 
     /// <summary>
     /// Sweeps a shape against the world using a specific profile and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool SweepSingleByChannel(in Vector3 start, in Vector3 end, in Quaternion rotation, CollisionChannel channel, in CollisionShape shape, ref Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool SweepSingleByChannel(in Vector3 start, in Vector3 end, in Quaternion rotation, CollisionChannel channel, in CollisionShape shape, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
-        bool result = sweepSingleByChannel(start, end, rotation, channel, shape, ref hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        bool result = sweepSingleByChannel(start, end, rotation, channel, shape, out hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
 
         boneName = stringBuffer.BytesToString();
 
@@ -4825,20 +4822,20 @@ public static unsafe partial class World
     /// Sweeps a shape against the world using a specific profile and retrieves the first blocking hit
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool SweepSingleByProfile(in Vector3 start, in Vector3 end, in Quaternion rotation, string profileName, in CollisionShape shape, ref Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool SweepSingleByProfile(in Vector3 start, in Vector3 end, in Quaternion rotation, string profileName, in CollisionShape shape, out Hit hit, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
-        return sweepSingleByProfile(start, end, rotation, profileName.StringToBytes(), shape, ref hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        return sweepSingleByProfile(start, end, rotation, profileName.StringToBytes(), shape, out hit, null, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
     }
 
     /// <summary>
     /// Sweeps a shape against the world using a specific profile and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool SweepSingleByProfile(in Vector3 start, in Vector3 end, in Quaternion rotation, string profileName, in CollisionShape shape, ref Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool SweepSingleByProfile(in Vector3 start, in Vector3 end, in Quaternion rotation, string profileName, in CollisionShape shape, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
-        bool result = sweepSingleByProfile(start, end, rotation, profileName.StringToBytes(), shape, ref hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
+        bool result = sweepSingleByProfile(start, end, rotation, profileName.StringToBytes(), shape, out hit, stringBuffer, traceComplex, ignoredActor != null ? ignoredActor.Pointer : IntPtr.Zero, ignoredComponent != null ? ignoredComponent.Pointer : IntPtr.Zero);
 
         boneName = stringBuffer.BytesToString();
 
@@ -5403,7 +5400,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// </summary>
     public bool GetBool(string name, ref bool value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5412,7 +5409,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetByte(string name, ref byte value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5421,7 +5418,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetShort(string name, ref short value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5430,7 +5427,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetInt(string name, ref int value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5439,7 +5436,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetLong(string name, ref long value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5448,7 +5445,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetUShort(string name, ref ushort value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5457,7 +5454,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetUInt(string name, ref uint value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5466,7 +5463,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetULong(string name, ref ulong value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5475,7 +5472,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetFloat(string name, ref float value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -5484,26 +5481,24 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <returns><c>true</c> on success</returns>
     public bool GetDouble(string name, ref double value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
     /// Retrieves the value of the enum property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetEnum<T>(string name, ref T value) where T : Enum
+    public bool GetEnum<T>(string name, out T? value) where T : Enum
     {
         ArgumentNullException.ThrowIfNull(name);
 
-        int data = 0;
-
-        if (Object.getEnum(Pointer, name.StringToBytes(), ref data))
+        if (Object.getEnum(Pointer, name.StringToBytes(), out int data))
         {
             value = (T)Enum.ToObject(typeof(T), data);
 
             return true;
         }
-
+        value = default;
         return false;
     }
 
@@ -5800,9 +5795,9 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <summary>
     /// Retrieves the point of view of the actor
     /// </summary>
-    public void GetEyesViewPoint(ref Vector3 location, ref Quaternion rotation)
+    public void GetEyesViewPoint(out Vector3 location, out Quaternion rotation)
     {
-        getEyesViewPoint(Pointer, ref location, ref rotation);
+        getEyesViewPoint(Pointer, out location, out rotation);
     }
 
     /// <summary>
@@ -6252,9 +6247,9 @@ public unsafe partial class Pawn : Actor
     /// <summary>
     /// Retrieves vector direction of gravity
     /// </summary>
-    public void GetGravityDirection(ref Vector3 value)
+    public void GetGravityDirection(out Vector3 value)
     {
-        getGravityDirection(Pointer, ref value);
+        getGravityDirection(Pointer, out value);
     }
 
     /// <summary>
@@ -6262,9 +6257,8 @@ public unsafe partial class Pawn : Actor
     /// </summary>
     public Vector3 GetGravityDirection()
     {
-        Vector3 value = default;
 
-        getGravityDirection(Pointer, ref value);
+        getGravityDirection(Pointer, out Vector3 value);
 
         return value;
     }
@@ -6496,9 +6490,9 @@ public abstract unsafe partial class Controller : Actor
     /// <summary>
     /// Retrieves the control rotation which is a full aim rotation
     /// </summary>
-    public void GetControlRotation(ref Quaternion value)
+    public void GetControlRotation(out Quaternion value)
     {
-        getControlRotation(Pointer, ref value);
+        getControlRotation(Pointer, out value);
     }
 
     /// <summary>
@@ -6506,9 +6500,8 @@ public abstract unsafe partial class Controller : Actor
     /// </summary>
     public Quaternion GetControlRotation()
     {
-        Quaternion value = default;
 
-        getControlRotation(Pointer, ref value);
+        getControlRotation(Pointer, out Quaternion value);
 
         return value;
     }
@@ -6516,9 +6509,9 @@ public abstract unsafe partial class Controller : Actor
     /// <summary>
     /// Retrieves the target rotation of the pawn
     /// </summary>
-    public void GetDesiredRotation(ref Quaternion value)
+    public void GetDesiredRotation(out Quaternion value)
     {
-        getDesiredRotation(Pointer, ref value);
+        getDesiredRotation(Pointer, out value);
     }
 
     /// <summary>
@@ -6526,9 +6519,8 @@ public abstract unsafe partial class Controller : Actor
     /// </summary>
     public Quaternion GetDesiredRotation()
     {
-        Quaternion value = default;
 
-        getDesiredRotation(Pointer, ref value);
+        getDesiredRotation(Pointer, out Quaternion value);
 
         return value;
     }
@@ -6668,9 +6660,9 @@ public unsafe partial class AIController : Controller
     /// <summary>
     /// Retrieves the final position that controller should be looking at
     /// </summary>
-    public void GetFocalPoint(ref Vector3 value)
+    public void GetFocalPoint(out Vector3 value)
     {
-        getFocalPoint(Pointer, ref value);
+        getFocalPoint(Pointer, out value);
     }
 
     /// <summary>
@@ -6678,9 +6670,8 @@ public unsafe partial class AIController : Controller
     /// </summary>
     public Vector3 GetFocalPoint()
     {
-        Vector3 value = default;
 
-        getFocalPoint(Pointer, ref value);
+        getFocalPoint(Pointer, out Vector3 value);
 
         return value;
     }
@@ -6784,9 +6775,9 @@ public unsafe partial class PlayerController : Controller
     /// Retrieves the X and Y screen coordinates of the mouse cursor
     /// </summary>
     /// <returns><c>true</c> if successful</returns>
-    public bool GetMousePosition(ref float x, ref float y)
+    public bool GetMousePosition(out float x, out float y)
     {
-        return getMousePosition(Pointer, ref x, ref y);
+        return getMousePosition(Pointer, out x, out y);
     }
 
     /// <summary>
@@ -6813,18 +6804,18 @@ public unsafe partial class PlayerController : Controller
     /// Retrieves the first blocking hit from the position on the screen
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetHitResultAtScreenPosition(in Vector2 screenPosition, CollisionChannel traceChannel, ref Hit hit, bool traceComplex = false)
+    public bool GetHitResultAtScreenPosition(in Vector2 screenPosition, CollisionChannel traceChannel, out Hit hit, bool traceComplex = false)
     {
-        return getHitResultAtScreenPosition(Pointer, screenPosition, traceChannel, ref hit, traceComplex);
+        return getHitResultAtScreenPosition(Pointer, screenPosition, traceChannel, out hit, traceComplex);
     }
 
     /// <summary>
     /// Retrieves the first blocking hit under the mouse cursor
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetHitResultUnderCursor(CollisionChannel traceChannel, ref Hit hit, bool traceComplex = false)
+    public bool GetHitResultUnderCursor(CollisionChannel traceChannel, out Hit hit, bool traceComplex = false)
     {
-        return getHitResultUnderCursor(Pointer, traceChannel, ref hit, traceComplex);
+        return getHitResultUnderCursor(Pointer, traceChannel, out hit, traceComplex);
     }
 
     /// <summary>
@@ -6950,9 +6941,9 @@ public abstract unsafe partial class Volume : Brush
     /// <summary>
     /// Returns <c>true</c> if a point or sphere overlaps the volume
     /// </summary>
-    public bool EncompassesPoint(in Vector3 point, float sphereRadius, ref float distanceToPoint)
+    public bool EncompassesPoint(in Vector3 point, float sphereRadius, out float distanceToPoint)
     {
-        return encompassesPoint(Pointer, point, sphereRadius, ref distanceToPoint);
+        return encompassesPoint(Pointer, point, sphereRadius, out distanceToPoint);
     }
 }
 
@@ -7518,7 +7509,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// </summary>
     public bool GetBool(string name, ref bool value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7527,7 +7518,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetByte(string name, ref byte value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7536,7 +7527,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetShort(string name, ref short value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7545,7 +7536,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetInt(string name, ref int value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7554,7 +7545,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetLong(string name, ref long value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7563,7 +7554,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetUShort(string name, ref ushort value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7572,7 +7563,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetUInt(string name, ref uint value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7581,7 +7572,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetULong(string name, ref ulong value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7590,7 +7581,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetFloat(string name, ref float value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -7599,25 +7590,24 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <returns><c>true</c> on success</returns>
     public bool GetDouble(string name, ref double value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
     /// Retrieves the value of the enum property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetEnum<T>(string name, ref T value) where T : Enum
+    public bool GetEnum<T>(string name, out T? value) where T : Enum
     {
         ArgumentNullException.ThrowIfNull(name);
-
-        int data = 0;
-
-        if (Object.getEnum(Pointer, name.StringToBytes(), ref data))
+        if (Object.getEnum(Pointer, name.StringToBytes(), out int data))
         {
             value = (T)Enum.ToObject(typeof(T), data);
 
             return true;
         }
+
+        value = default;
 
         return false;
     }
@@ -8092,9 +8082,9 @@ public unsafe partial class PlayerInput : IEquatable<PlayerInput>
     /// <summary>
     /// Retrieves mouse sensitivity
     /// </summary>
-    public void GetMouseSensitivity(ref Vector2 value)
+    public void GetMouseSensitivity(out Vector2 value)
     {
-        getMouseSensitivity(Pointer, ref value);
+        getMouseSensitivity(Pointer, out value);
     }
 
     /// <summary>
@@ -8102,9 +8092,8 @@ public unsafe partial class PlayerInput : IEquatable<PlayerInput>
     /// </summary>
     public Vector2 GetMouseSensitivity()
     {
-        Vector2 value = default;
 
-        getMouseSensitivity(Pointer, ref value);
+        getMouseSensitivity(Pointer, out Vector2 value);
 
         return value;
     }
@@ -8497,9 +8486,9 @@ public unsafe partial class Texture2D : Texture
     /// <summary>
     /// Retrieves size of the texture
     /// </summary>
-    public void GetSize(ref Vector2 value)
+    public void GetSize(out Vector2 value)
     {
-        getSize(Pointer, ref value);
+        getSize(Pointer, out value);
     }
 
     /// <summary>
@@ -8507,9 +8496,8 @@ public unsafe partial class Texture2D : Texture
     /// </summary>
     public Vector2 GetSize()
     {
-        Vector2 value = default;
 
-        getSize(Pointer, ref value);
+        getSize(Pointer, out Vector2 value);
 
         return value;
     }
@@ -8584,7 +8572,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// </summary>
     public bool GetBool(string name, ref bool value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8593,7 +8581,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetByte(string name, ref byte value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8602,7 +8590,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetShort(string name, ref short value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8611,7 +8599,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetInt(string name, ref int value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8620,7 +8608,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetLong(string name, ref long value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8629,7 +8617,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetUShort(string name, ref ushort value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8638,7 +8626,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetUInt(string name, ref uint value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8647,7 +8635,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetULong(string name, ref ulong value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8656,7 +8644,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetFloat(string name, ref float value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -8665,26 +8653,26 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <returns><c>true</c> on success</returns>
     public bool GetDouble(string name, ref double value)
     {
-        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), ref value);
+        return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), out value);
     }
 
     /// <summary>
     /// Retrieves the value of the enum property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetEnum<T>(string name, ref T value) where T : Enum
+    public bool GetEnum<T>(string name, out T? value) where T : Enum
     {
         ArgumentNullException.ThrowIfNull(name);
 
-        int data = 0;
 
-        if (Object.getEnum(Pointer, name.StringToBytes(), ref data))
+        if (Object.getEnum(Pointer, name.StringToBytes(), out int data))
         {
             value = (T)Enum.ToObject(typeof(T), data);
 
             return true;
         }
 
+        value = default;
         return false;
     }
 
@@ -9098,9 +9086,9 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// <summary>
     /// Retrieves the current velocity of updated component
     /// </summary>
-    public void GetVelocity(ref Vector3 value)
+    public void GetVelocity(out Vector3 value)
     {
-        getVelocity(Pointer, ref value);
+        getVelocity(Pointer, out value);
     }
 
     /// <summary>
@@ -9108,9 +9096,8 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// </summary>
     public Vector3 GetVelocity()
     {
-        Vector3 value = default;
 
-        getVelocity(Pointer, ref value);
+        getVelocity(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9118,9 +9105,9 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// <summary>
     /// Retrieves the normal of the plane that constrains movement, enforced if the plane constraint is enabled
     /// </summary>
-    public void GetPlaneConstraintNormal(ref Vector3 value)
+    public void GetPlaneConstraintNormal(out Vector3 value)
     {
-        getPlaneConstraintNormal(Pointer, ref value);
+        getPlaneConstraintNormal(Pointer, out value);
     }
 
     /// <summary>
@@ -9128,9 +9115,7 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// </summary>
     public Vector3 GetPlaneConstraintNormal()
     {
-        Vector3 value = default;
-
-        getPlaneConstraintNormal(Pointer, ref value);
+        getPlaneConstraintNormal(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9138,9 +9123,9 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// <summary>
     /// Retrieves the plane constraint origin
     /// </summary>
-    public void GetPlaneConstraintOrigin(ref Vector3 value)
+    public void GetPlaneConstraintOrigin(out Vector3 value)
     {
-        getPlaneConstraintOrigin(Pointer, ref value);
+        getPlaneConstraintOrigin(Pointer, out value);
     }
 
     /// <summary>
@@ -9148,9 +9133,8 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// </summary>
     public Vector3 GetPlaneConstraintOrigin()
     {
-        Vector3 value = default;
 
-        getPlaneConstraintOrigin(Pointer, ref value);
+        getPlaneConstraintOrigin(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9222,25 +9206,25 @@ public abstract unsafe partial class MovementComponent : ActorComponent
     /// <summary>
     /// Constrains a direction vector to the plane constraint, if enabled
     /// </summary>
-    public void ConstrainDirectionToPlane(in Vector3 direction, ref Vector3 value)
+    public void ConstrainDirectionToPlane(in Vector3 direction, out Vector3 value)
     {
-        constrainDirectionToPlane(Pointer, direction, ref value);
+        constrainDirectionToPlane(Pointer, direction, out value);
     }
 
     /// <summary>
     /// Constrains a location vector to the plane constraint, if enabled
     /// </summary>
-    public void ConstrainLocationToPlane(in Vector3 location, ref Vector3 value)
+    public void ConstrainLocationToPlane(in Vector3 location, out Vector3 value)
     {
-        constrainLocationToPlane(Pointer, location, ref value);
+        constrainLocationToPlane(Pointer, location, out value);
     }
 
     /// <summary>
     /// Constrains a normal vector (of unit length) to the plane constraint, if enabled
     /// </summary>
-    public void ConstrainNormalToPlane(in Vector3 normal, ref Vector3 value)
+    public void ConstrainNormalToPlane(in Vector3 normal, out Vector3 value)
     {
-        constrainNormalToPlane(Pointer, normal, ref value);
+        constrainNormalToPlane(Pointer, normal, out value);
     }
 }
 
@@ -9287,9 +9271,9 @@ public unsafe partial class RotatingMovementComponent : MovementComponent
     /// <summary>
     /// Retrieves translation of pivot point around which the component rotates, relative to the current rotation
     /// </summary>
-    public void GetPivotTranslation(ref Vector3 value)
+    public void GetPivotTranslation(out Vector3 value)
     {
-        getPivotTranslation(Pointer, ref value);
+        getPivotTranslation(Pointer, out value);
     }
 
     /// <summary>
@@ -9297,9 +9281,7 @@ public unsafe partial class RotatingMovementComponent : MovementComponent
     /// </summary>
     public Vector3 GetPivotTranslation()
     {
-        Vector3 value = default;
-
-        getPivotTranslation(Pointer, ref value);
+        getPivotTranslation(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9307,9 +9289,9 @@ public unsafe partial class RotatingMovementComponent : MovementComponent
     /// <summary>
     /// Retrieves yaw, pitch, and roll rotation rate of the component
     /// </summary>
-    public void GetRotationRate(ref Quaternion value)
+    public void GetRotationRate(out Quaternion value)
     {
-        getRotationRate(Pointer, ref value);
+        getRotationRate(Pointer, out value);
     }
 
     /// <summary>
@@ -9317,9 +9299,8 @@ public unsafe partial class RotatingMovementComponent : MovementComponent
     /// </summary>
     public Quaternion GetRotationRate()
     {
-        Quaternion value = default;
 
-        getRotationRate(Pointer, ref value);
+        getRotationRate(Pointer, out Quaternion value);
 
         return value;
     }
@@ -9578,9 +9559,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves location of a socket in world space
     /// </summary>
-    public void GetSocketLocation(string socketName, ref Vector3 value)
+    public void GetSocketLocation(string socketName, out Vector3 value)
     {
-        getSocketLocation(Pointer, socketName.StringToBytes(), ref value);
+        getSocketLocation(Pointer, socketName.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -9588,9 +9569,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetSocketLocation(string socketName)
     {
-        Vector3 value = default;
 
-        getSocketLocation(Pointer, socketName.StringToBytes(), ref value);
+        getSocketLocation(Pointer, socketName.StringToBytes(), out Vector3 value);
 
         return value;
     }
@@ -9600,7 +9580,7 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public void GetSocketRotation(string socketName, ref Quaternion value)
     {
-        getSocketRotation(Pointer, socketName.StringToBytes(), ref value);
+        getSocketRotation(Pointer, socketName.StringToBytes(), out value);
     }
 
     /// <summary>
@@ -9608,9 +9588,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Quaternion GetSocketRotation(string socketName)
     {
-        Quaternion value = default;
 
-        getSocketRotation(Pointer, socketName.StringToBytes(), ref value);
+        getSocketRotation(Pointer, socketName.StringToBytes(), out Quaternion value);
 
         return value;
     }
@@ -9618,9 +9597,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves velocity of the component, or the velocity of the physics body if simulating physics
     /// </summary>
-    public void GetVelocity(ref Vector3 value)
+    public void GetVelocity(out Vector3 value)
     {
-        getComponentVelocity(Pointer, ref value);
+        getComponentVelocity(Pointer, out value);
     }
 
     /// <summary>
@@ -9628,9 +9607,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetVelocity()
     {
-        Vector3 value = default;
 
-        getComponentVelocity(Pointer, ref value);
+        getComponentVelocity(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9638,9 +9616,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves location of the component in world space
     /// </summary>
-    public void GetLocation(ref Vector3 value)
+    public void GetLocation(out Vector3 value)
     {
-        getComponentLocation(Pointer, ref value);
+        getComponentLocation(Pointer, out value);
     }
 
     /// <summary>
@@ -9648,9 +9626,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetLocation()
     {
-        Vector3 value = default;
 
-        getComponentLocation(Pointer, ref value);
+        getComponentLocation(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9660,7 +9637,7 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public void GetRotation(ref Quaternion value)
     {
-        getComponentRotation(Pointer, ref value);
+        getComponentRotation(Pointer, out value);
     }
 
     /// <summary>
@@ -9668,9 +9645,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Quaternion GetRotation()
     {
-        Quaternion value = default;
 
-        getComponentRotation(Pointer, ref value);
+        getComponentRotation(Pointer, out Quaternion value);
 
         return value;
     }
@@ -9678,9 +9654,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves scale of the component in world space
     /// </summary>
-    public void GetScale(ref Vector3 value)
+    public void GetScale(out Vector3 value)
     {
-        getComponentScale(Pointer, ref value);
+        getComponentScale(Pointer, out value);
     }
 
     /// <summary>
@@ -9688,9 +9664,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetScale()
     {
-        Vector3 value = default;
 
-        getComponentScale(Pointer, ref value);
+        getComponentScale(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9700,7 +9675,7 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public void GetTransform(ref Transform value)
     {
-        SceneComponent.getComponentTransform(Pointer, ref value);
+        SceneComponent.getComponentTransform(Pointer, out value);
     }
 
     /// <summary>
@@ -9708,9 +9683,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Transform GetTransform()
     {
-        Transform value = default;
 
-        SceneComponent.getComponentTransform(Pointer, ref value);
+        SceneComponent.getComponentTransform(Pointer, out Transform value);
 
         return value;
     }
@@ -9718,9 +9692,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves the forward X unit direction vector from the component in world space
     /// </summary>
-    public void GetForwardVector(ref Vector3 value)
+    public void GetForwardVector(out Vector3 value)
     {
-        getForwardVector(Pointer, ref value);
+        getForwardVector(Pointer, out value);
     }
 
     /// <summary>
@@ -9728,9 +9702,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetForwardVector()
     {
-        Vector3 value = default;
 
-        getForwardVector(Pointer, ref value);
+        getForwardVector(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9738,9 +9711,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves the right Y unit direction vector from the component in world space
     /// </summary>
-    public void GetRightVector(ref Vector3 value)
+    public void GetRightVector(out Vector3 value)
     {
-        getRightVector(Pointer, ref value);
+        getRightVector(Pointer, out value);
     }
 
     /// <summary>
@@ -9748,9 +9721,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetRightVector()
     {
-        Vector3 value = default;
 
-        getRightVector(Pointer, ref value);
+        getRightVector(Pointer, out Vector3 value);
 
         return value;
     }
@@ -9758,9 +9730,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves the up Z unit direction vector from the component in world space
     /// </summary>
-    public void GetUpVector(ref Vector3 value)
+    public void GetUpVector(out Vector3 value)
     {
-        getUpVector(Pointer, ref value);
+        getUpVector(Pointer, out value);
     }
 
     /// <summary>
@@ -9768,9 +9740,8 @@ public unsafe partial class SceneComponent : ActorComponent
     /// </summary>
     public Vector3 GetUpVector()
     {
-        Vector3 value = default;
 
-        getUpVector(Pointer, ref value);
+        getUpVector(Pointer, out Vector3 value);
 
         return value;
     }
@@ -10333,9 +10304,9 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// <summary>
     /// Retrieves offset at the end of the spring arm, can be used instead of the relative offset of the attached component to ensure the line trace works as desired
     /// </summary>
-    public void GetSocketOffset(ref Vector3 value)
+    public void GetSocketOffset(out Vector3 value)
     {
-        getSocketOffset(Pointer, ref value);
+        getSocketOffset(Pointer, out value);
     }
 
     /// <summary>
@@ -10343,9 +10314,8 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public Vector3 GetSocketOffset()
     {
-        Vector3 value = default;
 
-        getSocketOffset(Pointer, ref value);
+        getSocketOffset(Pointer, out Vector3 value);
 
         return value;
     }
@@ -10353,9 +10323,9 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// <summary>
     /// Retrieves offset at the start of the spring arm in world space
     /// </summary>
-    public void GetTargetOffset(ref Vector3 value)
+    public void GetTargetOffset(out Vector3 value)
     {
-        getTargetOffset(Pointer, ref value);
+        getTargetOffset(Pointer, out value);
     }
 
     /// <summary>
@@ -10363,9 +10333,8 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public Vector3 GetTargetOffset()
     {
-        Vector3 value = default;
 
-        getTargetOffset(Pointer, ref value);
+        getTargetOffset(Pointer, out Vector3 value);
 
         return value;
     }
@@ -10373,9 +10342,9 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// <summary>
     /// Retrieves the unfixed camera position
     /// </summary>
-    public void GetUnfixedCameraPosition(ref Vector3 value)
+    public void GetUnfixedCameraPosition(out Vector3 value)
     {
-        getUnfixedCameraPosition(Pointer, ref value);
+        getUnfixedCameraPosition(Pointer, out value);
     }
 
     /// <summary>
@@ -10383,9 +10352,8 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public Vector3 GetUnfixedCameraPosition()
     {
-        Vector3 value = default;
 
-        getUnfixedCameraPosition(Pointer, ref value);
+        getUnfixedCameraPosition(Pointer, out Vector3 value);
 
         return value;
     }
@@ -10395,7 +10363,7 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public void GetDesiredRotation(ref Quaternion value)
     {
-        getDesiredRotation(Pointer, ref value);
+        getDesiredRotation(Pointer, out value);
     }
 
     /// <summary>
@@ -10403,9 +10371,8 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public Quaternion GetDesiredRotation()
     {
-        Quaternion value = default;
 
-        getDesiredRotation(Pointer, ref value);
+        getDesiredRotation(Pointer, out Quaternion value);
 
         return value;
     }
@@ -10415,7 +10382,7 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public void GetTargetRotation(ref Quaternion value)
     {
-        getTargetRotation(Pointer, ref value);
+        getTargetRotation(Pointer, out value);
     }
 
     /// <summary>
@@ -10423,9 +10390,8 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// </summary>
     public Quaternion GetTargetRotation()
     {
-        Quaternion value = default;
 
-        getTargetRotation(Pointer, ref value);
+        getTargetRotation(Pointer, out Quaternion value);
 
         return value;
     }
@@ -10765,9 +10731,9 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// <summary>
     /// Retrieves the linear velocity of a single body
     /// </summary>
-    public void GetPhysicsLinearVelocity(ref Vector3 value, string? boneName = null)
+    public void GetPhysicsLinearVelocity(out Vector3 value, string? boneName = null)
     {
-        getPhysicsLinearVelocity(Pointer, ref value, boneName?.StringToBytes());
+        getPhysicsLinearVelocity(Pointer, out value, boneName?.StringToBytes());
     }
 
     /// <summary>
@@ -10775,9 +10741,8 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// </summary>
     public Vector3 GetPhysicsLinearVelocity(string? boneName = null)
     {
-        Vector3 value = default;
 
-        getPhysicsLinearVelocity(Pointer, ref value, boneName?.StringToBytes());
+        getPhysicsLinearVelocity(Pointer, out Vector3 value, boneName?.StringToBytes());
 
         return value;
     }
@@ -10785,9 +10750,9 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// <summary>
     /// Retrieves the linear velocity of a point on a single body
     /// </summary>
-    public void GetPhysicsLinearVelocityAtPoint(ref Vector3 value, in Vector3 point, string? boneName = null)
+    public void GetPhysicsLinearVelocityAtPoint(out Vector3 value, in Vector3 point, string? boneName = null)
     {
-        getPhysicsLinearVelocityAtPoint(Pointer, ref value, point, boneName?.StringToBytes());
+        getPhysicsLinearVelocityAtPoint(Pointer, out value, point, boneName?.StringToBytes());
     }
 
     /// <summary>
@@ -10795,9 +10760,8 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// </summary>
     public Vector3 GetPhysicsLinearVelocityAtPoint(in Vector3 point, string? boneName = null)
     {
-        Vector3 value = default;
 
-        getPhysicsLinearVelocityAtPoint(Pointer, ref value, point, boneName?.StringToBytes());
+        getPhysicsLinearVelocityAtPoint(Pointer, out Vector3 value, point, boneName?.StringToBytes());
 
         return value;
     }
@@ -10805,9 +10769,9 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// <summary>
     /// Retrieves the angular velocity in degrees of a single body
     /// </summary>
-    public void GetPhysicsAngularVelocityInDegrees(ref Vector3 value, string? boneName = null)
+    public void GetPhysicsAngularVelocityInDegrees(out Vector3 value, string? boneName = null)
     {
-        getPhysicsAngularVelocityInDegrees(Pointer, ref value, boneName?.StringToBytes());
+        getPhysicsAngularVelocityInDegrees(Pointer, out value, boneName?.StringToBytes());
     }
 
     /// <summary>
@@ -10815,9 +10779,8 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// </summary>
     public Vector3 GetPhysicsAngularVelocityInDegrees(string? boneName = null)
     {
-        Vector3 value = default;
 
-        getPhysicsAngularVelocityInDegrees(Pointer, ref value, boneName?.StringToBytes());
+        getPhysicsAngularVelocityInDegrees(Pointer, out Vector3 value, boneName?.StringToBytes());
 
         return value;
     }
@@ -10825,9 +10788,9 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// <summary>
     /// Retrieves the angular velocity in radians of a single body
     /// </summary>
-    public void GetPhysicsAngularVelocityInRadians(ref Vector3 value, string? boneName = null)
+    public void GetPhysicsAngularVelocityInRadians(out Vector3 value, string? boneName = null)
     {
-        getPhysicsAngularVelocityInRadians(Pointer, ref value, boneName?.StringToBytes());
+        getPhysicsAngularVelocityInRadians(Pointer, out value, boneName?.StringToBytes());
     }
 
     /// <summary>
@@ -10835,9 +10798,8 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// </summary>
     public Vector3 GetPhysicsAngularVelocityInRadians(string? boneName = null)
     {
-        Vector3 value = default;
 
-        getPhysicsAngularVelocityInRadians(Pointer, ref value, boneName?.StringToBytes());
+        getPhysicsAngularVelocityInRadians(Pointer, out Vector3 value, boneName?.StringToBytes());
 
         return value;
     }
@@ -10858,9 +10820,9 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// <param name="point"></param>
     /// <param name="closestPointOnCollision"></param>
     /// <returns>More than 0.0f if successful, equals to 0.0f if a point is inside the geometry, less than 0.0f if the primitive does not have collision or if the geometry not supported</returns>
-    public float GetDistanceToCollision(in Vector3 point, ref Vector3 closestPointOnCollision)
+    public float GetDistanceToCollision(in Vector3 point, out Vector3 closestPointOnCollision)
     {
-        return getDistanceToCollision(Pointer, point, ref closestPointOnCollision);
+        return getDistanceToCollision(Pointer, point, out closestPointOnCollision);
     }
 
     /// <summary>
@@ -10870,9 +10832,9 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     /// <param name="squaredDistance"></param>
     /// <param name="closestPointOnCollision"></param>
     /// <returns><c>true</c> if a distance to the body was found and <paramref name="squaredDistance"/> has been populated</returns>
-    public bool GetSquaredDistanceToCollision(in Vector3 point, ref float squaredDistance, ref Vector3 closestPointOnCollision)
+    public bool GetSquaredDistanceToCollision(in Vector3 point, out float squaredDistance, out Vector3 closestPointOnCollision)
     {
-        return getSquaredDistanceToCollision(Pointer, point, ref squaredDistance, ref closestPointOnCollision);
+        return getSquaredDistanceToCollision(Pointer, point, out squaredDistance, out closestPointOnCollision);
     }
 
     /// <summary>
@@ -11147,9 +11109,9 @@ public unsafe partial class BoxComponent : ShapeComponent
     /// <summary>
     /// Retrieves the box extents scaled by the component scale
     /// </summary>
-    public void GetScaledBoxExtent(ref Vector3 value)
+    public void GetScaledBoxExtent(out Vector3 value)
     {
-        getScaledBoxExtent(Pointer, ref value);
+        getScaledBoxExtent(Pointer, out value);
     }
 
     /// <summary>
@@ -11157,9 +11119,8 @@ public unsafe partial class BoxComponent : ShapeComponent
     /// </summary>
     public Vector3 GetScaledBoxExtent()
     {
-        Vector3 value = default;
 
-        getScaledBoxExtent(Pointer, ref value);
+        getScaledBoxExtent(Pointer, out Vector3 value);
 
         return value;
     }
@@ -11167,9 +11128,9 @@ public unsafe partial class BoxComponent : ShapeComponent
     /// <summary>
     /// Retrieves the box extent ignoring the component scale
     /// </summary>
-    public void GetUnscaledBoxExtent(ref Vector3 value)
+    public void GetUnscaledBoxExtent(out Vector3 value)
     {
-        getUnscaledBoxExtent(Pointer, ref value);
+        getUnscaledBoxExtent(Pointer, out value);
     }
 
     /// <summary>
@@ -11177,9 +11138,8 @@ public unsafe partial class BoxComponent : ShapeComponent
     /// </summary>
     public Vector3 GetUnscaledBoxExtent()
     {
-        Vector3 value = default;
 
-        getUnscaledBoxExtent(Pointer, ref value);
+        getUnscaledBoxExtent(Pointer, out Vector3 value);
 
         return value;
     }
@@ -11327,17 +11287,17 @@ public unsafe partial class CapsuleComponent : ShapeComponent
     /// <summary>
     /// Retrieves the capsule radius and half-height scaled by the component scale
     /// </summary>
-    public void GetScaledCapsuleSize(ref float radius, ref float halfHeight)
+    public void GetScaledCapsuleSize(out float radius, out float halfHeight)
     {
-        getScaledCapsuleSize(Pointer, ref radius, ref halfHeight);
+        getScaledCapsuleSize(Pointer, out radius, out halfHeight);
     }
 
     /// <summary>
     /// Retrieves the capsule radius and half-height ignoring the component scale
     /// </summary>
-    public void GetUnscaledCapsuleSize(ref float radius, ref float halfHeight)
+    public void GetUnscaledCapsuleSize(out float radius, out float halfHeight)
     {
-        getUnscaledCapsuleSize(Pointer, ref radius, ref halfHeight);
+        getUnscaledCapsuleSize(Pointer, out radius, out halfHeight);
     }
 
     /// <summary>
@@ -11778,9 +11738,9 @@ public unsafe partial class StaticMeshComponent : MeshComponent
     /// <summary>
     /// Retrieves local bounds of the mesh
     /// </summary>
-    public void GetLocalBounds(ref Vector3 min, ref Vector3 max)
+    public void GetLocalBounds(out Vector3 min, out Vector3 max)
     {
-        getLocalBounds(Pointer, ref min, ref max);
+        getLocalBounds(Pointer, out min, out max);
     }
 
     /// <summary>
@@ -11848,9 +11808,9 @@ public unsafe partial class InstancedStaticMeshComponent : StaticMeshComponent
     /// <summary>
     /// Retrieves the transform of the specified instance
     /// </summary>
-    public bool GetInstanceTransform(int instanceIndex, ref Transform value, bool worldSpace = false)
+    public bool GetInstanceTransform(int instanceIndex, out Transform value, bool worldSpace = false)
     {
-        return getInstanceTransform(Pointer, instanceIndex, ref value, worldSpace);
+        return getInstanceTransform(Pointer, instanceIndex, out value, worldSpace);
     }
 
     /// <summary>
@@ -12006,7 +11966,7 @@ public abstract unsafe partial class SkinnedMeshComponent : MeshComponent
     /// </summary>
     public void GetBoneTransform(int boneIndex, ref Transform value)
     {
-        getBoneTransform(Pointer, boneIndex, ref value);
+        getBoneTransform(Pointer, boneIndex, out value);
     }
 
     /// <summary>
@@ -12014,9 +11974,8 @@ public abstract unsafe partial class SkinnedMeshComponent : MeshComponent
     /// </summary>
     public Transform GetBoneTransform(int boneIndex)
     {
-        Transform value = default;
 
-        getBoneTransform(Pointer, boneIndex, ref value);
+        getBoneTransform(Pointer, boneIndex, out Transform value);
 
         return value;
     }
@@ -12213,9 +12172,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the tangent at the given distance along the length of the spline
     /// </summary>
-    public void GetTangentAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetTangentAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getTangentAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getTangentAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12223,9 +12182,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetTangentAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getTangentAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getTangentAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12233,9 +12191,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the tangent at the spline point
     /// </summary>
-    public void GetTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12243,9 +12201,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12253,9 +12210,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the tangent at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetTangentAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, ref Vector3 value)
+    public void GetTangentAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, out Vector3 value)
     {
-        getTangentAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getTangentAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out value);
     }
 
     /// <summary>
@@ -12263,9 +12220,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetTangentAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity = false)
     {
-        Vector3 value = default;
 
-        getTangentAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getTangentAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out Vector3 value);
 
         return value;
     }
@@ -12275,7 +12231,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public void GetTransformAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Transform value)
     {
-        getTransformAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getTransformAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12283,9 +12239,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Transform GetTransformAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Transform value = default;
 
-        getTransformAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getTransformAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Transform value);
 
         return value;
     }
@@ -12295,7 +12250,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public void GetTransformAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, bool useScale, ref Transform value)
     {
-        getTransformAtSplinePoint(Pointer, pointIndex, coordinateSpace, useScale, ref value);
+        getTransformAtSplinePoint(Pointer, pointIndex, coordinateSpace, useScale, out value);
     }
 
     /// <summary>
@@ -12303,9 +12258,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Transform GetTransformAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, bool useScale = false)
     {
-        Transform value = default;
 
-        getTransformAtSplinePoint(Pointer, pointIndex, coordinateSpace, useScale, ref value);
+        getTransformAtSplinePoint(Pointer, pointIndex, coordinateSpace, useScale, out Transform value);
 
         return value;
     }
@@ -12313,9 +12267,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the arrive tangent at the spline point
     /// </summary>
-    public void GetArriveTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetArriveTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getArriveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getArriveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12323,9 +12277,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetArriveTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getArriveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getArriveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12333,9 +12286,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the default up vector of the spline
     /// </summary>
-    public void GetDefaultUpVector(SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetDefaultUpVector(SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getDefaultUpVector(Pointer, coordinateSpace, ref value);
+        getDefaultUpVector(Pointer, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12343,9 +12296,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetDefaultUpVector(SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getDefaultUpVector(Pointer, coordinateSpace, ref value);
+        getDefaultUpVector(Pointer, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12353,9 +12305,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a unit direction vector of the spline tangent at the given distance along the length of the spline
     /// </summary>
-    public void GetDirectionAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetDirectionAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getDirectionAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getDirectionAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12363,9 +12315,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetDirectionAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getDirectionAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getDirectionAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12373,9 +12324,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a unit direction vector at the spline point
     /// </summary>
-    public void GetDirectionAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetDirectionAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getDirectionAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getDirectionAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12383,9 +12334,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetDirectionAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getDirectionAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getDirectionAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12393,9 +12343,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a unit direction vector of the spline tangent at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetDirectionAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, ref Vector3 value)
+    public void GetDirectionAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, out Vector3 value)
     {
-        getDirectionAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getDirectionAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out value);
     }
 
     /// <summary>
@@ -12403,9 +12353,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetDirectionAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity = false)
     {
-        Vector3 value = default;
 
-        getDirectionAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getDirectionAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out Vector3 value);
 
         return value;
     }
@@ -12421,9 +12370,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the leave tangent at the spline point
     /// </summary>
-    public void GetLeaveTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetLeaveTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getLeaveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getLeaveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12431,9 +12380,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetLeaveTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getLeaveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getLeaveTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12441,17 +12389,17 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the location and tangent at the spline point
     /// </summary>
-    public void GetLocationAndTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 location, ref Vector3 tangent)
+    public void GetLocationAndTangentAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 location, out Vector3 tangent)
     {
-        getLocationAndTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref location, ref tangent);
+        getLocationAndTangentAtSplinePoint(Pointer, pointIndex, coordinateSpace, out location, out tangent);
     }
 
     /// <summary>
     /// Retrieves the location at the given distance along the length of the spline
     /// </summary>
-    public void GetLocationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetLocationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getLocationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getLocationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12459,9 +12407,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetLocationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getLocationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getLocationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12469,9 +12416,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the location at the spline point
     /// </summary>
-    public void GetLocationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetLocationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getLocationAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getLocationAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12479,9 +12426,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetLocationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getLocationAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getLocationAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12489,9 +12435,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the location at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetLocationAtTime(float time, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetLocationAtTime(float time, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getLocationAtTime(Pointer, time, coordinateSpace, ref value);
+        getLocationAtTime(Pointer, time, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12499,9 +12445,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetLocationAtTime(float time, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getLocationAtTime(Pointer, time, coordinateSpace, ref value);
+        getLocationAtTime(Pointer, time, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12509,9 +12454,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a unit direction vector corresponding to the spline's right vector at the given distance along the length of the spline
     /// </summary>
-    public void GetRightVectorAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetRightVectorAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getRightVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getRightVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12519,9 +12464,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetRightVectorAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getRightVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getRightVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12529,9 +12473,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's right vector at the spline point
     /// </summary>
-    public void GetRightVectorAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetRightVectorAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getRightVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getRightVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12539,9 +12483,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetRightVectorAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getRightVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getRightVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12549,9 +12492,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's right vector at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetRightVectorAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, ref Vector3 value)
+    public void GetRightVectorAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, out Vector3 value)
     {
-        getRightVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getRightVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out value);
     }
 
     /// <summary>
@@ -12559,9 +12502,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetRightVectorAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity = false)
     {
-        Vector3 value = default;
 
-        getRightVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getRightVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out Vector3 value);
 
         return value;
     }
@@ -12595,7 +12537,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public void GetRotationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Quaternion value)
     {
-        getRotationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getRotationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12603,9 +12545,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Quaternion GetRotationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Quaternion value = default;
 
-        getRotationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getRotationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Quaternion value);
 
         return value;
     }
@@ -12615,7 +12556,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public void GetRotationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Quaternion value)
     {
-        getRotationAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getRotationAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12623,9 +12564,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Quaternion GetRotationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Quaternion value = default;
 
-        getRotationAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getRotationAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Quaternion value);
 
         return value;
     }
@@ -12635,7 +12575,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public void GetRotationAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, ref Quaternion value)
     {
-        getRotationAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getRotationAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out value);
     }
 
     /// <summary>
@@ -12643,9 +12583,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Quaternion GetRotationAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity = false)
     {
-        Quaternion value = default;
 
-        getRotationAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getRotationAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out Quaternion value);
 
         return value;
     }
@@ -12653,9 +12592,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's scale at the given distance along the length of the spline
     /// </summary>
-    public void GetScaleAtDistanceAlongSpline(float distance, ref Vector3 value)
+    public void GetScaleAtDistanceAlongSpline(float distance, out Vector3 value)
     {
-        getScaleAtDistanceAlongSpline(Pointer, distance, ref value);
+        getScaleAtDistanceAlongSpline(Pointer, distance, out value);
     }
 
     /// <summary>
@@ -12663,9 +12602,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetScaleAtDistanceAlongSpline(float distance)
     {
-        Vector3 value = default;
 
-        getScaleAtDistanceAlongSpline(Pointer, distance, ref value);
+        getScaleAtDistanceAlongSpline(Pointer, distance, out Vector3 value);
 
         return value;
     }
@@ -12673,9 +12611,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's scale at the spline point
     /// </summary>
-    public void GetScaleAtSplinePoint(int pointIndex, ref Vector3 value)
+    public void GetScaleAtSplinePoint(int pointIndex, out Vector3 value)
     {
-        getScaleAtSplinePoint(Pointer, pointIndex, ref value);
+        getScaleAtSplinePoint(Pointer, pointIndex, out value);
     }
 
     /// <summary>
@@ -12683,9 +12621,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetScaleAtSplinePoint(int pointIndex)
     {
-        Vector3 value = default;
 
-        getScaleAtSplinePoint(Pointer, pointIndex, ref value);
+        getScaleAtSplinePoint(Pointer, pointIndex, out Vector3 value);
 
         return value;
     }
@@ -12693,9 +12630,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's scale at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetScaleAtTime(float time, bool useConstantVelocity, ref Vector3 value)
+    public void GetScaleAtTime(float time, bool useConstantVelocity, out Vector3 value)
     {
-        getScaleAtTime(Pointer, time, useConstantVelocity, ref value);
+        getScaleAtTime(Pointer, time, useConstantVelocity, out value);
     }
 
     /// <summary>
@@ -12703,9 +12640,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetScaleAtTime(float time, bool useConstantVelocity = false)
     {
-        Vector3 value = default;
 
-        getScaleAtTime(Pointer, time, useConstantVelocity, ref value);
+        getScaleAtTime(Pointer, time, useConstantVelocity, out Vector3 value);
 
         return value;
     }
@@ -12723,7 +12659,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public void GetTransformAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, bool useScale, ref Transform value)
     {
-        getTransformAtTime(Pointer, time, coordinateSpace, useConstantVelocity, useScale, ref value);
+        getTransformAtTime(Pointer, time, coordinateSpace, useConstantVelocity, useScale, out value);
     }
 
     /// <summary>
@@ -12731,9 +12667,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Transform GetTransformAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity = false, bool useScale = false)
     {
-        Transform value = default;
 
-        getTransformAtTime(Pointer, time, coordinateSpace, useConstantVelocity, useScale, ref value);
+        getTransformAtTime(Pointer, time, coordinateSpace, useConstantVelocity, useScale, out Transform value);
 
         return value;
     }
@@ -12741,9 +12676,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a unit direction vector corresponding to the spline's up vector at the given distance along the length of the spline
     /// </summary>
-    public void GetUpVectorAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetUpVectorAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getUpVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getUpVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12751,9 +12686,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetUpVectorAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        getUpVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, ref value);
+        getUpVectorAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12761,9 +12695,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's up vector at the spline point
     /// </summary>
-    public void GetUpVectorAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Vector3 value)
+    public void GetUpVectorAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Vector3 value)
     {
-        getUpVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getUpVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
 
     /// <summary>
@@ -12771,9 +12705,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetUpVectorAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
-
-        getUpVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, ref value);
+        getUpVectorAtSplinePoint(Pointer, pointIndex, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12781,9 +12713,9 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's up vector at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetUpVectorAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, ref Vector3 value)
+    public void GetUpVectorAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, out Vector3 value)
     {
-        getUpVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getUpVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out value);
     }
 
     /// <summary>
@@ -12791,9 +12723,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 GetUpVectorAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity = false)
     {
-        Vector3 value = default;
 
-        getUpVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, ref value);
+        getUpVectorAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out Vector3 value);
 
         return value;
     }
@@ -12883,9 +12814,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 FindDirectionClosestToWorldLocation(in Vector3 location, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        findDirectionClosestToWorldLocation(Pointer, location, coordinateSpace, ref value);
+        findDirectionClosestToWorldLocation(Pointer, location, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12895,9 +12825,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 FindLocationClosestToWorldLocation(in Vector3 location, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        findLocationClosestToWorldLocation(Pointer, location, coordinateSpace, ref value);
+        findLocationClosestToWorldLocation(Pointer, location, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12907,9 +12836,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 FindUpVectorClosestToWorldLocation(in Vector3 location, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        findUpVectorClosestToWorldLocation(Pointer, location, coordinateSpace, ref value);
+        findUpVectorClosestToWorldLocation(Pointer, location, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12919,9 +12847,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 FindRightVectorClosestToWorldLocation(in Vector3 location, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        findRightVectorClosestToWorldLocation(Pointer, location, coordinateSpace, ref value);
+        findRightVectorClosestToWorldLocation(Pointer, location, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12939,9 +12866,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 FindScaleClosestToWorldLocation(in Vector3 location)
     {
-        Vector3 value = default;
 
-        findScaleClosestToWorldLocation(Pointer, location, ref value);
+        findScaleClosestToWorldLocation(Pointer, location, out Vector3 value);
 
         return value;
     }
@@ -12951,9 +12877,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Vector3 FindTangentClosestToWorldLocation(in Vector3 location, SplineCoordinateSpace coordinateSpace)
     {
-        Vector3 value = default;
 
-        findTangentClosestToWorldLocation(Pointer, location, coordinateSpace, ref value);
+        findTangentClosestToWorldLocation(Pointer, location, coordinateSpace, out Vector3 value);
 
         return value;
     }
@@ -12963,9 +12888,8 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// </summary>
     public Transform FindTransformClosestToWorldLocation(in Vector3 location, SplineCoordinateSpace coordinateSpace, bool useScale = false)
     {
-        Transform value = default;
 
-        findTransformClosestToWorldLocation(Pointer, location, coordinateSpace, useScale, ref value);
+        findTransformClosestToWorldLocation(Pointer, location, coordinateSpace, useScale, out Transform value);
 
         return value;
     }

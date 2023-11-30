@@ -100,17 +100,17 @@ internal static class Shared
             Object.toComponent = (delegate* unmanaged[Cdecl]<IntPtr, ComponentType, IntPtr>)objectFunctions[head++];
             Object.getID = (delegate* unmanaged[Cdecl]<IntPtr, uint>)objectFunctions[head++];
             Object.getName = (delegate* unmanaged[Cdecl]<IntPtr, byte[], void>)objectFunctions[head++];
-            Object.getBool = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref bool, Bool>)objectFunctions[head++];
-            Object.getByte = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref byte, Bool>)objectFunctions[head++];
-            Object.getShort = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref short, Bool>)objectFunctions[head++];
-            Object.getInt = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref int, Bool>)objectFunctions[head++];
-            Object.getLong = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref long, Bool>)objectFunctions[head++];
-            Object.getUShort = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref ushort, Bool>)objectFunctions[head++];
-            Object.getUInt = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref uint, Bool>)objectFunctions[head++];
-            Object.getULong = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref ulong, Bool>)objectFunctions[head++];
-            Object.getFloat = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref float, Bool>)objectFunctions[head++];
-            Object.getDouble = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref double, Bool>)objectFunctions[head++];
-            Object.getEnum = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref int, Bool>)objectFunctions[head++];
+            Object.getBool = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out bool, Bool>)objectFunctions[head++];
+            Object.getByte = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out byte, Bool>)objectFunctions[head++];
+            Object.getShort = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out short, Bool>)objectFunctions[head++];
+            Object.getInt = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out int, Bool>)objectFunctions[head++];
+            Object.getLong = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out long, Bool>)objectFunctions[head++];
+            Object.getUShort = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out ushort, Bool>)objectFunctions[head++];
+            Object.getUInt = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out uint, Bool>)objectFunctions[head++];
+            Object.getULong = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out ulong, Bool>)objectFunctions[head++];
+            Object.getFloat = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out float, Bool>)objectFunctions[head++];
+            Object.getDouble = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out double, Bool>)objectFunctions[head++];
+            Object.getEnum = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out int, Bool>)objectFunctions[head++];
             Object.getString = (delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], Bool>)objectFunctions[head++];
             Object.getText = (delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], Bool>)objectFunctions[head++];
             Object.setBool = (delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool>)objectFunctions[head++];
@@ -171,8 +171,8 @@ internal static class Shared
             Engine.isExitRequested = (delegate* unmanaged[Cdecl]<Bool>)engineFunctions[head++];
             Engine.getNetMode = (delegate* unmanaged[Cdecl]<NetMode>)engineFunctions[head++];
             Engine.getFrameNumber = (delegate* unmanaged[Cdecl]<uint>)engineFunctions[head++];
-            Engine.getViewportSize = (delegate* unmanaged[Cdecl]<ref Vector2, void>)engineFunctions[head++];
-            Engine.getScreenResolution = (delegate* unmanaged[Cdecl]<ref Vector2, void>)engineFunctions[head++];
+            Engine.getViewportSize = (delegate* unmanaged[Cdecl]<out Vector2, void>)engineFunctions[head++];
+            Engine.getScreenResolution = (delegate* unmanaged[Cdecl]<out Vector2, void>)engineFunctions[head++];
             Engine.getWindowMode = (delegate* unmanaged[Cdecl]<WindowMode>)engineFunctions[head++];
             Engine.getVersion = (delegate* unmanaged[Cdecl]<byte[], void>)engineFunctions[head++];
             Engine.getMaxFPS = (delegate* unmanaged[Cdecl]<float>)engineFunctions[head++];
@@ -196,7 +196,7 @@ internal static class Shared
             World.getTimeSeconds = (delegate* unmanaged[Cdecl]<float>)worldFunctions[head++];
             World.getCurrentLevelName = (delegate* unmanaged[Cdecl]<byte[], void>)worldFunctions[head++];
             World.getSimulatePhysics = (delegate* unmanaged[Cdecl]<Bool>)worldFunctions[head++];
-            World.getWorldOrigin = (delegate* unmanaged[Cdecl]<ref Vector3, void>)worldFunctions[head++];
+            World.getWorldOrigin = (delegate* unmanaged[Cdecl]<out Vector3, void>)worldFunctions[head++];
             World.getActor = (delegate* unmanaged[Cdecl]<byte[]?, ActorType, IntPtr>)worldFunctions[head++];
             World.getActorByTag = (delegate* unmanaged[Cdecl]<byte[], ActorType, IntPtr>)worldFunctions[head++];
             World.getActorByID = (delegate* unmanaged[Cdecl]<uint, ActorType, IntPtr>)worldFunctions[head++];
@@ -222,12 +222,12 @@ internal static class Shared
             World.openLevel = (delegate* unmanaged[Cdecl]<byte[], void>)worldFunctions[head++];
             World.lineTraceTestByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, CollisionChannel, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
             World.lineTraceTestByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, byte[], Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
-            World.lineTraceSingleByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, CollisionChannel, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
-            World.lineTraceSingleByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, byte[]?, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
+            World.lineTraceSingleByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, CollisionChannel, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
+            World.lineTraceSingleByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, byte[]?, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
             World.sweepTestByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, CollisionChannel, in CollisionShape, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
             World.sweepTestByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, byte[], in CollisionShape, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
-            World.sweepSingleByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, CollisionChannel, in CollisionShape, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
-            World.sweepSingleByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, byte[], in CollisionShape, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
+            World.sweepSingleByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, CollisionChannel, in CollisionShape, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
+            World.sweepSingleByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, byte[], in CollisionShape, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool>)worldFunctions[head++];
             World.overlapAnyTestByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Quaternion, CollisionChannel, in CollisionShape, IntPtr, IntPtr, Bool>)worldFunctions[head++];
             World.overlapAnyTestByProfile = (delegate* unmanaged[Cdecl]<in Vector3, in Quaternion, byte[], in CollisionShape, IntPtr, IntPtr, Bool>)worldFunctions[head++];
             World.overlapBlockingTestByChannel = (delegate* unmanaged[Cdecl]<in Vector3, in Quaternion, CollisionChannel, in CollisionShape, IntPtr, IntPtr, Bool>)worldFunctions[head++];
@@ -318,7 +318,7 @@ internal static class Shared
             Actor.getDistanceTo = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float>)actorFunctions[head++];
             Actor.getHorizontalDistanceTo = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float>)actorFunctions[head++];
             Actor.getBounds = (delegate* unmanaged[Cdecl]<IntPtr, Bool, ref Vector3, ref Vector3, void>)actorFunctions[head++];
-            Actor.getEyesViewPoint = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, ref Quaternion, void>)actorFunctions[head++];
+            Actor.getEyesViewPoint = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, out Quaternion, void>)actorFunctions[head++];
             Actor.setRootComponent = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool>)actorFunctions[head++];
             Actor.setInputComponent = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void>)actorFunctions[head++];
             Actor.setBlockInput = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)actorFunctions[head++];
@@ -354,7 +354,7 @@ internal static class Shared
             Pawn.getUseControllerRotationYaw = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)pawnFunctions[head++];
             Pawn.getUseControllerRotationPitch = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)pawnFunctions[head++];
             Pawn.getUseControllerRotationRoll = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)pawnFunctions[head++];
-            Pawn.getGravityDirection = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)pawnFunctions[head++];
+            Pawn.getGravityDirection = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)pawnFunctions[head++];
             Pawn.getAIController = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)pawnFunctions[head++];
             Pawn.getPlayerController = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)pawnFunctions[head++];
             Pawn.setAutoPossessAI = (delegate* unmanaged[Cdecl]<IntPtr, AutoPossessAI, void>)pawnFunctions[head++];
@@ -397,8 +397,8 @@ internal static class Shared
             Controller.getPawn = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)controllerFunctions[head++];
             Controller.getCharacter = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)controllerFunctions[head++];
             Controller.getViewTarget = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)controllerFunctions[head++];
-            Controller.getControlRotation = (delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void>)controllerFunctions[head++];
-            Controller.getDesiredRotation = (delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void>)controllerFunctions[head++];
+            Controller.getControlRotation = (delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void>)controllerFunctions[head++];
+            Controller.getDesiredRotation = (delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void>)controllerFunctions[head++];
             Controller.lineOfSightTo = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, in Vector3, Bool, Bool>)controllerFunctions[head++];
             Controller.setControlRotation = (delegate* unmanaged[Cdecl]<IntPtr, in Quaternion, void>)controllerFunctions[head++];
             Controller.setInitialLocationAndRotation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, in Quaternion, void>)controllerFunctions[head++];
@@ -416,7 +416,7 @@ internal static class Shared
             IntPtr* aIControllerFunctions = (IntPtr*)buffer[position++];
 
             AIController.clearFocus = (delegate* unmanaged[Cdecl]<IntPtr, AIFocusPriority, void>)aIControllerFunctions[head++];
-            AIController.getFocalPoint = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)aIControllerFunctions[head++];
+            AIController.getFocalPoint = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)aIControllerFunctions[head++];
             AIController.setFocalPoint = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, AIFocusPriority, void>)aIControllerFunctions[head++];
             AIController.getFocusActor = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)aIControllerFunctions[head++];
             AIController.getAllowStrafe = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)aIControllerFunctions[head++];
@@ -433,11 +433,11 @@ internal static class Shared
             PlayerController.getShowMouseCursor = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)playerControllerFunctions[head++];
             PlayerController.getEnableClickEvents = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)playerControllerFunctions[head++];
             PlayerController.getEnableMouseOverEvents = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)playerControllerFunctions[head++];
-            PlayerController.getMousePosition = (delegate* unmanaged[Cdecl]<IntPtr, ref float, ref float, Bool>)playerControllerFunctions[head++];
+            PlayerController.getMousePosition = (delegate* unmanaged[Cdecl]<IntPtr, out float, out float, Bool>)playerControllerFunctions[head++];
             PlayerController.getPlayer = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)playerControllerFunctions[head++];
             PlayerController.getPlayerInput = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)playerControllerFunctions[head++];
-            PlayerController.getHitResultAtScreenPosition = (delegate* unmanaged[Cdecl]<IntPtr, in Vector2, CollisionChannel, ref Hit, Bool, Bool>)playerControllerFunctions[head++];
-            PlayerController.getHitResultUnderCursor = (delegate* unmanaged[Cdecl]<IntPtr, CollisionChannel, ref Hit, Bool, Bool>)playerControllerFunctions[head++];
+            PlayerController.getHitResultAtScreenPosition = (delegate* unmanaged[Cdecl]<IntPtr, in Vector2, CollisionChannel, out Hit, Bool, Bool>)playerControllerFunctions[head++];
+            PlayerController.getHitResultUnderCursor = (delegate* unmanaged[Cdecl]<IntPtr, CollisionChannel, out Hit, Bool, Bool>)playerControllerFunctions[head++];
             PlayerController.setShowMouseCursor = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)playerControllerFunctions[head++];
             PlayerController.setEnableClickEvents = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)playerControllerFunctions[head++];
             PlayerController.setEnableMouseOverEvents = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)playerControllerFunctions[head++];
@@ -456,7 +456,7 @@ internal static class Shared
             int head = 0;
             IntPtr* volumeFunctions = (IntPtr*)buffer[position++];
 
-            Volume.encompassesPoint = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, float, ref float, Bool>)volumeFunctions[head++];
+            Volume.encompassesPoint = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, float, out float, Bool>)volumeFunctions[head++];
         }
 
         unchecked
@@ -530,7 +530,7 @@ internal static class Shared
 
             PlayerInput.isKeyPressed = (delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool>)playerInputFunctions[head++];
             PlayerInput.getTimeKeyPressed = (delegate* unmanaged[Cdecl]<IntPtr, byte[], float>)playerInputFunctions[head++];
-            PlayerInput.getMouseSensitivity = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector2, void>)playerInputFunctions[head++];
+            PlayerInput.getMouseSensitivity = (delegate* unmanaged[Cdecl]<IntPtr, out Vector2, void>)playerInputFunctions[head++];
             PlayerInput.setMouseSensitivity = (delegate* unmanaged[Cdecl]<IntPtr, in Vector2, void>)playerInputFunctions[head++];
             PlayerInput.addActionMapping = (delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], Bool, Bool, Bool, Bool, void>)playerInputFunctions[head++];
             PlayerInput.addAxisMapping = (delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], float, void>)playerInputFunctions[head++];
@@ -554,7 +554,7 @@ internal static class Shared
             Texture2D.createFromFile = (delegate* unmanaged[Cdecl]<byte[], IntPtr>)texture2DFunctions[head++];
             Texture2D.createFromBuffer = (delegate* unmanaged[Cdecl]<byte[], int, IntPtr>)texture2DFunctions[head++];
             Texture2D.hasAlphaChannel = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)texture2DFunctions[head++];
-            Texture2D.getSize = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector2, void>)texture2DFunctions[head++];
+            Texture2D.getSize = (delegate* unmanaged[Cdecl]<IntPtr, out Vector2, void>)texture2DFunctions[head++];
             Texture2D.getPixelFormat = (delegate* unmanaged[Cdecl]<IntPtr, PixelFormat>)texture2DFunctions[head++];
         }
 
@@ -595,11 +595,11 @@ internal static class Shared
 
             MovementComponent.getConstrainToPlane = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)movementComponentFunctions[head++];
             MovementComponent.getSnapToPlaneAtStart = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)movementComponentFunctions[head++];
-            MovementComponent.getVelocity = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)movementComponentFunctions[head++];
+            MovementComponent.getVelocity = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)movementComponentFunctions[head++];
             MovementComponent.getPlaneConstraint = (delegate* unmanaged[Cdecl]<IntPtr, PlaneConstraintAxis>)movementComponentFunctions[head++];
             MovementComponent.getUpdateOnlyIfRendered = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)movementComponentFunctions[head++];
-            MovementComponent.getPlaneConstraintNormal = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)movementComponentFunctions[head++];
-            MovementComponent.getPlaneConstraintOrigin = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)movementComponentFunctions[head++];
+            MovementComponent.getPlaneConstraintNormal = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)movementComponentFunctions[head++];
+            MovementComponent.getPlaneConstraintOrigin = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)movementComponentFunctions[head++];
             MovementComponent.getGravity = (delegate* unmanaged[Cdecl]<IntPtr, float>)movementComponentFunctions[head++];
             MovementComponent.getMaxSpeed = (delegate* unmanaged[Cdecl]<IntPtr, float>)movementComponentFunctions[head++];
             MovementComponent.setConstrainToPlane = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)movementComponentFunctions[head++];
@@ -613,9 +613,9 @@ internal static class Shared
             MovementComponent.isExceedingMaxSpeed = (delegate* unmanaged[Cdecl]<IntPtr, float, Bool>)movementComponentFunctions[head++];
             MovementComponent.isInWater = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)movementComponentFunctions[head++];
             MovementComponent.stopMovement = (delegate* unmanaged[Cdecl]<IntPtr, void>)movementComponentFunctions[head++];
-            MovementComponent.constrainDirectionToPlane = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void>)movementComponentFunctions[head++];
-            MovementComponent.constrainLocationToPlane = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void>)movementComponentFunctions[head++];
-            MovementComponent.constrainNormalToPlane = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void>)movementComponentFunctions[head++];
+            MovementComponent.constrainDirectionToPlane = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void>)movementComponentFunctions[head++];
+            MovementComponent.constrainLocationToPlane = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void>)movementComponentFunctions[head++];
+            MovementComponent.constrainNormalToPlane = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void>)movementComponentFunctions[head++];
         }
 
         unchecked
@@ -625,8 +625,8 @@ internal static class Shared
 
             RotatingMovementComponent.create = (delegate* unmanaged[Cdecl]<IntPtr, byte[]?, IntPtr>)rotatingMovementComponentFunctions[head++];
             RotatingMovementComponent.getRotationInLocalSpace = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)rotatingMovementComponentFunctions[head++];
-            RotatingMovementComponent.getPivotTranslation = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)rotatingMovementComponentFunctions[head++];
-            RotatingMovementComponent.getRotationRate = (delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void>)rotatingMovementComponentFunctions[head++];
+            RotatingMovementComponent.getPivotTranslation = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)rotatingMovementComponentFunctions[head++];
+            RotatingMovementComponent.getRotationRate = (delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void>)rotatingMovementComponentFunctions[head++];
             RotatingMovementComponent.setRotationInLocalSpace = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)rotatingMovementComponentFunctions[head++];
             RotatingMovementComponent.setPivotTranslation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, void>)rotatingMovementComponentFunctions[head++];
             RotatingMovementComponent.setRotationRate = (delegate* unmanaged[Cdecl]<IntPtr, in Quaternion, void>)rotatingMovementComponentFunctions[head++];
@@ -660,16 +660,16 @@ internal static class Shared
             SceneComponent.addWorldTransform = (delegate* unmanaged[Cdecl]<IntPtr, in Transform, void>)sceneComponentFunctions[head++];
             SceneComponent.getAttachedSocketName = (delegate* unmanaged[Cdecl]<IntPtr, byte[], void>)sceneComponentFunctions[head++];
             SceneComponent.getBounds = (delegate* unmanaged[Cdecl]<IntPtr, in Transform, ref Bounds, void>)sceneComponentFunctions[head++];
-            SceneComponent.getSocketLocation = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref Vector3, void>)sceneComponentFunctions[head++];
-            SceneComponent.getSocketRotation = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref Quaternion, void>)sceneComponentFunctions[head++];
-            SceneComponent.getComponentVelocity = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)sceneComponentFunctions[head++];
-            SceneComponent.getComponentLocation = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)sceneComponentFunctions[head++];
-            SceneComponent.getComponentRotation = (delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void>)sceneComponentFunctions[head++];
-            SceneComponent.getComponentScale = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)sceneComponentFunctions[head++];
-            SceneComponent.getComponentTransform = (delegate* unmanaged[Cdecl]<IntPtr, ref Transform, void>)sceneComponentFunctions[head++];
-            SceneComponent.getForwardVector = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)sceneComponentFunctions[head++];
-            SceneComponent.getRightVector = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)sceneComponentFunctions[head++];
-            SceneComponent.getUpVector = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getSocketLocation = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getSocketRotation = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out Quaternion, void>)sceneComponentFunctions[head++];
+            SceneComponent.getComponentVelocity = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getComponentLocation = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getComponentRotation = (delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void>)sceneComponentFunctions[head++];
+            SceneComponent.getComponentScale = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getComponentTransform = (delegate* unmanaged[Cdecl]<IntPtr, out Transform, void>)sceneComponentFunctions[head++];
+            SceneComponent.getForwardVector = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getRightVector = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
+            SceneComponent.getUpVector = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
             SceneComponent.setMobility = (delegate* unmanaged[Cdecl]<IntPtr, ComponentMobility, void>)sceneComponentFunctions[head++];
             SceneComponent.setVisibility = (delegate* unmanaged[Cdecl]<IntPtr, Bool, Bool, void>)sceneComponentFunctions[head++];
             SceneComponent.setRelativeLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, void>)sceneComponentFunctions[head++];
@@ -747,12 +747,12 @@ internal static class Shared
             SpringArmComponent.getCameraRotationLagSpeed = (delegate* unmanaged[Cdecl]<IntPtr, float>)springArmComponentFunctions[head++];
             SpringArmComponent.getProbeChannel = (delegate* unmanaged[Cdecl]<IntPtr, CollisionChannel>)springArmComponentFunctions[head++];
             SpringArmComponent.getProbeSize = (delegate* unmanaged[Cdecl]<IntPtr, float>)springArmComponentFunctions[head++];
-            SpringArmComponent.getSocketOffset = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)springArmComponentFunctions[head++];
+            SpringArmComponent.getSocketOffset = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)springArmComponentFunctions[head++];
             SpringArmComponent.getTargetArmLength = (delegate* unmanaged[Cdecl]<IntPtr, float>)springArmComponentFunctions[head++];
-            SpringArmComponent.getTargetOffset = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)springArmComponentFunctions[head++];
-            SpringArmComponent.getUnfixedCameraPosition = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)springArmComponentFunctions[head++];
-            SpringArmComponent.getDesiredRotation = (delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void>)springArmComponentFunctions[head++];
-            SpringArmComponent.getTargetRotation = (delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void>)springArmComponentFunctions[head++];
+            SpringArmComponent.getTargetOffset = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)springArmComponentFunctions[head++];
+            SpringArmComponent.getUnfixedCameraPosition = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)springArmComponentFunctions[head++];
+            SpringArmComponent.getDesiredRotation = (delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void>)springArmComponentFunctions[head++];
+            SpringArmComponent.getTargetRotation = (delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void>)springArmComponentFunctions[head++];
             SpringArmComponent.getUsePawnControlRotation = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)springArmComponentFunctions[head++];
             SpringArmComponent.setDrawDebugLagMarkers = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)springArmComponentFunctions[head++];
             SpringArmComponent.setCollisionTest = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)springArmComponentFunctions[head++];
@@ -810,10 +810,10 @@ internal static class Shared
             PrimitiveComponent.addTorqueInDegrees = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void>)primitiveComponentFunctions[head++];
             PrimitiveComponent.addTorqueInRadians = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getMass = (delegate* unmanaged[Cdecl]<IntPtr, float>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.getPhysicsLinearVelocity = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.getPhysicsLinearVelocityAtPoint = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, in Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.getPhysicsAngularVelocityInDegrees = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.getPhysicsAngularVelocityInRadians = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.getPhysicsLinearVelocity = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.getPhysicsLinearVelocityAtPoint = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, in Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.getPhysicsAngularVelocityInDegrees = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.getPhysicsAngularVelocityInRadians = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, byte[]?, void>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getCastShadow = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getOnlyOwnerSee = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getOwnerNoSee = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)primitiveComponentFunctions[head++];
@@ -821,8 +821,8 @@ internal static class Shared
             PrimitiveComponent.getIgnoreRadialImpulse = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getMaterial = (delegate* unmanaged[Cdecl]<IntPtr, int, IntPtr>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getMaterialsNumber = (delegate* unmanaged[Cdecl]<IntPtr, int>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.getDistanceToCollision = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, float>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.getSquaredDistanceToCollision = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref float, ref Vector3, Bool>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.getDistanceToCollision = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, float>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.getSquaredDistanceToCollision = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out float, out Vector3, Bool>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getAngularDamping = (delegate* unmanaged[Cdecl]<IntPtr, float>)primitiveComponentFunctions[head++];
             PrimitiveComponent.getLinearDamping = (delegate* unmanaged[Cdecl]<IntPtr, float>)primitiveComponentFunctions[head++];
             PrimitiveComponent.setGenerateOverlapEvents = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)primitiveComponentFunctions[head++];
@@ -874,8 +874,8 @@ internal static class Shared
             int head = 0;
             IntPtr* boxComponentFunctions = (IntPtr*)buffer[position++];
 
-            BoxComponent.getScaledBoxExtent = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)boxComponentFunctions[head++];
-            BoxComponent.getUnscaledBoxExtent = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void>)boxComponentFunctions[head++];
+            BoxComponent.getScaledBoxExtent = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)boxComponentFunctions[head++];
+            BoxComponent.getUnscaledBoxExtent = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)boxComponentFunctions[head++];
             BoxComponent.setBoxExtent = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, Bool, void>)boxComponentFunctions[head++];
             BoxComponent.initBoxExtent = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, void>)boxComponentFunctions[head++];
         }
@@ -900,8 +900,8 @@ internal static class Shared
             CapsuleComponent.getScaledCapsuleRadius = (delegate* unmanaged[Cdecl]<IntPtr, float>)capsuleComponentFunctions[head++];
             CapsuleComponent.getUnscaledCapsuleRadius = (delegate* unmanaged[Cdecl]<IntPtr, float>)capsuleComponentFunctions[head++];
             CapsuleComponent.getShapeScale = (delegate* unmanaged[Cdecl]<IntPtr, float>)capsuleComponentFunctions[head++];
-            CapsuleComponent.getScaledCapsuleSize = (delegate* unmanaged[Cdecl]<IntPtr, ref float, ref float, void>)capsuleComponentFunctions[head++];
-            CapsuleComponent.getUnscaledCapsuleSize = (delegate* unmanaged[Cdecl]<IntPtr, ref float, ref float, void>)capsuleComponentFunctions[head++];
+            CapsuleComponent.getScaledCapsuleSize = (delegate* unmanaged[Cdecl]<IntPtr, out float, out float, void>)capsuleComponentFunctions[head++];
+            CapsuleComponent.getUnscaledCapsuleSize = (delegate* unmanaged[Cdecl]<IntPtr, out float, out float, void>)capsuleComponentFunctions[head++];
             CapsuleComponent.setCapsuleRadius = (delegate* unmanaged[Cdecl]<IntPtr, float, Bool, void>)capsuleComponentFunctions[head++];
             CapsuleComponent.setCapsuleSize = (delegate* unmanaged[Cdecl]<IntPtr, float, float, Bool, void>)capsuleComponentFunctions[head++];
             CapsuleComponent.initCapsuleSize = (delegate* unmanaged[Cdecl]<IntPtr, float, float, void>)capsuleComponentFunctions[head++];
@@ -975,7 +975,7 @@ internal static class Shared
             int head = 0;
             IntPtr* staticMeshComponentFunctions = (IntPtr*)buffer[position++];
 
-            StaticMeshComponent.getLocalBounds = (delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, ref Vector3, void>)staticMeshComponentFunctions[head++];
+            StaticMeshComponent.getLocalBounds = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, out Vector3, void>)staticMeshComponentFunctions[head++];
             StaticMeshComponent.getStaticMesh = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)staticMeshComponentFunctions[head++];
             StaticMeshComponent.setStaticMesh = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool>)staticMeshComponentFunctions[head++];
         }
@@ -986,7 +986,7 @@ internal static class Shared
             IntPtr* instancedStaticMeshComponentFunctions = (IntPtr*)buffer[position++];
 
             InstancedStaticMeshComponent.getInstanceCount = (delegate* unmanaged[Cdecl]<IntPtr, int>)instancedStaticMeshComponentFunctions[head++];
-            InstancedStaticMeshComponent.getInstanceTransform = (delegate* unmanaged[Cdecl]<IntPtr, int, ref Transform, Bool, Bool>)instancedStaticMeshComponentFunctions[head++];
+            InstancedStaticMeshComponent.getInstanceTransform = (delegate* unmanaged[Cdecl]<IntPtr, int, out Transform, Bool, Bool>)instancedStaticMeshComponentFunctions[head++];
             InstancedStaticMeshComponent.addInstance = (delegate* unmanaged[Cdecl]<IntPtr, in Transform, void>)instancedStaticMeshComponentFunctions[head++];
             InstancedStaticMeshComponent.addInstances = (delegate* unmanaged[Cdecl]<IntPtr, int, Transform[], void>)instancedStaticMeshComponentFunctions[head++];
             InstancedStaticMeshComponent.updateInstanceTransform = (delegate* unmanaged[Cdecl]<IntPtr, int, in Transform, Bool, Bool, Bool, Bool>)instancedStaticMeshComponentFunctions[head++];
@@ -1012,7 +1012,7 @@ internal static class Shared
             SkinnedMeshComponent.getBonesNumber = (delegate* unmanaged[Cdecl]<IntPtr, int>)skinnedMeshComponentFunctions[head++];
             SkinnedMeshComponent.getBoneIndex = (delegate* unmanaged[Cdecl]<IntPtr, byte[], int>)skinnedMeshComponentFunctions[head++];
             SkinnedMeshComponent.getBoneName = (delegate* unmanaged[Cdecl]<IntPtr, int, byte[], void>)skinnedMeshComponentFunctions[head++];
-            SkinnedMeshComponent.getBoneTransform = (delegate* unmanaged[Cdecl]<IntPtr, int, ref Transform, void>)skinnedMeshComponentFunctions[head++];
+            SkinnedMeshComponent.getBoneTransform = (delegate* unmanaged[Cdecl]<IntPtr, int, out Transform, void>)skinnedMeshComponentFunctions[head++];
             SkinnedMeshComponent.setSkeletalMesh = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool, void>)skinnedMeshComponentFunctions[head++];
         }
 
@@ -1041,39 +1041,39 @@ internal static class Shared
             SplineComponent.getSplinePointType = (delegate* unmanaged[Cdecl]<IntPtr, int, SplinePointType>)splineComponentFunctions[head++];
             SplineComponent.getSplinePointsNumber = (delegate* unmanaged[Cdecl]<IntPtr, int>)splineComponentFunctions[head++];
             SplineComponent.getSplineSegmentsNumber = (delegate* unmanaged[Cdecl]<IntPtr, int>)splineComponentFunctions[head++];
-            SplineComponent.getTangentAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getTangentAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getTransformAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Transform, void>)splineComponentFunctions[head++];
-            SplineComponent.getTransformAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, Bool, ref Transform, void>)splineComponentFunctions[head++];
-            SplineComponent.getArriveTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getDefaultUpVector = (delegate* unmanaged[Cdecl]<IntPtr, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getDirectionAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getDirectionAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getDirectionAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getTangentAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getTangentAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getTransformAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Transform, void>)splineComponentFunctions[head++];
+            SplineComponent.getTransformAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, Bool, out Transform, void>)splineComponentFunctions[head++];
+            SplineComponent.getArriveTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getDefaultUpVector = (delegate* unmanaged[Cdecl]<IntPtr, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getDirectionAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getDirectionAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getDirectionAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void>)splineComponentFunctions[head++];
             SplineComponent.getDistanceAlongSplineAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, float>)splineComponentFunctions[head++];
-            SplineComponent.getLeaveTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getLocationAndTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getLocationAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getLocationAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getLocationAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getRightVectorAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getRightVectorAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getRightVectorAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getLeaveTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getLocationAndTangentAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getLocationAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getLocationAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getLocationAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getRightVectorAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getRightVectorAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getRightVectorAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void>)splineComponentFunctions[head++];
             SplineComponent.getRollAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, float>)splineComponentFunctions[head++];
             SplineComponent.getRollAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, float>)splineComponentFunctions[head++];
             SplineComponent.getRollAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, float>)splineComponentFunctions[head++];
-            SplineComponent.getRotationAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Quaternion, void>)splineComponentFunctions[head++];
-            SplineComponent.getRotationAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Quaternion, void>)splineComponentFunctions[head++];
-            SplineComponent.getRotationAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Quaternion, void>)splineComponentFunctions[head++];
-            SplineComponent.getScaleAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getScaleAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getScaleAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, Bool, ref Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getRotationAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Quaternion, void>)splineComponentFunctions[head++];
+            SplineComponent.getRotationAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Quaternion, void>)splineComponentFunctions[head++];
+            SplineComponent.getRotationAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Quaternion, void>)splineComponentFunctions[head++];
+            SplineComponent.getScaleAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getScaleAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getScaleAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, Bool, out Vector3, void>)splineComponentFunctions[head++];
             SplineComponent.getSplineLength = (delegate* unmanaged[Cdecl]<IntPtr, float>)splineComponentFunctions[head++];
-            SplineComponent.getTransformAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, Bool, ref Transform, void>)splineComponentFunctions[head++];
-            SplineComponent.getUpVectorAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getUpVectorAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.getUpVectorAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getTransformAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, Bool, out Transform, void>)splineComponentFunctions[head++];
+            SplineComponent.getUpVectorAtDistanceAlongSpline = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getUpVectorAtSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.getUpVectorAtTime = (delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void>)splineComponentFunctions[head++];
             SplineComponent.setDuration = (delegate* unmanaged[Cdecl]<IntPtr, float, void>)splineComponentFunctions[head++];
             SplineComponent.setSplinePointType = (delegate* unmanaged[Cdecl]<IntPtr, int, SplinePointType, Bool, void>)splineComponentFunctions[head++];
             SplineComponent.setClosedLoop = (delegate* unmanaged[Cdecl]<IntPtr, Bool, Bool, void>)splineComponentFunctions[head++];
@@ -1085,14 +1085,14 @@ internal static class Shared
             SplineComponent.addSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, Bool, void>)splineComponentFunctions[head++];
             SplineComponent.addSplinePointAtIndex = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, int, SplineCoordinateSpace, Bool, void>)splineComponentFunctions[head++];
             SplineComponent.clearSplinePoints = (delegate* unmanaged[Cdecl]<IntPtr, Bool, void>)splineComponentFunctions[head++];
-            SplineComponent.findDirectionClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.findLocationClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.findUpVectorClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.findRightVectorClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.findDirectionClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.findLocationClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.findUpVectorClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.findRightVectorClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
             SplineComponent.findRollClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, float>)splineComponentFunctions[head++];
-            SplineComponent.findScaleClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.findTangentClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void>)splineComponentFunctions[head++];
-            SplineComponent.findTransformClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, Bool, ref Transform, void>)splineComponentFunctions[head++];
+            SplineComponent.findScaleClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.findTangentClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void>)splineComponentFunctions[head++];
+            SplineComponent.findTransformClosestToWorldLocation = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, Bool, out Transform, void>)splineComponentFunctions[head++];
             SplineComponent.removeSplinePoint = (delegate* unmanaged[Cdecl]<IntPtr, int, Bool, void>)splineComponentFunctions[head++];
             SplineComponent.updateSpline = (delegate* unmanaged[Cdecl]<IntPtr, void>)splineComponentFunctions[head++];
         }
@@ -1532,17 +1532,17 @@ internal static unsafe class Object
     internal static delegate* unmanaged[Cdecl]<IntPtr, ComponentType, IntPtr> toComponent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, uint> getID;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], void> getName;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref bool, Bool> getBool;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref byte, Bool> getByte;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref short, Bool> getShort;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref int, Bool> getInt;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref long, Bool> getLong;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref ushort, Bool> getUShort;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref uint, Bool> getUInt;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref ulong, Bool> getULong;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref float, Bool> getFloat;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref double, Bool> getDouble;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref int, Bool> getEnum;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out bool, Bool> getBool;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out byte, Bool> getByte;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out short, Bool> getShort;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out int, Bool> getInt;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out long, Bool> getLong;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out ushort, Bool> getUShort;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out uint, Bool> getUInt;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out ulong, Bool> getULong;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out float, Bool> getFloat;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out double, Bool> getDouble;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out int, Bool> getEnum;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], Bool> getString;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], Bool> getText;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool> setBool;
@@ -1594,8 +1594,8 @@ public static unsafe partial class Engine
     internal static delegate* unmanaged[Cdecl]<Bool> isExitRequested;
     internal static delegate* unmanaged[Cdecl]<NetMode> getNetMode;
     internal static delegate* unmanaged[Cdecl]<uint> getFrameNumber;
-    internal static delegate* unmanaged[Cdecl]<ref Vector2, void> getViewportSize;
-    internal static delegate* unmanaged[Cdecl]<ref Vector2, void> getScreenResolution;
+    internal static delegate* unmanaged[Cdecl]<out Vector2, void> getViewportSize;
+    internal static delegate* unmanaged[Cdecl]<out Vector2, void> getScreenResolution;
     internal static delegate* unmanaged[Cdecl]<WindowMode> getWindowMode;
     internal static delegate* unmanaged[Cdecl]<byte[], void> getVersion;
     internal static delegate* unmanaged[Cdecl]<float> getMaxFPS;
@@ -1616,7 +1616,7 @@ public static unsafe partial class World
     internal static delegate* unmanaged[Cdecl]<float> getTimeSeconds;
     internal static delegate* unmanaged[Cdecl]<byte[], void> getCurrentLevelName;
     internal static delegate* unmanaged[Cdecl]<Bool> getSimulatePhysics;
-    internal static delegate* unmanaged[Cdecl]<ref Vector3, void> getWorldOrigin;
+    internal static delegate* unmanaged[Cdecl]<out Vector3, void> getWorldOrigin;
     internal static delegate* unmanaged[Cdecl]<byte[]?, ActorType, IntPtr> getActor;
     internal static delegate* unmanaged[Cdecl]<byte[], ActorType, IntPtr> getActorByTag;
     internal static delegate* unmanaged[Cdecl]<uint, ActorType, IntPtr> getActorByID;
@@ -1642,12 +1642,12 @@ public static unsafe partial class World
     internal static delegate* unmanaged[Cdecl]<byte[], void> openLevel;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, CollisionChannel, Bool, IntPtr, IntPtr, Bool> lineTraceTestByChannel;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, byte[], Bool, IntPtr, IntPtr, Bool> lineTraceTestByProfile;
-    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, CollisionChannel, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> lineTraceSingleByChannel;
-    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, byte[], ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> lineTraceSingleByProfile;
+    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, CollisionChannel, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> lineTraceSingleByChannel;
+    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, byte[], out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> lineTraceSingleByProfile;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, CollisionChannel, in CollisionShape, Bool, IntPtr, IntPtr, Bool> sweepTestByChannel;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, byte[], in CollisionShape, Bool, IntPtr, IntPtr, Bool> sweepTestByProfile;
-    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, CollisionChannel, in CollisionShape, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> sweepSingleByChannel;
-    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, byte[], in CollisionShape, ref Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> sweepSingleByProfile;
+    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, CollisionChannel, in CollisionShape, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> sweepSingleByChannel;
+    internal static delegate* unmanaged[Cdecl]<in Vector3, in Vector3, in Quaternion, byte[], in CollisionShape, out Hit, byte[]?, Bool, IntPtr, IntPtr, Bool> sweepSingleByProfile;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Quaternion, CollisionChannel, in CollisionShape, IntPtr, IntPtr, Bool> overlapAnyTestByChannel;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Quaternion, byte[], in CollisionShape, IntPtr, IntPtr, Bool> overlapAnyTestByProfile;
     internal static delegate* unmanaged[Cdecl]<in Vector3, in Quaternion, CollisionChannel, in CollisionShape, IntPtr, IntPtr, Bool> overlapBlockingTestByChannel;
@@ -1720,7 +1720,7 @@ public unsafe partial class Actor
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float> getDistanceTo;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float> getHorizontalDistanceTo;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, ref Vector3, ref Vector3, void> getBounds;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, ref Quaternion, void> getEyesViewPoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, out Quaternion, void> getEyesViewPoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool> setRootComponent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void> setInputComponent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setBlockInput;
@@ -1758,7 +1758,7 @@ public unsafe partial class Pawn
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getUseControllerRotationYaw;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getUseControllerRotationPitch;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getUseControllerRotationRoll;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getGravityDirection;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getGravityDirection;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getAIController;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getPlayerController;
     internal static delegate* unmanaged[Cdecl]<IntPtr, AutoPossessAI, void> setAutoPossessAI;
@@ -1795,8 +1795,8 @@ public unsafe partial class Controller
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getPawn;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getCharacter;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getViewTarget;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void> getControlRotation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void> getDesiredRotation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void> getControlRotation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void> getDesiredRotation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, in Vector3, Bool, Bool> lineOfSightTo;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Quaternion, void> setControlRotation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, in Quaternion, void> setInitialLocationAndRotation;
@@ -1811,7 +1811,7 @@ public unsafe partial class Controller
 public unsafe partial class AIController
 {
     internal static delegate* unmanaged[Cdecl]<IntPtr, AIFocusPriority, void> clearFocus;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getFocalPoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getFocalPoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, AIFocusPriority, void> setFocalPoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getFocusActor;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getAllowStrafe;
@@ -1825,11 +1825,11 @@ public unsafe partial class PlayerController
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getShowMouseCursor;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getEnableClickEvents;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getEnableMouseOverEvents;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref float, ref float, Bool> getMousePosition;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out float, out float, Bool> getMousePosition;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getPlayer;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getPlayerInput;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector2, CollisionChannel, ref Hit, Bool, Bool> getHitResultAtScreenPosition;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, CollisionChannel, ref Hit, Bool, Bool> getHitResultUnderCursor;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector2, CollisionChannel, out Hit, Bool, Bool> getHitResultAtScreenPosition;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, CollisionChannel, out Hit, Bool, Bool> getHitResultUnderCursor;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setShowMouseCursor;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setEnableClickEvents;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setEnableMouseOverEvents;
@@ -1845,7 +1845,7 @@ public unsafe partial class PlayerController
 
 public unsafe partial class Volume
 {
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, float, ref float, Bool> encompassesPoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, float, out float, Bool> encompassesPoint;
 }
 
 public unsafe partial class TriggerVolume { }
@@ -1927,7 +1927,7 @@ public unsafe partial class PlayerInput
 {
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool> isKeyPressed;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], float> getTimeKeyPressed;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector2, void> getMouseSensitivity;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector2, void> getMouseSensitivity;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector2, void> setMouseSensitivity;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], Bool, Bool, Bool, Bool, void> addActionMapping;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], byte[], float, void> addAxisMapping;
@@ -1953,7 +1953,7 @@ public unsafe partial class Texture2D
     internal static delegate* unmanaged[Cdecl]<byte[], IntPtr> createFromFile;
     internal static delegate* unmanaged[Cdecl]<byte[], int, IntPtr> createFromBuffer;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> hasAlphaChannel;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector2, void> getSize;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector2, void> getSize;
     internal static delegate* unmanaged[Cdecl]<IntPtr, PixelFormat> getPixelFormat;
 }
 
@@ -1986,10 +1986,10 @@ public unsafe partial class MovementComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getConstrainToPlane;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getSnapToPlaneAtStart;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getUpdateOnlyIfRendered;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getVelocity;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getVelocity;
     internal static delegate* unmanaged[Cdecl]<IntPtr, PlaneConstraintAxis> getPlaneConstraint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getPlaneConstraintNormal;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getPlaneConstraintOrigin;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getPlaneConstraintNormal;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getPlaneConstraintOrigin;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getGravity;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getMaxSpeed;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setConstrainToPlane;
@@ -2003,17 +2003,17 @@ public unsafe partial class MovementComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, Bool> isExceedingMaxSpeed;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> isInWater;
     internal static delegate* unmanaged[Cdecl]<IntPtr, void> stopMovement;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void> constrainDirectionToPlane;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void> constrainLocationToPlane;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void> constrainNormalToPlane;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void> constrainDirectionToPlane;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void> constrainLocationToPlane;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void> constrainNormalToPlane;
 }
 
 public unsafe partial class RotatingMovementComponent
 {
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[]?, IntPtr> create;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getRotationInLocalSpace;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getPivotTranslation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void> getRotationRate;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getPivotTranslation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void> getRotationRate;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setRotationInLocalSpace;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, void> setPivotTranslation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Quaternion, void> setRotationRate;
@@ -2044,16 +2044,16 @@ public unsafe partial class SceneComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Transform, void> addWorldTransform;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], void> getAttachedSocketName;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Transform, ref Bounds, void> getBounds;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref Vector3, void> getSocketLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref Quaternion, void> getSocketRotation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getComponentVelocity;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getComponentLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void> getComponentRotation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getComponentScale;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Transform, void> getComponentTransform;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getForwardVector;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getRightVector;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getUpVector;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out Vector3, void> getSocketLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out Quaternion, void> getSocketRotation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getComponentVelocity;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getComponentLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void> getComponentRotation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getComponentScale;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Transform, void> getComponentTransform;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getForwardVector;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getRightVector;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getUpVector;
     internal static delegate* unmanaged[Cdecl]<IntPtr, ComponentMobility, void> setMobility;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, Bool, void> setVisibility;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, void> setRelativeLocation;
@@ -2119,12 +2119,12 @@ public unsafe partial class SpringArmComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getCameraRotationLagSpeed;
     internal static delegate* unmanaged[Cdecl]<IntPtr, CollisionChannel> getProbeChannel;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getProbeSize;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getSocketOffset;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getSocketOffset;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getTargetArmLength;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getTargetOffset;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getUnfixedCameraPosition;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void> getDesiredRotation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Quaternion, void> getTargetRotation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getTargetOffset;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getUnfixedCameraPosition;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void> getDesiredRotation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Quaternion, void> getTargetRotation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getUsePawnControlRotation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setDrawDebugLagMarkers;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setCollisionTest;
@@ -2176,10 +2176,10 @@ public unsafe partial class PrimitiveComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void> addTorqueInDegrees;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void> addTorqueInRadians;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getMass;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, byte[]?, void> getPhysicsLinearVelocity;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, in Vector3, byte[]?, void> getPhysicsLinearVelocityAtPoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, byte[]?, void> getPhysicsAngularVelocityInDegrees;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, byte[]?, void> getPhysicsAngularVelocityInRadians;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, byte[]?, void> getPhysicsLinearVelocity;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, in Vector3, byte[]?, void> getPhysicsLinearVelocityAtPoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, byte[]?, void> getPhysicsAngularVelocityInDegrees;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, byte[]?, void> getPhysicsAngularVelocityInRadians;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getCastShadow;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getOnlyOwnerSee;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getOwnerNoSee;
@@ -2187,8 +2187,8 @@ public unsafe partial class PrimitiveComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getIgnoreRadialImpulse;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, IntPtr> getMaterial;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int> getMaterialsNumber;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, float> getDistanceToCollision;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref float, ref Vector3, Bool> getSquaredDistanceToCollision;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, float> getDistanceToCollision;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out float, out Vector3, Bool> getSquaredDistanceToCollision;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getAngularDamping;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getLinearDamping;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> setGenerateOverlapEvents;
@@ -2234,8 +2234,8 @@ public unsafe partial class ShapeComponent
 
 public unsafe partial class BoxComponent
 {
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getScaledBoxExtent;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, void> getUnscaledBoxExtent;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getScaledBoxExtent;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getUnscaledBoxExtent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, Bool, void> setBoxExtent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, void> initBoxExtent;
 }
@@ -2254,8 +2254,8 @@ public unsafe partial class CapsuleComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getScaledCapsuleRadius;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getUnscaledCapsuleRadius;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getShapeScale;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref float, ref float, void> getScaledCapsuleSize;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref float, ref float, void> getUnscaledCapsuleSize;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out float, out float, void> getScaledCapsuleSize;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out float, out float, void> getUnscaledCapsuleSize;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, Bool, void> setCapsuleRadius;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, float, Bool, void> setCapsuleSize;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, float, void> initCapsuleSize;
@@ -2313,7 +2313,7 @@ public unsafe partial class MotionControllerComponent
 
 public unsafe partial class StaticMeshComponent
 {
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref Vector3, ref Vector3, void> getLocalBounds;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, out Vector3, void> getLocalBounds;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr> getStaticMesh;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool> setStaticMesh;
 }
@@ -2321,7 +2321,7 @@ public unsafe partial class StaticMeshComponent
 public unsafe partial class InstancedStaticMeshComponent
 {
     internal static delegate* unmanaged[Cdecl]<IntPtr, int> getInstanceCount;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, ref Transform, Bool, Bool> getInstanceTransform;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, out Transform, Bool, Bool> getInstanceTransform;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Transform, void> addInstance;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, Transform[], void> addInstances;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, in Transform, Bool, Bool, Bool, Bool> updateInstanceTransform;
@@ -2341,7 +2341,7 @@ public unsafe partial class SkinnedMeshComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, int> getBonesNumber;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], int> getBoneIndex;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, byte[], void> getBoneName;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, ref Transform, void> getBoneTransform;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, out Transform, void> getBoneTransform;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool, void> setSkeletalMesh;
 }
 
@@ -2364,39 +2364,39 @@ public unsafe partial class SplineComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplinePointType> getSplinePointType;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int> getSplinePointsNumber;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int> getSplineSegmentsNumber;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void> getTangentAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getTangentAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void> getTangentAtTime;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Transform, void> getTransformAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, Bool, ref Transform, void> getTransformAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getArriveTangentAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, SplineCoordinateSpace, ref Vector3, void> getDefaultUpVector;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void> getDirectionAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getDirectionAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void> getDirectionAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void> getTangentAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getTangentAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void> getTangentAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Transform, void> getTransformAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, Bool, out Transform, void> getTransformAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getArriveTangentAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, SplineCoordinateSpace, out Vector3, void> getDefaultUpVector;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void> getDirectionAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getDirectionAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void> getDirectionAtTime;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, float> getDistanceAlongSplineAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getLeaveTangentAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, ref Vector3, void> getLocationAndTangentAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void> getLocationAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getLocationAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void> getLocationAtTime;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void> getRightVectorAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getRightVectorAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void> getRightVectorAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getLeaveTangentAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, out Vector3, void> getLocationAndTangentAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void> getLocationAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getLocationAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void> getLocationAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void> getRightVectorAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getRightVectorAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void> getRightVectorAtTime;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, float> getRollAtDistanceAlongSpline;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, float> getRollAtSplinePoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, float> getRollAtTime;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Quaternion, void> getRotationAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Quaternion, void> getRotationAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Quaternion, void> getRotationAtTime;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, ref Vector3, void> getScaleAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, ref Vector3, void> getScaleAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, Bool, ref Vector3, void> getScaleAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Quaternion, void> getRotationAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Quaternion, void> getRotationAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Quaternion, void> getRotationAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, out Vector3, void> getScaleAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, out Vector3, void> getScaleAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, Bool, out Vector3, void> getScaleAtTime;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float> getSplineLength;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, Bool, ref Transform, void> getTransformAtTime;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, ref Vector3, void> getUpVectorAtDistanceAlongSpline;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, ref Vector3, void> getUpVectorAtSplinePoint;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, ref Vector3, void> getUpVectorAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, Bool, out Transform, void> getTransformAtTime;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, out Vector3, void> getUpVectorAtDistanceAlongSpline;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplineCoordinateSpace, out Vector3, void> getUpVectorAtSplinePoint;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, float, SplineCoordinateSpace, Bool, out Vector3, void> getUpVectorAtTime;
     internal static delegate* unmanaged[Cdecl]<IntPtr, float, void> setDuration;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, SplinePointType, Bool, void> setSplinePointType;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, Bool, void> setClosedLoop;
@@ -2408,14 +2408,14 @@ public unsafe partial class SplineComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, Bool, void> addSplinePoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, int, SplineCoordinateSpace, Bool, void> addSplinePointAtIndex;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, void> clearSplinePoints;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void> findDirectionClosestToWorldLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void> findLocationClosestToWorldLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void> findUpVectorClosestToWorldLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void> findRightVectorClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void> findDirectionClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void> findLocationClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void> findUpVectorClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void> findRightVectorClosestToWorldLocation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, float> findRollClosestToWorldLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, ref Vector3, void> findScaleClosestToWorldLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, ref Vector3, void> findTangentClosestToWorldLocation;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, Bool, ref Transform, void> findTransformClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, out Vector3, void> findScaleClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, out Vector3, void> findTangentClosestToWorldLocation;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, SplineCoordinateSpace, Bool, out Transform, void> findTransformClosestToWorldLocation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, int, Bool, void> removeSplinePoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, void> updateSpline;
 }

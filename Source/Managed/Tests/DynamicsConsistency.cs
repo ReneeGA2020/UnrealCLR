@@ -121,10 +121,8 @@ public class DynamicsConsistency : ISystem
 
     private void MousePositionTest()
     {
-        float mousePositionX = 0.0f;
-        float mousePositionY = 0.0f;
 
-        _ = playerController.GetMousePosition(ref mousePositionX, ref mousePositionY);
+        _ = playerController.GetMousePosition(out float mousePositionX, out float mousePositionY);
 
         Debug.AddOnScreenMessage(7, 3.0f, Color.MediumAquamarine, "Mouse position X: " + mousePositionX);
         Debug.AddOnScreenMessage(8, 3.0f, Color.MediumAquamarine, "Mouse position Y: " + mousePositionY);
@@ -132,9 +130,8 @@ public class DynamicsConsistency : ISystem
 
     private static void WindowTest()
     {
-        Vector2 viewportSize = default;
 
-        Engine.GetViewportSize(ref viewportSize);
+        Engine.GetViewportSize(out Vector2 viewportSize);
 
         Debug.AddOnScreenMessage(9, 3.0f, Color.LightSkyBlue, "Viewport size X: " + viewportSize.X);
         Debug.AddOnScreenMessage(10, 3.0f, Color.LightSkyBlue, "Viewport size Y: " + viewportSize.Y);

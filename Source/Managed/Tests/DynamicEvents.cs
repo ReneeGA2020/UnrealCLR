@@ -117,9 +117,7 @@ public class DynamicEvents : ISystem
         Translate(leftStaticMeshComponent, 750.0f);
         Translate(rightStaticMeshComponent, -750.0f);
 
-        Hit hit = default;
-
-        if (playerController.GetHitResultUnderCursor(CollisionChannel.WorldDynamic, ref hit))
+        if (playerController.GetHitResultUnderCursor(CollisionChannel.WorldDynamic, out Hit hit))
         {
             Debug.AddOnScreenMessage(13, 3.0f, Color.CornflowerBlue, "Cursor hit " + hit.GetActor()?.Name);
         }
@@ -141,9 +139,7 @@ public class DynamicEvents : ISystem
     {
         if (!stopTranslation)
         {
-            Vector3 currentLocation = default;
-
-            staticMeshComponent.GetLocation(ref currentLocation);
+            staticMeshComponent.GetLocation(out Vector3 currentLocation);
 
             currentLocation.Y += direction * World.DeltaTime;
 

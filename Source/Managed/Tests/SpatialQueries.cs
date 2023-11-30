@@ -23,10 +23,9 @@ public class SpatialQueries : ISystem
 
         Debug.DrawBox(boxLocation, boxScale * 50.0f, Quaternion.Identity, Color.SlateBlue, true, thickness: linesThickness);
 
-        Hit hit = default;
         Vector3 lineTraceStart = new(0.0f, 0.0f, 0.0f);
 
-        bool hitTraceByChannel = World.LineTraceSingleByChannel(lineTraceStart, boxLocation, CollisionChannel.WorldStatic, ref hit);
+        bool hitTraceByChannel = World.LineTraceSingleByChannel(lineTraceStart, boxLocation, CollisionChannel.WorldStatic, out Hit hit);
 
         Assert.IsTrue(hitTraceByChannel);
         Assert.IsTrue(hit.BlockingHit);
@@ -40,7 +39,7 @@ public class SpatialQueries : ISystem
             Debug.DrawLine(hit.TraceStart, hit.TraceEnd, Color.DeepPink, true, depthPriority: 3, thickness: linesThickness);
         }
 
-        bool hitTraceByProfile = World.LineTraceSingleByProfile(lineTraceStart, boxLocation, collisionProfile, ref hit);
+        bool hitTraceByProfile = World.LineTraceSingleByProfile(lineTraceStart, boxLocation, collisionProfile, out hit);
 
         Assert.IsTrue(hitTraceByProfile);
         Assert.IsTrue(hit.BlockingHit);
@@ -54,7 +53,7 @@ public class SpatialQueries : ISystem
 
         CollisionShape sphereShape = CollisionShape.CreateSphere(sphereRadius);
 
-        bool hitSweepByChannel = World.SweepSingleByChannel(lineTraceStart, boxLocation, Quaternion.Identity, CollisionChannel.WorldStatic, sphereShape, ref hit);
+        bool hitSweepByChannel = World.SweepSingleByChannel(lineTraceStart, boxLocation, Quaternion.Identity, CollisionChannel.WorldStatic, sphereShape, out hit);
 
         Assert.IsTrue(hitSweepByChannel);
         Assert.IsTrue(hit.BlockingHit);
@@ -65,7 +64,7 @@ public class SpatialQueries : ISystem
             Debug.DrawSphere(hit.Location, sphereRadius, 16, Color.Yellow, true, depthPriority: 2, thickness: linesThickness);
         }
 
-        bool hitSweepByProfile = World.SweepSingleByProfile(lineTraceStart, boxLocation, Quaternion.Identity, collisionProfile, sphereShape, ref hit);
+        bool hitSweepByProfile = World.SweepSingleByProfile(lineTraceStart, boxLocation, Quaternion.Identity, collisionProfile, sphereShape, out hit);
 
         Assert.IsTrue(hitSweepByProfile);
         Assert.IsTrue(hit.BlockingHit);
