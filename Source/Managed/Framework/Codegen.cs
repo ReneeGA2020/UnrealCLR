@@ -189,7 +189,7 @@ internal static class Shared
             int head = 0;
             IntPtr* worldFunctions = (IntPtr*)buffer[position++];
 
-            World.forEachActor = (delegate* unmanaged[Cdecl]<ref ObjectReference*, ref int, void>)worldFunctions[head++];
+            World.forEachActor = (delegate* unmanaged[Cdecl]<out ObjectReference*, out int, void>)worldFunctions[head++];
             World.getActorCount = (delegate* unmanaged[Cdecl]<int>)worldFunctions[head++];
             World.getDeltaSeconds = (delegate* unmanaged[Cdecl]<float>)worldFunctions[head++];
             World.getRealTimeSeconds = (delegate* unmanaged[Cdecl]<float>)worldFunctions[head++];
@@ -251,7 +251,7 @@ internal static class Shared
 
             AssetRegistry.get = (delegate* unmanaged[Cdecl]<IntPtr>)assetRegistryFunctions[head++];
             AssetRegistry.hasAssets = (delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool>)assetRegistryFunctions[head++];
-            AssetRegistry.forEachAsset = (delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool, ref Asset*, ref int, void>)assetRegistryFunctions[head++];
+            AssetRegistry.forEachAsset = (delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool, out Asset*, out int, void>)assetRegistryFunctions[head++];
         }
 
         unchecked
@@ -299,10 +299,10 @@ internal static class Shared
             Actor.isPendingKill = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)actorFunctions[head++];
             Actor.isRootComponentMovable = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)actorFunctions[head++];
             Actor.isOverlappingActor = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool>)actorFunctions[head++];
-            Actor.forEachComponent = (delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void>)actorFunctions[head++];
-            Actor.forEachAttachedActor = (delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void>)actorFunctions[head++];
-            Actor.forEachChildActor = (delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void>)actorFunctions[head++];
-            Actor.forEachOverlappingActor = (delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void>)actorFunctions[head++];
+            Actor.forEachComponent = (delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void>)actorFunctions[head++];
+            Actor.forEachAttachedActor = (delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void>)actorFunctions[head++];
+            Actor.forEachChildActor = (delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void>)actorFunctions[head++];
+            Actor.forEachOverlappingActor = (delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void>)actorFunctions[head++];
             Actor.spawn = (delegate* unmanaged[Cdecl]<byte[]?, ActorType, IntPtr, IntPtr>)actorFunctions[head++];
             Actor.destroy = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)actorFunctions[head++];
             Actor.rename = (delegate* unmanaged[Cdecl]<IntPtr, byte[], void>)actorFunctions[head++];
@@ -317,7 +317,7 @@ internal static class Shared
             Actor.getBlockInput = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)actorFunctions[head++];
             Actor.getDistanceTo = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float>)actorFunctions[head++];
             Actor.getHorizontalDistanceTo = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float>)actorFunctions[head++];
-            Actor.getBounds = (delegate* unmanaged[Cdecl]<IntPtr, Bool, ref Vector3, ref Vector3, void>)actorFunctions[head++];
+            Actor.getBounds = (delegate* unmanaged[Cdecl]<IntPtr, Bool, out Vector3, out Vector3, void>)actorFunctions[head++];
             Actor.getEyesViewPoint = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, out Quaternion, void>)actorFunctions[head++];
             Actor.setRootComponent = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool>)actorFunctions[head++];
             Actor.setInputComponent = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void>)actorFunctions[head++];
@@ -543,7 +543,7 @@ internal static class Shared
             int head = 0;
             IntPtr* fontFunctions = (IntPtr*)buffer[position++];
 
-            Font.getStringSize = (delegate* unmanaged[Cdecl]<IntPtr, byte[], ref int, ref int, void>)fontFunctions[head++];
+            Font.getStringSize = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out int, out int, void>)fontFunctions[head++];
         }
 
         unchecked
@@ -643,7 +643,7 @@ internal static class Shared
             SceneComponent.isSocketExists = (delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool>)sceneComponentFunctions[head++];
             SceneComponent.hasAnySockets = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)sceneComponentFunctions[head++];
             SceneComponent.canAttachAsChild = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, byte[]?, Bool>)sceneComponentFunctions[head++];
-            SceneComponent.forEachAttachedChild = (delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void>)sceneComponentFunctions[head++];
+            SceneComponent.forEachAttachedChild = (delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void>)sceneComponentFunctions[head++];
             SceneComponent.create = (delegate* unmanaged[Cdecl]<IntPtr, ComponentType, byte[]?, Bool, IntPtr, IntPtr>)sceneComponentFunctions[head++];
             SceneComponent.attachToComponent = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, AttachmentTransformRule, byte[]?, Bool>)sceneComponentFunctions[head++];
             SceneComponent.detachFromComponent = (delegate* unmanaged[Cdecl]<IntPtr, DetachmentTransformRule, void>)sceneComponentFunctions[head++];
@@ -659,7 +659,7 @@ internal static class Shared
             SceneComponent.addWorldRotation = (delegate* unmanaged[Cdecl]<IntPtr, in Quaternion, void>)sceneComponentFunctions[head++];
             SceneComponent.addWorldTransform = (delegate* unmanaged[Cdecl]<IntPtr, in Transform, void>)sceneComponentFunctions[head++];
             SceneComponent.getAttachedSocketName = (delegate* unmanaged[Cdecl]<IntPtr, byte[], void>)sceneComponentFunctions[head++];
-            SceneComponent.getBounds = (delegate* unmanaged[Cdecl]<IntPtr, in Transform, ref Bounds, void>)sceneComponentFunctions[head++];
+            SceneComponent.getBounds = (delegate* unmanaged[Cdecl]<IntPtr, in Transform, out Bounds, void>)sceneComponentFunctions[head++];
             SceneComponent.getSocketLocation = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out Vector3, void>)sceneComponentFunctions[head++];
             SceneComponent.getSocketRotation = (delegate* unmanaged[Cdecl]<IntPtr, byte[], out Quaternion, void>)sceneComponentFunctions[head++];
             SceneComponent.getComponentVelocity = (delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void>)sceneComponentFunctions[head++];
@@ -798,7 +798,7 @@ internal static class Shared
 
             PrimitiveComponent.isGravityEnabled = (delegate* unmanaged[Cdecl]<IntPtr, Bool>)primitiveComponentFunctions[head++];
             PrimitiveComponent.isOverlappingComponent = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool>)primitiveComponentFunctions[head++];
-            PrimitiveComponent.forEachOverlappingComponent = (delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void>)primitiveComponentFunctions[head++];
+            PrimitiveComponent.forEachOverlappingComponent = (delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void>)primitiveComponentFunctions[head++];
             PrimitiveComponent.addAngularImpulseInDegrees = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void>)primitiveComponentFunctions[head++];
             PrimitiveComponent.addAngularImpulseInRadians = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void>)primitiveComponentFunctions[head++];
             PrimitiveComponent.addForce = (delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void>)primitiveComponentFunctions[head++];
@@ -1609,7 +1609,7 @@ public static unsafe partial class Engine
 
 public static unsafe partial class World
 {
-    internal static delegate* unmanaged[Cdecl]<ref ObjectReference*, ref int, void> forEachActor;
+    internal static delegate* unmanaged[Cdecl]<out ObjectReference*, out int, void> forEachActor;
     internal static delegate* unmanaged[Cdecl]<int> getActorCount;
     internal static delegate* unmanaged[Cdecl]<float> getDeltaSeconds;
     internal static delegate* unmanaged[Cdecl]<float> getRealTimeSeconds;
@@ -1665,7 +1665,7 @@ public unsafe partial class AssetRegistry
 {
     internal static delegate* unmanaged[Cdecl]<IntPtr> get;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool> hasAssets;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool, ref Asset*, ref int, void> forEachAsset;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool, Bool, out Asset*, out int, void> forEachAsset;
 }
 
 public unsafe partial class Blueprint
@@ -1701,10 +1701,10 @@ public unsafe partial class Actor
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> isPendingKill;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> isRootComponentMovable;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool> isOverlappingActor;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void> forEachComponent;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void> forEachAttachedActor;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void> forEachChildActor;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void> forEachOverlappingActor;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void> forEachComponent;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void> forEachAttachedActor;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void> forEachChildActor;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void> forEachOverlappingActor;
     internal static delegate* unmanaged[Cdecl]<byte[]?, ActorType, IntPtr, IntPtr> spawn;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> destroy;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], void> rename;
@@ -1719,7 +1719,7 @@ public unsafe partial class Actor
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> getBlockInput;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float> getDistanceTo;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, float> getHorizontalDistanceTo;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, ref Vector3, ref Vector3, void> getBounds;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, Bool, out Vector3, out Vector3, void> getBounds;
     internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, out Quaternion, void> getEyesViewPoint;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool> setRootComponent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void> setInputComponent;
@@ -1937,7 +1937,7 @@ public unsafe partial class PlayerInput
 
 public unsafe partial class Font
 {
-    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], ref int, ref int, void> getStringSize;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out int, out int, void> getStringSize;
 }
 
 public unsafe partial class StreamableRenderAsset { }
@@ -2027,7 +2027,7 @@ public unsafe partial class SceneComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], Bool> isSocketExists;
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> hasAnySockets;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, byte[]?, Bool> canAttachAsChild;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void> forEachAttachedChild;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void> forEachAttachedChild;
     internal static delegate* unmanaged[Cdecl]<IntPtr, ComponentType, byte[]?, Bool, IntPtr, IntPtr> create;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, AttachmentTransformRule, byte[]?, Bool> attachToComponent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, DetachmentTransformRule, void> detachFromComponent;
@@ -2043,7 +2043,7 @@ public unsafe partial class SceneComponent
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Quaternion, void> addWorldRotation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Transform, void> addWorldTransform;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], void> getAttachedSocketName;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, in Transform, ref Bounds, void> getBounds;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, in Transform, out Bounds, void> getBounds;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out Vector3, void> getSocketLocation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, byte[], out Quaternion, void> getSocketRotation;
     internal static delegate* unmanaged[Cdecl]<IntPtr, out Vector3, void> getComponentVelocity;
@@ -2164,7 +2164,7 @@ public unsafe partial class PrimitiveComponent
 {
     internal static delegate* unmanaged[Cdecl]<IntPtr, Bool> isGravityEnabled;
     internal static delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Bool> isOverlappingComponent;
-    internal static delegate* unmanaged[Cdecl]<IntPtr, ref ObjectReference*, ref int, void> forEachOverlappingComponent;
+    internal static delegate* unmanaged[Cdecl]<IntPtr, out ObjectReference*, out int, void> forEachOverlappingComponent;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void> addAngularImpulseInDegrees;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void> addAngularImpulseInRadians;
     internal static delegate* unmanaged[Cdecl]<IntPtr, in Vector3, byte[]?, Bool, void> addForce;

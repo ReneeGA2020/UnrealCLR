@@ -4256,7 +4256,7 @@ public static unsafe partial class Engine
     /// <summary>
     /// Retrieves the current resolution of the screen
     /// </summary>
-    public static void GetScreenResolution(ref Vector2 value)
+    public static void GetScreenResolution(out Vector2 value)
     {
         getScreenResolution(out value);
     }
@@ -4416,10 +4416,7 @@ public static unsafe partial class World
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
-
-        forEachActor(ref array, ref elements);
+        forEachActor(out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -4741,7 +4738,7 @@ public static unsafe partial class World
     /// Traces a ray against the world using a specific channel and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool LineTraceSingleByChannel(in Vector3 start, in Vector3 end, CollisionChannel channel, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool LineTraceSingleByChannel(in Vector3 start, in Vector3 end, CollisionChannel channel, out Hit hit, out string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
@@ -4765,7 +4762,7 @@ public static unsafe partial class World
     /// Traces a ray against the world using a specific profile and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool LineTraceSingleByProfile(in Vector3 start, in Vector3 end, string profileName, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool LineTraceSingleByProfile(in Vector3 start, in Vector3 end, string profileName, out Hit hit, out string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
@@ -4807,7 +4804,7 @@ public static unsafe partial class World
     /// Sweeps a shape against the world using a specific profile and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool SweepSingleByChannel(in Vector3 start, in Vector3 end, in Quaternion rotation, CollisionChannel channel, in CollisionShape shape, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool SweepSingleByChannel(in Vector3 start, in Vector3 end, in Quaternion rotation, CollisionChannel channel, in CollisionShape shape, out Hit hit, out string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
@@ -4831,7 +4828,7 @@ public static unsafe partial class World
     /// Sweeps a shape against the world using a specific profile and retrieves the first blocking hit with a bone name
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public static bool SweepSingleByProfile(in Vector3 start, in Vector3 end, in Quaternion rotation, string profileName, in CollisionShape shape, out Hit hit, ref string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
+    public static bool SweepSingleByProfile(in Vector3 start, in Vector3 end, in Quaternion rotation, string profileName, in CollisionShape shape, out Hit hit, out string boneName, bool traceComplex = false, Actor? ignoredActor = null, PrimitiveComponent? ignoredComponent = null)
     {
         byte[] stringBuffer = ArrayPool.GetStringBuffer();
 
@@ -5043,10 +5040,7 @@ public unsafe partial class AssetRegistry : IEquatable<AssetRegistry>
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        Asset* array = null;
-        int elements = 0;
-
-        forEachAsset(Pointer, path.StringToBytes(), recursive, includeOnlyOnDiskAssets, ref array, ref elements);
+        forEachAsset(Pointer, path.StringToBytes(), recursive, includeOnlyOnDiskAssets, out Asset* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -5290,10 +5284,8 @@ public unsafe partial class Actor : IEquatable<Actor>
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
 
-        forEachComponent(Pointer, ref array, ref elements);
+        forEachComponent(Pointer, out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -5313,10 +5305,8 @@ public unsafe partial class Actor : IEquatable<Actor>
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
 
-        forEachAttachedActor(Pointer, ref array, ref elements);
+        forEachAttachedActor(Pointer, out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -5336,10 +5326,8 @@ public unsafe partial class Actor : IEquatable<Actor>
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
 
-        forEachChildActor(Pointer, ref array, ref elements);
+        forEachChildActor(Pointer, out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -5359,10 +5347,8 @@ public unsafe partial class Actor : IEquatable<Actor>
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
 
-        forEachOverlappingActor(Pointer, ref array, ref elements);
+        forEachOverlappingActor(Pointer, out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -5398,7 +5384,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <summary>
     /// Retrieves the value of the bool property
     /// </summary>
-    public bool GetBool(string name, ref bool value)
+    public bool GetBool(string name, out bool value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), out value);
     }
@@ -5407,7 +5393,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the byte property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetByte(string name, ref byte value)
+    public bool GetByte(string name, out byte value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), out value);
     }
@@ -5416,7 +5402,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the short property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetShort(string name, ref short value)
+    public bool GetShort(string name, out short value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), out value);
     }
@@ -5425,7 +5411,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the integer property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetInt(string name, ref int value)
+    public bool GetInt(string name, out int value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), out value);
     }
@@ -5434,7 +5420,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the long property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetLong(string name, ref long value)
+    public bool GetLong(string name, out long value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), out value);
     }
@@ -5443,7 +5429,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the unsigned short property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetUShort(string name, ref ushort value)
+    public bool GetUShort(string name, out ushort value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), out value);
     }
@@ -5452,7 +5438,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the unsigned integer property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetUInt(string name, ref uint value)
+    public bool GetUInt(string name, out uint value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), out value);
     }
@@ -5461,7 +5447,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the unsigned long property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetULong(string name, ref ulong value)
+    public bool GetULong(string name, out ulong value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), out value);
     }
@@ -5470,7 +5456,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the float property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetFloat(string name, ref float value)
+    public bool GetFloat(string name, out float value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), out value);
     }
@@ -5479,7 +5465,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the double property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetDouble(string name, ref double value)
+    public bool GetDouble(string name, out double value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), out value);
     }
@@ -5506,7 +5492,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the string property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetString(string name, ref string value)
+    public bool GetString(string name, out string value)
     {
         ArgumentNullException.ThrowIfNull(name);
 
@@ -5519,6 +5505,7 @@ public unsafe partial class Actor : IEquatable<Actor>
             return true;
         }
 
+        value = string.Empty;
         return false;
     }
 
@@ -5526,7 +5513,7 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// Retrieves the value of the text property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetText(string name, ref string value)
+    public bool GetText(string name, out string value)
     {
         ArgumentNullException.ThrowIfNull(name);
 
@@ -5539,6 +5526,7 @@ public unsafe partial class Actor : IEquatable<Actor>
             return true;
         }
 
+        value = string.Empty;
         return false;
     }
 
@@ -5787,9 +5775,9 @@ public unsafe partial class Actor : IEquatable<Actor>
     /// <param name="onlyCollidingComponents">If <c>true</c>, will only return the bounding box for components with enabled collision</param>
     /// <param name="origin">The center of the actor in world space</param>
     /// <param name="extent">Half the actor's size in 3D space</param>
-    public void GetBounds(bool onlyCollidingComponents, ref Vector3 origin, ref Vector3 extent)
+    public void GetBounds(bool onlyCollidingComponents, out Vector3 origin, out Vector3 extent)
     {
-        getBounds(Pointer, onlyCollidingComponents, ref origin, ref extent);
+        getBounds(Pointer, onlyCollidingComponents, out origin, out extent);
     }
 
     /// <summary>
@@ -7507,7 +7495,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// <summary>
     /// Retrieves the value of the bool property
     /// </summary>
-    public bool GetBool(string name, ref bool value)
+    public bool GetBool(string name, out bool value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), out value);
     }
@@ -7516,7 +7504,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the byte property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetByte(string name, ref byte value)
+    public bool GetByte(string name, out byte value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), out value);
     }
@@ -7525,7 +7513,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the short property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetShort(string name, ref short value)
+    public bool GetShort(string name, out short value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), out value);
     }
@@ -7534,7 +7522,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the integer property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetInt(string name, ref int value)
+    public bool GetInt(string name, out int value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), out value);
     }
@@ -7543,7 +7531,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the long property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetLong(string name, ref long value)
+    public bool GetLong(string name, out long value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), out value);
     }
@@ -7552,7 +7540,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the unsigned short property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetUShort(string name, ref ushort value)
+    public bool GetUShort(string name, out ushort value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), out value);
     }
@@ -7561,7 +7549,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the unsigned integer property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetUInt(string name, ref uint value)
+    public bool GetUInt(string name, out uint value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), out value);
     }
@@ -7570,7 +7558,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the unsigned long property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetULong(string name, ref ulong value)
+    public bool GetULong(string name, out ulong value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), out value);
     }
@@ -7579,7 +7567,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the float property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetFloat(string name, ref float value)
+    public bool GetFloat(string name, out float value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), out value);
     }
@@ -7588,7 +7576,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the double property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetDouble(string name, ref double value)
+    public bool GetDouble(string name, out double value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), out value);
     }
@@ -7616,7 +7604,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the string property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetString(string name, ref string value)
+    public bool GetString(string name, out string value)
     {
         ArgumentNullException.ThrowIfNull(name);
 
@@ -7629,6 +7617,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
             return true;
         }
 
+        value = string.Empty;
         return false;
     }
 
@@ -7636,7 +7625,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
     /// Retrieves the value of the text property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetText(string name, ref string value)
+    public bool GetText(string name, out string value)
     {
         ArgumentNullException.ThrowIfNull(name);
 
@@ -7649,6 +7638,7 @@ public unsafe partial class AnimationInstance : IEquatable<AnimationInstance>
             return true;
         }
 
+        value = string.Empty;
         return false;
     }
 
@@ -8296,9 +8286,9 @@ public unsafe partial class Font : IEquatable<Font>
     /// <summary>
     /// Retrieves height and width for a string
     /// </summary>
-    public void GetStringSize(string text, ref int height, ref int width)
+    public void GetStringSize(string text, out int height, out int width)
     {
-        getStringSize(Pointer, text.StringToBytes(), ref height, ref width);
+        getStringSize(Pointer, text.StringToBytes(), out height, out width);
     }
 }
 
@@ -8570,7 +8560,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// <summary>
     /// Retrieves the value of the bool property
     /// </summary>
-    public bool GetBool(string name, ref bool value)
+    public bool GetBool(string name, out bool value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getBool(Pointer, name.StringToBytes(), out value);
     }
@@ -8579,7 +8569,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the byte property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetByte(string name, ref byte value)
+    public bool GetByte(string name, out byte value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getByte(Pointer, name.StringToBytes(), out value);
     }
@@ -8588,7 +8578,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the short property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetShort(string name, ref short value)
+    public bool GetShort(string name, out short value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getShort(Pointer, name.StringToBytes(), out value);
     }
@@ -8597,7 +8587,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the integer property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetInt(string name, ref int value)
+    public bool GetInt(string name, out int value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getInt(Pointer, name.StringToBytes(), out value);
     }
@@ -8606,7 +8596,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the long property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetLong(string name, ref long value)
+    public bool GetLong(string name, out long value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getLong(Pointer, name.StringToBytes(), out value);
     }
@@ -8615,7 +8605,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the unsigned short property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetUShort(string name, ref ushort value)
+    public bool GetUShort(string name, out ushort value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUShort(Pointer, name.StringToBytes(), out value);
     }
@@ -8624,7 +8614,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the unsigned integer property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetUInt(string name, ref uint value)
+    public bool GetUInt(string name, out uint value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getUInt(Pointer, name.StringToBytes(), out value);
     }
@@ -8633,7 +8623,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the unsigned long property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetULong(string name, ref ulong value)
+    public bool GetULong(string name, out ulong value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getULong(Pointer, name.StringToBytes(), out value);
     }
@@ -8642,7 +8632,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the float property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetFloat(string name, ref float value)
+    public bool GetFloat(string name, out float value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getFloat(Pointer, name.StringToBytes(), out value);
     }
@@ -8651,7 +8641,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the double property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetDouble(string name, ref double value)
+    public bool GetDouble(string name, out double value)
     {
         return name == null ? throw new ArgumentNullException(nameof(name)) : (bool)Object.getDouble(Pointer, name.StringToBytes(), out value);
     }
@@ -8680,7 +8670,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the string property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetString(string name, ref string value)
+    public bool GetString(string name, out string value)
     {
         ArgumentNullException.ThrowIfNull(name);
 
@@ -8693,6 +8683,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
             return true;
         }
 
+        value = string.Empty;
         return false;
     }
 
@@ -8700,7 +8691,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
     /// Retrieves the value of the text property
     /// </summary>
     /// <returns><c>true</c> on success</returns>
-    public bool GetText(string name, ref string value)
+    public bool GetText(string name, out string value)
     {
         ArgumentNullException.ThrowIfNull(name);
 
@@ -8713,6 +8704,7 @@ public abstract unsafe partial class ActorComponent : IEquatable<ActorComponent>
             return true;
         }
 
+        value = string.Empty;
         return false;
     }
 
@@ -9413,10 +9405,7 @@ public unsafe partial class SceneComponent : ActorComponent
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
-
-        forEachAttachedChild(Pointer, ref array, ref elements);
+        forEachAttachedChild(Pointer, out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -9551,9 +9540,9 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves calculated bounds of the component
     /// </summary>
-    public void GetBounds(in Transform localToWorld, ref Bounds value)
+    public void GetBounds(in Transform localToWorld, out Bounds value)
     {
-        getBounds(Pointer, localToWorld, ref value);
+        getBounds(Pointer, localToWorld, out value);
     }
 
     /// <summary>
@@ -9578,7 +9567,7 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Retrieves rotation of a socket in world space
     /// </summary>
-    public void GetSocketRotation(string socketName, ref Quaternion value)
+    public void GetSocketRotation(string socketName, out Quaternion value)
     {
         getSocketRotation(Pointer, socketName.StringToBytes(), out value);
     }
@@ -9635,7 +9624,7 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Returns rotation of the component in world space
     /// </summary>
-    public void GetRotation(ref Quaternion value)
+    public void GetRotation(out Quaternion value)
     {
         getComponentRotation(Pointer, out value);
     }
@@ -9673,7 +9662,7 @@ public unsafe partial class SceneComponent : ActorComponent
     /// <summary>
     /// Returns the transform which assigned to the component
     /// </summary>
-    public void GetTransform(ref Transform value)
+    public void GetTransform(out Transform value)
     {
         SceneComponent.getComponentTransform(Pointer, out value);
     }
@@ -10361,7 +10350,7 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// <summary>
     /// Retrieves the desired rotation for the spring arm, before the rotation constraints such as <see cref="InheritYaw"/>, <see cref="InheritPitch"/>, or <see cref="InheritRoll"/> are enforced
     /// </summary>
-    public void GetDesiredRotation(ref Quaternion value)
+    public void GetDesiredRotation(out Quaternion value)
     {
         getDesiredRotation(Pointer, out value);
     }
@@ -10380,7 +10369,7 @@ public unsafe partial class SpringArmComponent : SceneComponent
     /// <summary>
     /// Retrieves the target inherited rotation
     /// </summary>
-    public void GetTargetRotation(ref Quaternion value)
+    public void GetTargetRotation(out Quaternion value)
     {
         getTargetRotation(Pointer, out value);
     }
@@ -10524,10 +10513,7 @@ public abstract unsafe partial class PrimitiveComponent : SceneComponent
     {
         ArgumentNullException.ThrowIfNull(action);
 
-        ObjectReference* array = null;
-        int elements = 0;
-
-        forEachOverlappingComponent(Pointer, ref array, ref elements);
+        forEachOverlappingComponent(Pointer, out ObjectReference* array, out int elements);
 
         for (int i = 0; i < elements; i++)
         {
@@ -11964,7 +11950,7 @@ public abstract unsafe partial class SkinnedMeshComponent : MeshComponent
     /// <summary>
     /// Retrieves the transform of a bone by index
     /// </summary>
-    public void GetBoneTransform(int boneIndex, ref Transform value)
+    public void GetBoneTransform(int boneIndex, out Transform value)
     {
         getBoneTransform(Pointer, boneIndex, out value);
     }
@@ -12229,7 +12215,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the transform at the given distance along the length of the spline
     /// </summary>
-    public void GetTransformAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Transform value)
+    public void GetTransformAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Transform value)
     {
         getTransformAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
@@ -12248,7 +12234,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the transform at the spline point
     /// </summary>
-    public void GetTransformAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, bool useScale, ref Transform value)
+    public void GetTransformAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, bool useScale, out Transform value)
     {
         getTransformAtSplinePoint(Pointer, pointIndex, coordinateSpace, useScale, out value);
     }
@@ -12535,7 +12521,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a rotation corresponding to the spline's rotation at the given distance along the length of the spline
     /// </summary>
-    public void GetRotationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, ref Quaternion value)
+    public void GetRotationAtDistanceAlongSpline(float distance, SplineCoordinateSpace coordinateSpace, out Quaternion value)
     {
         getRotationAtDistanceAlongSpline(Pointer, distance, coordinateSpace, out value);
     }
@@ -12554,7 +12540,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a spline's rotation at the spline point
     /// </summary>
-    public void GetRotationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, ref Quaternion value)
+    public void GetRotationAtSplinePoint(int pointIndex, SplineCoordinateSpace coordinateSpace, out Quaternion value)
     {
         getRotationAtSplinePoint(Pointer, pointIndex, coordinateSpace, out value);
     }
@@ -12573,7 +12559,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves a rotation corresponding to the spline's position and direction at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetRotationAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, ref Quaternion value)
+    public void GetRotationAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, out Quaternion value)
     {
         getRotationAtTime(Pointer, time, coordinateSpace, useConstantVelocity, out value);
     }
@@ -12657,7 +12643,7 @@ public unsafe partial class SplineComponent : PrimitiveComponent
     /// <summary>
     /// Retrieves the spline's transform at the given time from 0.0f to the spline duration
     /// </summary>
-    public void GetTransformAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, bool useScale, ref Transform value)
+    public void GetTransformAtTime(float time, SplineCoordinateSpace coordinateSpace, bool useConstantVelocity, bool useScale, out Transform value)
     {
         getTransformAtTime(Pointer, time, coordinateSpace, useConstantVelocity, useScale, out value);
     }
