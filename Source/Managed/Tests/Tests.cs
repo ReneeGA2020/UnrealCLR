@@ -1,4 +1,3 @@
-global using System;
 global using System.Drawing;
 global using System.Numerics;
 global using System.Reflection;
